@@ -1,0 +1,26 @@
+.page404_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #f5f5f5;
+}
+
+.page404_img {
+  width: 1100px;
+  height: 400px;
+}
+
+.page404_title {
+  font-size: 200%;
+}
+
+.page404_reasons {
+  font-size: 150%;
+}
+
+.page404_back_link {
+  font-size: 180%;
+  color: rgb(8, 8, 155);
+  margin-left: 400px;
+}

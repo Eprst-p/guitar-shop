@@ -6,6 +6,7 @@ import Cart from '../cart/cart';
 import Layout from '../layout/layout';
 import MainCatalog from '../main-catalog/main-catalog';
 import Product from '../product/product';
+import NotFound from '../not-found/not-found';
 
 
 function App(): JSX.Element {
@@ -30,10 +31,10 @@ function App(): JSX.Element {
             element={<Product />}
           />
         </Route>
-        {/* <Route
+        <Route
           path="*"
-          element={<NotFound404 />}
-        /> */}
+          element={<NotFound />}
+        />
       </Routes>
     </HistoryRouter>
   );
