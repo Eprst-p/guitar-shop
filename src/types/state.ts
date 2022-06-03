@@ -6,6 +6,7 @@ export type DataProcess = {
   guitars: GuitarsType;
   guitar: GuitarType | undefined;
   commentsByID: CommentsType;
+  isDataLoaded: boolean;
 };
 
 // export type InterfaceProcess = {

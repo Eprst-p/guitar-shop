@@ -7,9 +7,20 @@ import Layout from '../layout/layout';
 import MainCatalog from '../main-catalog/main-catalog';
 import Product from '../product/product';
 import NotFound from '../not-found/not-found';
+import { getIsDataLoaded } from '../../store/selectors';
+import { useAppSelector } from '../../hooks/redux-hooks';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 
 function App(): JSX.Element {
+  const isDataLoaded = useAppSelector(getIsDataLoaded);
+
+  if (!isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
 
   return (
     <HistoryRouter history={browserHistory}>

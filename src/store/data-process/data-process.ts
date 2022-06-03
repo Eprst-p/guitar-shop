@@ -7,6 +7,7 @@ const initialState: DataProcess = {
   guitars: [],
   guitar: undefined,
   commentsByID: [],
+  isDataLoaded: false,
 };
 
 export const dataProcess = createSlice({
@@ -15,7 +16,7 @@ export const dataProcess = createSlice({
   reducers: {
     loadGuitars: (state, {payload}) => {
       state.guitars = payload;
-      // state.isDataLoaded = true;
+      state.isDataLoaded = true;
     },
     loadGuitarByID: (state, {payload}) => {state.guitar = payload;},
     loadCommentsByID: (state, {payload}) => {state.commentsByID = payload;},
