@@ -5,6 +5,8 @@ import {DataProcess} from '../../types/state';
 
 const initialState: DataProcess = {
   guitars: [],
+  guitar: undefined,
+  commentsByID: [],
 };
 
 export const dataProcess = createSlice({
@@ -15,7 +17,10 @@ export const dataProcess = createSlice({
       state.guitars = payload;
       // state.isDataLoaded = true;
     },
+    loadGuitarByID: (state, {payload}) => {state.guitar = payload;},
+    loadCommentsByID: (state, {payload}) => {state.commentsByID = payload;},
   },
 });
 
-export const {loadGuitars} = dataProcess.actions;
+
+export const {loadGuitars, loadGuitarByID, loadCommentsByID} = dataProcess.actions;

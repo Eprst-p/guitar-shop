@@ -1,8 +1,11 @@
 import { store } from '../store';
-import { GuitarsType } from './guitar-type';
+import { CommentsType } from './comment-type';
+import { GuitarsType, GuitarType } from './guitar-type';
 
 export type DataProcess = {
   guitars: GuitarsType;
+  guitar: GuitarType | undefined;
+  commentsByID: CommentsType;
 };
 
 // export type InterfaceProcess = {
