@@ -34,6 +34,10 @@ function App(): JSX.Element {
             element={<MainCatalog/>}
           />
           <Route
+            path={AppRoute.CatalogPage}
+            element={<MainCatalog/>}
+          />
+          <Route
             path={AppRoute.Cart}
             element={<Cart />}
           />

@@ -34,6 +34,7 @@ export const fetchGuitarByID = createAsyncThunk(
     try {
       const {data} = await api.get<GuitarType>(generatePath(ApiRoute.Guitar, {id: `${id}`}));
       await setPromiseWaiter();
+      //console.log('fetch guitar:', data);
       store.dispatch(loadGuitarByID(data));
     } catch (error) {
       errorHandle(error);
@@ -42,13 +43,14 @@ export const fetchGuitarByID = createAsyncThunk(
   },
 );
 
-export const fetcCommentsByID = createAsyncThunk(
+export const fetchCommentsByID = createAsyncThunk(
   'data/CommentsByID',
   async (id: number) => {
     try {
       const {data} = await api.get<CommentsType>(generatePath(ApiRoute.CommentsByID, {id: `${id}`}));
       await setPromiseWaiter();
       store.dispatch(loadCommentsByID(data));
+      console.log('comments:', data);
     } catch (error) {
       errorHandle(error);
       // store.dispatch(redirectToRoute(AppRoute.NotFound));

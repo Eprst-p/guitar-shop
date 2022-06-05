@@ -1,3 +1,5 @@
+import { generatePath, Link} from 'react-router-dom';
+import { AppRoute } from '../../settings/app-routes';
 import { ratingNames } from '../../settings/rating-names';
 import {GuitarType} from '../../types/guitar-type';
 
@@ -6,6 +8,8 @@ type ProductCardProps = {
 }
 
 function ProductCard({guitar}: ProductCardProps): JSX.Element {
+
+  //stringCount - это неверно тут, это количество струн
 
   const imgNumber = guitar.previewImg.charAt(11);
   const roundedRating = Math.round(guitar.rating);
@@ -37,7 +41,14 @@ function ProductCard({guitar}: ProductCardProps): JSX.Element {
         <p className="product-card__price"><span className="visually-hidden">Цена:</span>{guitar.price}
         </p>
       </div>
-      <div className="product-card__buttons"><a className="button button--mini" href="#">Подробнее</a><a className="button button--red button--mini button--add-to-cart" href="#">Купить</a>
+      <div className="product-card__buttons">
+        <Link
+          className="button button--mini"
+          to={generatePath(AppRoute.Product, {id: `${guitar.id}`})}
+        >
+          Подробнее
+        </Link>
+        <a className="button button--red button--mini button--add-to-cart" href="#">Купить</a>
       </div>
     </div>
   );
