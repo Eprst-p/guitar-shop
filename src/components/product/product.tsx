@@ -26,8 +26,6 @@ function Product(): JSX.Element {
   const guitarRating = guitar?.rating || 1;//костыльная защита от undefined
   const roundedRating = Math.round(guitarRating);
 
-  console.log('guitar:', guitar);
-
   return (
     <main className="page-content">
       <div className="container">

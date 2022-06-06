@@ -1,7 +1,5 @@
 /* eslint-disable no-console */
-// import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
-// import { changePage } from '../../store/interface-process/interface-process';
 import { fetchAllComments } from '../../store/api-actions';
 import { getAllComments, getAllGuitars, getGuitarsForPage } from '../../store/selectors';
 import CatalogFilter from './catalog-filter';
@@ -9,21 +7,23 @@ import CatalogSort from './catalog-sort';
 import PagePagination from './page-pagination';
 import ProductCard from './product-card';
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { changePage } from '../../store/interface-process/interface-process';
 
 function MainCatalog(): JSX.Element {
   const dispatch = useAppDispatch();
-  // const {pageNumber} = useParams();
-  // if (pageNumber) {
-  //   dispatch(changePage(pageNumber));
-  // }
+  const {pageNumber} = useParams();
+  if (pageNumber) {
+    dispatch(changePage(+pageNumber));
+  }
+
   const allGuitars = useAppSelector(getAllGuitars);
   const guitarsForPage = useAppSelector(getGuitarsForPage);
+  const allComments = useAppSelector(getAllComments);
 
   useEffect(() => {
     allGuitars.forEach((guitar) => dispatch(fetchAllComments(guitar.id)));
   }, [dispatch, allGuitars]);
-
-  const allComments = useAppSelector(getAllComments);
 
   const findCommentsAmount = (guitarID:number) => {
     if (allComments.length === allGuitars.length) {
@@ -31,7 +31,6 @@ function MainCatalog(): JSX.Element {
       return commentsPerGutar.length;
     }
   };
-
 
   return (
     <main className="page-content">
