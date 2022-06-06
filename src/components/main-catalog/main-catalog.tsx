@@ -1,23 +1,37 @@
+/* eslint-disable no-console */
 // import { useParams } from 'react-router-dom';
-// import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 // import { changePage } from '../../store/interface-process/interface-process';
-import { useAppSelector } from '../../hooks/redux-hooks';
-import { getGuitarsForPage } from '../../store/selectors';
+import { fetchAllComments } from '../../store/api-actions';
+import { getAllComments, getAllGuitars, getGuitarsForPage } from '../../store/selectors';
 import CatalogFilter from './catalog-filter';
 import CatalogSort from './catalog-sort';
 import PagePagination from './page-pagination';
 import ProductCard from './product-card';
+import { useEffect } from 'react';
 
 function MainCatalog(): JSX.Element {
-
+  const dispatch = useAppDispatch();
   // const {pageNumber} = useParams();
-  // const dispatch = useAppDispatch();
-
   // if (pageNumber) {
   //   dispatch(changePage(pageNumber));
   // }
-
+  const allGuitars = useAppSelector(getAllGuitars);
   const guitarsForPage = useAppSelector(getGuitarsForPage);
+
+  useEffect(() => {
+    allGuitars.forEach((guitar) => dispatch(fetchAllComments(guitar.id)));
+  }, [dispatch, allGuitars]);
+
+  const allComments = useAppSelector(getAllComments);
+
+  const findCommentsAmount = (guitarID:number) => {
+    if (allComments.length === allGuitars.length) {
+      const commentsPerGutar = allComments.find((commentsArray) => commentsArray[0]?.guitarId === guitarID) || [];
+      return commentsPerGutar.length;
+    }
+  };
+
 
   return (
     <main className="page-content">
@@ -35,7 +49,7 @@ function MainCatalog(): JSX.Element {
           <div className="cards catalog__cards">
             {
               guitarsForPage.map((guitarCard) =>
-                <ProductCard guitar={guitarCard} key={guitarCard.id} />,
+                <ProductCard guitar={guitarCard} key={guitarCard.id} commentsAmount={findCommentsAmount(guitarCard.id) || 0} />,
               )
             }
           </div>

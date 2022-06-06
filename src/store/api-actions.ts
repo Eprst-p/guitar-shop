@@ -9,7 +9,7 @@ import { CommentsType } from '../types/comment-type';
 import { CouponPostType } from '../types/coupon-post-type';
 import { GuitarsType, GuitarType } from '../types/guitar-type';
 import { OrderPostType } from '../types/order-post-type';
-import { loadCommentsByID, loadGuitarByID, loadGuitars } from './data-process/data-process';
+import { loadCommentsByID, loadGuitarByID, loadGuitars, pushAllComments } from './data-process/data-process';
 
 const setPromiseWaiter = (timer = 300) => new Promise((resolve) => setTimeout(resolve, timer));
 
@@ -50,7 +50,21 @@ export const fetchCommentsByID = createAsyncThunk(
       const {data} = await api.get<CommentsType>(generatePath(ApiRoute.CommentsByID, {id: `${id}`}));
       await setPromiseWaiter();
       store.dispatch(loadCommentsByID(data));
-      console.log('comments:', data);
+      //console.log('comments:', data);
+    } catch (error) {
+      errorHandle(error);
+      // store.dispatch(redirectToRoute(AppRoute.NotFound));
+    }
+  },
+);
+
+export const fetchAllComments = createAsyncThunk(
+  'data/CommentsByID',
+  async (id: number) => {
+    try {
+      const {data} = await api.get<CommentsType>(generatePath(ApiRoute.CommentsByID, {id: `${id}`}));
+      await setPromiseWaiter();
+      store.dispatch(pushAllComments(data));
     } catch (error) {
       errorHandle(error);
       // store.dispatch(redirectToRoute(AppRoute.NotFound));

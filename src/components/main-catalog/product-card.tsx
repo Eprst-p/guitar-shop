@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { generatePath, Link} from 'react-router-dom';
 import { AppRoute } from '../../settings/app-routes';
 import { ratingNames } from '../../settings/rating-names';
@@ -5,11 +6,10 @@ import {GuitarType} from '../../types/guitar-type';
 
 type ProductCardProps = {
   guitar: GuitarType;
+  commentsAmount: number;
 }
 
-function ProductCard({guitar}: ProductCardProps): JSX.Element {
-
-  //stringCount - это неверно тут, это количество струн
+function ProductCard({guitar, commentsAmount}: ProductCardProps): JSX.Element {
 
   const imgNumber = guitar.previewImg.charAt(11);
   const roundedRating = Math.round(guitar.rating);
@@ -35,7 +35,7 @@ function ProductCard({guitar}: ProductCardProps): JSX.Element {
             <use xlinkHref="#icon-star"></use>
           </svg>
           <p className="visually-hidden">Рейтинг: {ratingNames[roundedRating]}</p>
-          <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{guitar.stringCount}</p>
+          <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{commentsAmount}</p>
         </div>
         <p className="product-card__title">{guitar.name}</p>
         <p className="product-card__price"><span className="visually-hidden">Цена:</span>{guitar.price}

@@ -7,6 +7,7 @@ export type DataProcess = {
   guitarByID: GuitarType | undefined;
   commentsByID: CommentsType;
   isDataLoaded: boolean;
+  allComments: CommentsType[];
 };
 
 export type InterfaceProcess = {
