@@ -9,7 +9,7 @@ import { CommentsType } from '../types/comment-type';
 import { CouponPostType } from '../types/coupon-post-type';
 import { GuitarsType, GuitarType } from '../types/guitar-type';
 import { OrderPostType } from '../types/order-post-type';
-import { loadCommentsByID, loadGuitarByID, loadGuitars, pushAllComments } from './data-process/data-process';
+import { loadCommentsByID, loadGuitarByID, loadGuitars, loadGuitarsWithComments} from './data-process/data-process';
 
 const setPromiseWaiter = (timer = 300) => new Promise((resolve) => setTimeout(resolve, timer));
 
@@ -20,7 +20,6 @@ export const fetchGuitars = createAsyncThunk(
     try {
       const {data} = await api.get<GuitarsType>(ApiRoute.Guitars);
       await setPromiseWaiter(500);
-      console.log(data);
       store.dispatch(loadGuitars(data));
     } catch (error) {
       errorHandle(error);
@@ -58,16 +57,16 @@ export const fetchCommentsByID = createAsyncThunk(
   },
 );
 
-export const fetchAllComments = createAsyncThunk(
-  'data/CommentsByID',
-  async (id: number) => {
+export const fetchGuitarsWithComments = createAsyncThunk(
+  'data/GuitarsEmbed',
+  async () => {
     try {
-      const {data} = await api.get<CommentsType>(generatePath(ApiRoute.CommentsByID, {id: `${id}`}));
-      await setPromiseWaiter();
-      store.dispatch(pushAllComments(data));
+      const {data} = await api.get<GuitarsType>(ApiRoute.GuitarsWithComments);
+      await setPromiseWaiter(500);
+      console.log(data);
+      store.dispatch(loadGuitarsWithComments(data));
     } catch (error) {
       errorHandle(error);
-      // store.dispatch(redirectToRoute(AppRoute.NotFound));
     }
   },
 );

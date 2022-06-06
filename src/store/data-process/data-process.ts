@@ -5,10 +5,10 @@ import {DataProcess} from '../../types/state';
 
 const initialState: DataProcess = {
   guitars: [],
+  guitarsWithComments: [],
   guitarByID: undefined,
   commentsByID: [],
   isDataLoaded: false,
-  allComments: [],
 };
 
 export const dataProcess = createSlice({
@@ -19,11 +19,14 @@ export const dataProcess = createSlice({
       state.guitars = payload;
       state.isDataLoaded = true;
     },
+    loadGuitarsWithComments: (state, {payload}) => {
+      state.guitarsWithComments = payload;
+      state.isDataLoaded = true;
+    },
     loadGuitarByID: (state, {payload}) => {state.guitarByID = payload;},
     loadCommentsByID: (state, {payload}) => {state.commentsByID = payload;},
-    pushAllComments: (state, {payload}) => {state.allComments.push(payload);},
   },
 });
 
 
-export const {loadGuitars, loadGuitarByID, loadCommentsByID, pushAllComments} = dataProcess.actions;
+export const {loadGuitars, loadGuitarByID, loadCommentsByID, loadGuitarsWithComments} = dataProcess.actions;

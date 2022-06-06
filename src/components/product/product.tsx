@@ -59,6 +59,7 @@ function Product(): JSX.Element {
                 <use xlinkHref="#icon-star"></use>
               </svg>
               <p className="visually-hidden">Оценка: {ratingNames[roundedRating]}</p>
+              <p className="rate__count">{comments.length}</p>
             </div>
             <div className="tabs"><a className="button button--medium tabs__button" href="#characteristics">Характеристики</a><a className="button button--black-border button--medium tabs__button" href="#description">Описание</a>
               <div className="tabs__content" id="characteristics">

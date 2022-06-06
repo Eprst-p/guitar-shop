@@ -4,10 +4,9 @@ import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import App from './components/app/app';
 import { store } from './store';
-import { fetchGuitars } from './store/api-actions';
+import { fetchGuitarsWithComments } from './store/api-actions';
 
-store.dispatch(fetchGuitars());
-
+store.dispatch(fetchGuitarsWithComments());
 
 ReactDOM.render(
   <React.StrictMode>
