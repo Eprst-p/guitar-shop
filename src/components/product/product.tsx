@@ -2,11 +2,11 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
-import { guitarTypeNames } from '../../settings/guitar-type-names';
 import { ratingNames } from '../../settings/rating-names';
 import { fetchCommentsByID, fetchGuitarByID } from '../../store/api-actions';
 import { getCommentsByID, getGuitarByID} from '../../store/selectors';
 import Reviews from './reviews';
+import Tabs from './tabs';
 
 function Product(): JSX.Element {
   const {id} = useParams();
@@ -22,9 +22,10 @@ function Product(): JSX.Element {
     }
   }, [currentId, dispatch, guitar, comments]);
 
-  const guitarTypeKey = guitar?.type || 'electric';//костыльная защита от undefined
+  //const guitarTypeKey = guitar?.type || 'electric';//костыльная защита от undefined
   const guitarRating = guitar?.rating || 1;//костыльная защита от undefined
   const roundedRating = Math.round(guitarRating);
+
 
   return (
     <main className="page-content">
@@ -61,25 +62,7 @@ function Product(): JSX.Element {
               <p className="visually-hidden">Оценка: {ratingNames[roundedRating]}</p>
               <p className="rate__count">{comments.length}</p>
             </div>
-            <div className="tabs"><a className="button button--medium tabs__button" href="#characteristics">Характеристики</a><a className="button button--black-border button--medium tabs__button" href="#description">Описание</a>
-              <div className="tabs__content" id="characteristics">
-                <table className="tabs__table">
-                  <tr className="tabs__table-row">
-                    <td className="tabs__title">Артикул:</td>
-                    <td className="tabs__value">{guitar?.vendorCode}</td>
-                  </tr>
-                  <tr className="tabs__table-row">
-                    <td className="tabs__title">Тип:</td>
-                    <td className="tabs__value">{guitarTypeNames[guitarTypeKey]}</td>
-                  </tr>
-                  <tr className="tabs__table-row">
-                    <td className="tabs__title">Количество струн:</td>
-                    <td className="tabs__value">{guitar?.stringCount} струнная</td>
-                  </tr>
-                </table>
-                <p className="tabs__product-description hidden">{guitar?.description}</p>
-              </div>
-            </div>
+            <Tabs guitar={guitar} />
           </div>
           <div className="product-container__price-wrapper">
             <p className="product-container__price-info product-container__price-info--title">Цена:</p>

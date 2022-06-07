@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import { generatePath, Link} from 'react-router-dom';
 import { AppRoute } from '../../settings/app-routes';
+import { guitarTypeNames } from '../../settings/guitar-type-names';
 import { ratingNames } from '../../settings/rating-names';
 import {GuitarType} from '../../types/guitar-type';
 
@@ -13,6 +14,7 @@ function ProductCard({guitar, commentsAmount}: ProductCardProps): JSX.Element {
 
   const imgNumber = guitar.previewImg.charAt(11);
   const roundedRating = Math.round(guitar.rating);
+  const hashUrl = `#characteristics?articul=${guitar?.vendorCode}&type=${guitarTypeNames[guitar?.type || 'electric']}&stringCount=${guitar?.stringCount}`;
 
   return (
     <div className="product-card">
@@ -44,7 +46,7 @@ function ProductCard({guitar, commentsAmount}: ProductCardProps): JSX.Element {
       <div className="product-card__buttons">
         <Link
           className="button button--mini"
-          to={generatePath(AppRoute.Product, {id: `${guitar.id}`})}
+          to={generatePath(AppRoute.Product, {id: `${guitar.id}${hashUrl}`})}
         >
           Подробнее
         </Link>
