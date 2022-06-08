@@ -9,5 +9,6 @@ export const getCommentsByID = (state:State) => state.DATA.commentsByID;
 export const getIsDataLoaded = (state:State) => state.DATA.isDataLoaded;
 
 export const getActivePage = (state:State) => state.INTERFACE.activePage;
+export const getCommentsShown = (state:State) => state.INTERFACE.commentsShown;
 
 export const getGuitarsForPage = createSelector(getGuitarsWithComments, getActivePage, (allGuitars, activePage) => allGuitars.slice((activePage - 1)*cardsPerPage, cardsPerPage*activePage));

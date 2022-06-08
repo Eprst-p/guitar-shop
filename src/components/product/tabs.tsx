@@ -41,7 +41,7 @@ function Tabs({guitar}: TabsProps): JSX.Element {
           </tr>
           <tr className="tabs__table-row">
             <td className="tabs__title">Тип:</td>
-            <td className="tabs__value">{guitarTypeNames[guitarTypeKey]}</td>
+            <td className="tabs__value">{guitarTypeNames[guitar?.type || 'electric']}</td>
           </tr>
           <tr className="tabs__table-row">
             <td className="tabs__title">Количество струн:</td>

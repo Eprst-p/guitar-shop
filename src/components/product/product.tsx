@@ -22,9 +22,7 @@ function Product(): JSX.Element {
     }
   }, [currentId, dispatch, guitar, comments]);
 
-  //const guitarTypeKey = guitar?.type || 'electric';//костыльная защита от undefined
-  const guitarRating = guitar?.rating || 1;//костыльная защита от undefined
-  const roundedRating = Math.round(guitarRating);
+  const roundedRating = Math.round(guitar?.rating || 1);
 
 
   return (

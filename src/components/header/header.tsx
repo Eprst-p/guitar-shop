@@ -1,5 +1,5 @@
-function Header(): JSX.Element {
 
+function Header(): JSX.Element {
 
   return (
     <header className="header" id="header">

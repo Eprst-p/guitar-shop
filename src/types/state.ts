@@ -13,6 +13,7 @@ export type DataProcess = {
 
 export type InterfaceProcess = {
   activePage: number;
+  commentsShown: CommentsType;
 };
 
 export type State = ReturnType<typeof store.getState>;

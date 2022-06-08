@@ -2787,6 +2787,7 @@ button,
   right: 0;
   bottom: -51px;
   position: absolute;
+  z-index: 10;
 }
 
 .review {

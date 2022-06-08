@@ -5,6 +5,7 @@ import {InterfaceProcess} from '../../types/state';
 
 const initialState: InterfaceProcess = {
   activePage: 1,
+  commentsShown: [],
 };
 
 export const interfaceProcess = createSlice({
@@ -12,8 +13,10 @@ export const interfaceProcess = createSlice({
   initialState,
   reducers: {
     changePage: (state, {payload}) => {state.activePage = payload;},
+    startCommentsShown: (state, {payload}) => {state.commentsShown = payload;},
+    pushToCommentsShown : (state, {payload}) => {state.commentsShown.push(payload);},
   },
 });
 
 
-export const {changePage} = interfaceProcess.actions;
+export const {changePage, startCommentsShown, pushToCommentsShown} = interfaceProcess.actions;
