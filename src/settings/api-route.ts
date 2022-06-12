@@ -3,6 +3,7 @@ export enum ApiRoute {
   GuitarsWithComments = '/guitars?_embed=comments',
   Guitar = '/guitars/:id',
   CommentsByID = '/guitars/:id/comments',
+  CommentsByIdEmbed = '/guitars/:id?_embed=comments',
   Comments = '/comments',
   Coupons = '/coupons',
   Orders = '/orders',

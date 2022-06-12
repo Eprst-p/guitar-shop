@@ -3,12 +3,14 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { amountOfCommentsShown } from '../../settings/constants';
-import { pushToCommentsShown, startCommentsShown } from '../../store/interface-process/interface-process';
-import { getCommentsShown } from '../../store/selectors';
+import { changeActiveModal, pushToCommentsShown, startCommentsShown } from '../../store/interface-process/interface-process';
+import { getActiveModal, getCommentsShown } from '../../store/selectors';
 import { CommentsType } from '../../types/comment-type';
 import Review from './review';
 import { sortByNewerDate } from './sort-commets';
 import { HashLink as Link } from 'react-router-hash-link';
+import ModalReview from './modals/modal-review';
+import { ActiveModal } from '../../settings/active-modal';
 
 type ReviewsProps = {
   comments: CommentsType;
@@ -18,8 +20,8 @@ function Reviews({comments}: ReviewsProps): JSX.Element {
   const dispatch = useAppDispatch();
   const commentsCopy = comments.slice();
   const sortedComments = commentsCopy.sort(sortByNewerDate);
-  const [commentsToShow, setCommentsToShow] = useState<CommentsType>([]);
   const [next, setNext] = useState(amountOfCommentsShown);
+  const activeModal = useAppSelector(getActiveModal);
   const commentsShown = useAppSelector(getCommentsShown);
   const location = useLocation();
 
@@ -34,13 +36,9 @@ function Reviews({comments}: ReviewsProps): JSX.Element {
         dispatch(pushToCommentsShown(sortedComments[i]));
       }
     }
-    setCommentsToShow(commentsShown);
   };
 
-
-  console.log('comments:', comments);
-  console.log('commentsShown:', commentsShown);
-  console.log('commentsToShow:', commentsToShow);
+  //разворот отзываов по скроллу - доп задание
 
 
   const handleMoreBtnClick = () => {
@@ -48,12 +46,26 @@ function Reviews({comments}: ReviewsProps): JSX.Element {
     setNext(next + amountOfCommentsShown);
   };
 
+  const handleAddReviewClick = () => {
+    dispatch(changeActiveModal(ActiveModal.ReviewForm));
+  };
+
   return (
     <section className="reviews">
       <h3 className="reviews__title title title--bigger">Отзывы</h3>
-      <a className="button button--red-border button--big reviews__sumbit-button" href="#">
+      <button
+        className="button button--red-border button--big reviews__sumbit-button"
+        onClick={handleAddReviewClick}
+      >
         Оставить отзыв
-      </a>
+      </button>
+      {
+        activeModal !== ActiveModal.NoModal
+          ?
+          <ModalReview />
+          :
+          ''
+      }
       {
         commentsShown.map((comment) => (
           <Review comment={comment} key={comment.id} />

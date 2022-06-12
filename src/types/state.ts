@@ -1,3 +1,4 @@
+import { ActiveModal } from '../settings/active-modal';
 import { store } from '../store';
 import { CommentsType } from './comment-type';
 import { GuitarsType, GuitarType} from './guitar-type';
@@ -14,6 +15,7 @@ export type DataProcess = {
 export type InterfaceProcess = {
   activePage: number;
   commentsShown: CommentsType;
+  activeModal: ActiveModal;
 };
 
 export type State = ReturnType<typeof store.getState>;

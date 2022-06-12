@@ -46,6 +46,7 @@ export const fetchCommentsByID = createAsyncThunk(
   'data/CommentsByID',
   async (id: number) => {
     try {
+      // await api.get<CommentsType>(generatePath(ApiRoute.CommentsByIdEmbed, {id: `${id}`}));
       const {data} = await api.get<CommentsType>(generatePath(ApiRoute.CommentsByID, {id: `${id}`}));
       await setPromiseWaiter();
       store.dispatch(loadCommentsByID(data));
