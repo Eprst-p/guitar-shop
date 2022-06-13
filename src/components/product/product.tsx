@@ -1,7 +1,8 @@
-/* eslint-disable no-console */
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
+import { AppRoute } from '../../settings/app-routes';
 import { ratingNames } from '../../settings/rating-names';
 import { fetchCommentsByID, fetchGuitarByID } from '../../store/api-actions';
 import { getCommentsByID, getGuitarByID} from '../../store/selectors';
@@ -30,9 +31,11 @@ function Product(): JSX.Element {
       <div className="container">
         <h1 className="page-content__title title title--bigger">{guitar?.name}</h1>
         <ul className="breadcrumbs page-content__breadcrumbs">
-          <li className="breadcrumbs__item"><a className="link" href="./main.html">Главная</a>
+          <li className="breadcrumbs__item">
+            <Link className="link" to={AppRoute.Catalog}>Главная</Link>
           </li>
-          <li className="breadcrumbs__item"><a className="link" href="./main.html">Каталог</a>
+          <li className="breadcrumbs__item">
+            <Link className="link" to={AppRoute.Catalog}>Каталог</Link>
           </li>
           <li className="breadcrumbs__item"><a className="link">{guitar?.name}</a>
           </li>

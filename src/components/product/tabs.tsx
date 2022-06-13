@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { GuitarType } from '../../types/guitar-type';
 import { guitarTypeNames } from '../../settings/guitar-type-names';
 import { useState } from 'react';

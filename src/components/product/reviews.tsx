@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
@@ -46,7 +45,6 @@ function Reviews({comments}: ReviewsProps): JSX.Element {
     }
   };
 
-  //не забыть - в модалке не должно прокручиваться окно + фиксация элементов с клавиатуры
   const handleScrollDown = throttle(()=>{
     const height = document.body.offsetHeight;
     const screenHeight = window.innerHeight;

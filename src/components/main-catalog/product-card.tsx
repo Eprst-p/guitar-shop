@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { generatePath, Link} from 'react-router-dom';
 import { AppRoute } from '../../settings/app-routes';
 import { guitarTypeNames } from '../../settings/guitar-type-names';

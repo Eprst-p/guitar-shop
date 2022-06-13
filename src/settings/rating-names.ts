@@ -5,5 +5,3 @@ export const ratingNames = {
   4: 'Хорошо',
   5: 'Отлично',
 } as any;
-
-//any кончно надо пофиксить

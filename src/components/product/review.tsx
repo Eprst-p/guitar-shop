@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { ratingNames } from '../../settings/rating-names';
 import { CommentType } from '../../types/comment-type';
 

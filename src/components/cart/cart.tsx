@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../settings/app-routes';
+
 function Cart(): JSX.Element {
 
 
@@ -6,9 +9,11 @@ function Cart(): JSX.Element {
       <div className="container">
         <h1 className="title title--bigger page-content__title">Корзина</h1>
         <ul className="breadcrumbs page-content__breadcrumbs page-content__breadcrumbs--on-cart-page">
-          <li className="breadcrumbs__item"><a className="link" href="./main.html">Главная</a>
+          <li className="breadcrumbs__item">
+            <Link className="link" to={AppRoute.Catalog}>Главная</Link>
           </li>
-          <li className="breadcrumbs__item"><a className="link" href="./main.html">Каталог</a>
+          <li className="breadcrumbs__item">
+            <Link className="link" to={AppRoute.Catalog}>Каталог</Link>
           </li>
           <li className="breadcrumbs__item"><a className="link">Корзина</a>
           </li>

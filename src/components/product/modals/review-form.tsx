@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { ChangeEvent, createRef, FormEvent, Fragment, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
 import { ActiveModal } from '../../../settings/active-modal';

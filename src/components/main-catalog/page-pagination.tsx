@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { generatePath, Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { AppRoute } from '../../settings/app-routes';
