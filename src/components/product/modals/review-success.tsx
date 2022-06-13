@@ -23,6 +23,7 @@ function ReviewSuccess(): JSX.Element {
               <button
                 className="button button--small modal__button modal__button--review"
                 onClick={handleCloseModal}
+                autoFocus
               >
                 К покупкам!
               </button>

@@ -92,7 +92,6 @@ function ReviewForm(): JSX.Element {
       const newComment = createNewComment();
       dispatch(commentPostAction(newComment))
         .then(() => dispatch(changeActiveModal(ActiveModal.ReviewSuccess)));
-      console.log(newComment);
     }
   };
 
@@ -116,7 +115,7 @@ function ReviewForm(): JSX.Element {
               <div className="form-review__wrapper">
                 <div className="form-review__name-wrapper">
                   <label className="form-review__label form-review__label--required" htmlFor="user-name">Ваше Имя</label>
-                  <input className="form-review__input form-review__input--name" id="user-name" type="text" autoComplete="off" ref={nameRef} onInput={handleNameInput} />
+                  <input className="form-review__input form-review__input--name" id="user-name" type="text" autoComplete="off" ref={nameRef} onInput={handleNameInput} autoFocus />
                   {
                     name === ''
                       ? <p className="form-review__warning">Заполните поле</p>

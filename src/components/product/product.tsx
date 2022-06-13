@@ -42,20 +42,20 @@ function Product(): JSX.Element {
           <div className="product-container__info-wrapper">
             <h2 className="product-container__title title title--big title--uppercase">{guitar?.name}</h2>
             <div className="rate product-container__rating">
-              <svg width="14" height="14" aria-hidden="true">
-                <use xlinkHref="#icon-full-star"></use>
+              <svg width="12" height="11" aria-hidden="true">
+                <use xlinkHref={roundedRating>=1 ? '#icon-full-star' : '#icon-star'}></use>
               </svg>
-              <svg width="14" height="14" aria-hidden="true">
-                <use xlinkHref="#icon-full-star"></use>
+              <svg width="12" height="11" aria-hidden="true">
+                <use xlinkHref={roundedRating>=2 ? '#icon-full-star' : '#icon-star'}></use>
               </svg>
-              <svg width="14" height="14" aria-hidden="true">
-                <use xlinkHref="#icon-full-star"></use>
+              <svg width="12" height="11" aria-hidden="true">
+                <use xlinkHref={roundedRating>=3 ? '#icon-full-star' : '#icon-star'}></use>
               </svg>
-              <svg width="14" height="14" aria-hidden="true">
-                <use xlinkHref="#icon-full-star"></use>
+              <svg width="12" height="11" aria-hidden="true">
+                <use xlinkHref={roundedRating>=4 ? '#icon-full-star' : '#icon-star'}></use>
               </svg>
-              <svg width="14" height="14" aria-hidden="true">
-                <use xlinkHref="#icon-star"></use>
+              <svg width="12" height="11" aria-hidden="true">
+                <use xlinkHref={roundedRating>=5 ? '#icon-full-star' : '#icon-star'}></use>
               </svg>
               <p className="visually-hidden">Оценка: {ratingNames[roundedRating]}</p>
               <p className="rate__count">{comments.length}</p>

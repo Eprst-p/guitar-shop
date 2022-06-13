@@ -22,19 +22,19 @@ function ProductCard({guitar, commentsAmount}: ProductCardProps): JSX.Element {
       <div className="product-card__info">
         <div className="rate product-card__rate">
           <svg width="12" height="11" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"></use>
+            <use xlinkHref={roundedRating>=1 ? '#icon-full-star' : '#icon-star'}></use>
           </svg>
           <svg width="12" height="11" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"></use>
+            <use xlinkHref={roundedRating>=2 ? '#icon-full-star' : '#icon-star'}></use>
           </svg>
           <svg width="12" height="11" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"></use>
+            <use xlinkHref={roundedRating>=3 ? '#icon-full-star' : '#icon-star'}></use>
           </svg>
           <svg width="12" height="11" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"></use>
+            <use xlinkHref={roundedRating>=4 ? '#icon-full-star' : '#icon-star'}></use>
           </svg>
           <svg width="12" height="11" aria-hidden="true">
-            <use xlinkHref="#icon-star"></use>
+            <use xlinkHref={roundedRating>=5 ? '#icon-full-star' : '#icon-star'}></use>
           </svg>
           <p className="visually-hidden">Рейтинг: {ratingNames[roundedRating]}</p>
           <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{commentsAmount}</p>

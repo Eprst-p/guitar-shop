@@ -5,6 +5,7 @@ import { changeActiveModal } from '../../../store/interface-process/interface-pr
 import { getActiveModal } from '../../../store/selectors';
 import ReviewForm from './review-form';
 import ReviewSuccess from './review-success';
+import FocusTrap from 'focus-trap-react';
 
 function ModalReview(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -23,23 +24,36 @@ function ModalReview(): JSX.Element {
     return () => document.removeEventListener('keydown', handleOnEscDown);
   }, []);
 
+  const body = document.querySelector('body');
+
+  useEffect(() => {
+    body?.setAttribute('style', 'overflow:hidden');
+    if (activeModal !== ActiveModal.NoModal) {
+      body?.setAttribute('style', 'overflow:hidden');
+    }
+    return () => body?.removeAttribute('style');
+  }, [activeModal]);
+
+
   return (
-    <div>
-      {
-        activeModal === ActiveModal.ReviewForm
-          ?
-          <ReviewForm />
-          :
-          ''
-      }
-      {
-        activeModal === ActiveModal.ReviewSuccess
-          ?
-          <ReviewSuccess />
-          :
-          ''
-      }
-    </div>
+    <FocusTrap>
+      <div>
+        {
+          activeModal === ActiveModal.ReviewForm
+            ?
+            <ReviewForm />
+            :
+            ''
+        }
+        {
+          activeModal === ActiveModal.ReviewSuccess
+            ?
+            <ReviewSuccess />
+            :
+            ''
+        }
+      </div>
+    </FocusTrap>
   );
 }
 

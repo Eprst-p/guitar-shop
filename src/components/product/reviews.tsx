@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
-import { amountOfCommentsShown } from '../../settings/constants';
+import { amountOfCommentsShown, scrollThresholdCoefficient } from '../../settings/constants';
 import { changeActiveModal, pushToCommentsShown, startCommentsShown } from '../../store/interface-process/interface-process';
 import { getActiveModal, getCommentsShown } from '../../store/selectors';
 import { CommentsType } from '../../types/comment-type';
@@ -11,6 +11,8 @@ import { sortByNewerDate } from './sort-commets';
 import { HashLink as Link } from 'react-router-hash-link';
 import ModalReview from './modals/modal-review';
 import { ActiveModal } from '../../settings/active-modal';
+import throttle from 'lodash.throttle';
+
 
 type ReviewsProps = {
   comments: CommentsType;
@@ -30,6 +32,12 @@ function Reviews({comments}: ReviewsProps): JSX.Element {
     updateShownComments(0, next);
   }, [comments]);
 
+  useEffect(() => {
+    document.addEventListener('scroll', handleScrollDown);
+    return () => document.removeEventListener('scroll', handleScrollDown);
+  }, [comments, commentsShown, next]);
+
+
   const updateShownComments = (start:number, end:number) => {
     for (let i=start; i<end; i++) {
       if (commentsShown.length < comments.length) {
@@ -38,8 +46,19 @@ function Reviews({comments}: ReviewsProps): JSX.Element {
     }
   };
 
-  //разворот отзываов по скроллу - доп задание
+  //не забыть - в модалке не должно прокручиваться окно + фиксация элементов с клавиатуры
+  const handleScrollDown = throttle(()=>{
+    const height = document.body.offsetHeight;
+    const screenHeight = window.innerHeight;
+    const scrolled = window.scrollY;
+    const threshold  = height - screenHeight * scrollThresholdCoefficient;
+    const currentPosition = scrolled + screenHeight;
 
+    if (currentPosition >= threshold &&  commentsShown.length < comments.length) {
+      updateShownComments(next, next + 1);
+      setNext(next + 1);
+    }
+  }, 200);
 
   const handleMoreBtnClick = () => {
     updateShownComments(next, next + amountOfCommentsShown);
