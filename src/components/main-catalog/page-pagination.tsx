@@ -3,11 +3,11 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { AppRoute } from '../../settings/app-routes';
 import { cardsPerPage } from '../../settings/constants';
 import { changePage } from '../../store/interface-process/interface-process';
-import { getActivePage, getAllGuitars } from '../../store/selectors';
+import { getActivePage, getGuitarsWithComments } from '../../store/selectors';
 
 function PagePagination(): JSX.Element {
   const dispatch = useAppDispatch();
-  const allGuitars = useAppSelector(getAllGuitars);
+  const allGuitars = useAppSelector(getGuitarsWithComments);
   const activePage = useAppSelector(getActivePage);
 
   const pagesAmount = Math.ceil(allGuitars.length / cardsPerPage);
@@ -19,7 +19,7 @@ function PagePagination(): JSX.Element {
 
 
   return (
-    <div className="pagination page-content__pagination">
+    <div className="pagination page-content__pagination" data-testid="pagination-container">
       <ul className="pagination__list">
         {
           activePage > 1
@@ -38,7 +38,7 @@ function PagePagination(): JSX.Element {
         }
         {
           pagesNumbers.map((pageNumber) => (
-            <li className={`pagination__page ${activePage === pageNumber ? 'pagination__page--active' : ''}`} key={pageNumber}>
+            <li className={`pagination__page ${activePage === pageNumber ? 'pagination__page--active' : ''}`} key={pageNumber} data-testid="pagination-page-number">
               <Link
                 className="link pagination__page-link"
                 to={generatePath(AppRoute.CatalogPage, {pageNumber: `${pageNumber}`})}

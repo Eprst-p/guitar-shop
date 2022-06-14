@@ -1,8 +1,7 @@
 function Footer(): JSX.Element {
 
-
   return (
-    <footer className="footer">
+    <footer className="footer" data-testid="footer">
       <div className="footer__container container">
         <a className="footer__logo logo">
           <img className="logo__img" width="70" height="70" src="./img/svg/logo.svg" alt="Логотип" />

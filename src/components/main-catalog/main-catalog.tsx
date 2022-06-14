@@ -4,9 +4,10 @@ import CatalogFilter from './catalog-filter';
 import CatalogSort from './catalog-sort';
 import PagePagination from './page-pagination';
 import ProductCard from './product-card';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { changePage } from '../../store/interface-process/interface-process';
-import { AppRoute } from '../../settings/app-routes';
+import { PageTitle } from '../../settings/page-title';
+import BreadCrumbs from '../bread-crumbs/bread-crumbs';
 
 function MainCatalog(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -19,16 +20,9 @@ function MainCatalog(): JSX.Element {
 
   return (
     <main className="page-content">
-      <div className="container">
-        <h1 className="page-content__title title title--bigger">Каталог гитар</h1>
-        <ul className="breadcrumbs page-content__breadcrumbs">
-          <li className="breadcrumbs__item">
-            <Link className="link" to={AppRoute.Catalog}>Главная</Link>
-          </li>
-          <li className="breadcrumbs__item">
-            <a className="link">Каталог</a>
-          </li>
-        </ul>
+      <div className="container" data-testid="main-container">
+        <h1 className="page-content__title title title--bigger">{PageTitle.Catalog}</h1>
+        <BreadCrumbs pageTittle={PageTitle.Catalog} />
         <div className="catalog">
           <CatalogFilter />
           <CatalogSort />

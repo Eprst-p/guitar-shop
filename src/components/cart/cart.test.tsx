@@ -1,37 +1,21 @@
 import {render, screen} from '@testing-library/react';
 import { Provider } from 'react-redux';
-import App from './app';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {createMemoryHistory} from 'history';
 import { makeFakeGuitars } from '../../mocks/data-mocks';
+import HistoryRouter from '../history-route/history-route';
+import { PageTitle } from '../../settings/page-title';
 import { AppRoute } from '../../settings/app-routes';
+import Cart from './cart';
 
 const mockStore = configureMockStore();
 
-describe('Renders app-component', () => {
+describe('Renders cart-component', () => {
   const history = createMemoryHistory();
-  history.push(AppRoute.Catalog);
 
-  it('should render Loading when data has NOT loaded', () => {
-
-    const store = mockStore({
-      DATA: {
-        isDataLoaded: false,
-      },
-    });
-
-    render(
-      <Provider store={store}>
-        <App />
-      </Provider>,
-    );
-
-    expect(screen.getByText(/Loading.../i)).toBeInTheDocument();
-  });
-
-  it('should render Catalog when data has loaded', () => {
+  it('should render cart container', () => {
     const mockGuitars = makeFakeGuitars;
-
+    history.push(AppRoute.Cart);
 
     const store = mockStore({
       DATA: {
@@ -45,11 +29,12 @@ describe('Renders app-component', () => {
 
     render(
       <Provider store={store}>
-        <App />
+        <HistoryRouter history={history}>
+          <Cart />
+        </HistoryRouter>
       </Provider>,
     );
 
-    expect(screen.getByText(/Каталог гитар/i)).toBeInTheDocument();
-    expect(screen.getByText(/Контакты/i)).toBeInTheDocument();
+    expect(screen.getByTestId(/cart/i)).toBeInTheDocument();
   });
 });

@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import { AppRoute } from '../../settings/app-routes';
+import { PageTitle } from '../../settings/page-title';
+import BreadCrumbs from '../bread-crumbs/bread-crumbs';
 
 function Cart(): JSX.Element {
 
@@ -7,18 +7,9 @@ function Cart(): JSX.Element {
   return (
     <main className="page-content">
       <div className="container">
-        <h1 className="title title--bigger page-content__title">Корзина</h1>
-        <ul className="breadcrumbs page-content__breadcrumbs page-content__breadcrumbs--on-cart-page">
-          <li className="breadcrumbs__item">
-            <Link className="link" to={AppRoute.Catalog}>Главная</Link>
-          </li>
-          <li className="breadcrumbs__item">
-            <Link className="link" to={AppRoute.Catalog}>Каталог</Link>
-          </li>
-          <li className="breadcrumbs__item"><a className="link">Корзина</a>
-          </li>
-        </ul>
-        <div className="cart">
+        <h1 className="title title--bigger page-content__title">{PageTitle.Cart}</h1>
+        <BreadCrumbs pageTittle={PageTitle.Cart} />
+        <div className="cart" data-testid="cart">
           <div className="cart-item">
             <button className="cart-item__close-button button-cross" type="button" aria-label="Удалить"><span className="button-cross__icon"></span><span className="cart-item__close-button-interactive-area"></span>
             </button>

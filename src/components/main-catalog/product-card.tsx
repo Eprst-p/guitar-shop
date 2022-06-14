@@ -16,30 +16,30 @@ function ProductCard({guitar, commentsAmount}: ProductCardProps): JSX.Element {
   const hashUrl = `#characteristics?articul=${guitar?.vendorCode}&type=${guitarTypeNames[guitar?.type || 'electric']}&stringCount=${guitar?.stringCount}`;
 
   return (
-    <div className="product-card">
-      <img src={`img/content/catalog-product-${imgNumber}.jpg`} srcSet={`img/content/catalog-product-${imgNumber}@2x.jpg 2x`} width="75" height="190" alt={guitar.name} />
+    <div className="product-card" data-testid="product-card">
+      <img src={`img/content/catalog-product-${imgNumber}.jpg`} srcSet={`img/content/catalog-product-${imgNumber}@2x.jpg 2x`} width="75" height="190" alt={guitar.name} data-testid="guitar-img"/>
       <div className="product-card__info">
         <div className="rate product-card__rate">
           <svg width="12" height="11" aria-hidden="true">
-            <use xlinkHref={roundedRating>=1 ? '#icon-full-star' : '#icon-star'}></use>
+            <use xlinkHref={roundedRating>=1 ? '#icon-full-star' : '#icon-star'} data-testid="star"></use>
           </svg>
           <svg width="12" height="11" aria-hidden="true">
-            <use xlinkHref={roundedRating>=2 ? '#icon-full-star' : '#icon-star'}></use>
+            <use xlinkHref={roundedRating>=2 ? '#icon-full-star' : '#icon-star'} data-testid="star"></use>
           </svg>
           <svg width="12" height="11" aria-hidden="true">
-            <use xlinkHref={roundedRating>=3 ? '#icon-full-star' : '#icon-star'}></use>
+            <use xlinkHref={roundedRating>=3 ? '#icon-full-star' : '#icon-star'} data-testid="star"></use>
           </svg>
           <svg width="12" height="11" aria-hidden="true">
-            <use xlinkHref={roundedRating>=4 ? '#icon-full-star' : '#icon-star'}></use>
+            <use xlinkHref={roundedRating>=4 ? '#icon-full-star' : '#icon-star'} data-testid="star"></use>
           </svg>
           <svg width="12" height="11" aria-hidden="true">
-            <use xlinkHref={roundedRating>=5 ? '#icon-full-star' : '#icon-star'}></use>
+            <use xlinkHref={roundedRating>=5 ? '#icon-full-star' : '#icon-star'} data-testid="star"></use>
           </svg>
           <p className="visually-hidden">Рейтинг: {ratingNames[roundedRating]}</p>
-          <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{commentsAmount}</p>
+          <p className="rate__count" data-testid="rate-count"><span className="visually-hidden">Всего оценок:</span>{commentsAmount}</p>
         </div>
-        <p className="product-card__title">{guitar.name}</p>
-        <p className="product-card__price"><span className="visually-hidden">Цена:</span>{guitar.price}
+        <p className="product-card__title" data-testid="guitar-name">{guitar.name}</p>
+        <p className="product-card__price" data-testid="price"><span className="visually-hidden">Цена:</span>{guitar.price}
         </p>
       </div>
       <div className="product-card__buttons">

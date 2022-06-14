@@ -1,37 +1,20 @@
 import {render, screen} from '@testing-library/react';
 import { Provider } from 'react-redux';
-import App from './app';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {createMemoryHistory} from 'history';
 import { makeFakeGuitars } from '../../mocks/data-mocks';
+import HistoryRouter from '../history-route/history-route';
 import { AppRoute } from '../../settings/app-routes';
+import CatalogFilter from './catalog-filter';
 
 const mockStore = configureMockStore();
 
-describe('Renders app-component', () => {
+describe('Renders catalog-filter-component', () => {
   const history = createMemoryHistory();
-  history.push(AppRoute.Catalog);
 
-  it('should render Loading when data has NOT loaded', () => {
-
-    const store = mockStore({
-      DATA: {
-        isDataLoaded: false,
-      },
-    });
-
-    render(
-      <Provider store={store}>
-        <App />
-      </Provider>,
-    );
-
-    expect(screen.getByText(/Loading.../i)).toBeInTheDocument();
-  });
-
-  it('should render Catalog when data has loaded', () => {
+  it('should render catalog-filter form', () => {
     const mockGuitars = makeFakeGuitars;
-
+    history.push(AppRoute.Catalog);
 
     const store = mockStore({
       DATA: {
@@ -45,11 +28,12 @@ describe('Renders app-component', () => {
 
     render(
       <Provider store={store}>
-        <App />
+        <HistoryRouter history={history}>
+          <CatalogFilter />
+        </HistoryRouter>
       </Provider>,
     );
 
-    expect(screen.getByText(/Каталог гитар/i)).toBeInTheDocument();
-    expect(screen.getByText(/Контакты/i)).toBeInTheDocument();
+    expect(screen.getByTestId(/form-catalog-filter/i)).toBeInTheDocument();
   });
 });

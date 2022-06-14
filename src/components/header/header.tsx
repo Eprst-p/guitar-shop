@@ -5,7 +5,7 @@ function Header(): JSX.Element {
   const location = useLocation();
 
   return (
-    <header className="header" id="header">
+    <header className="header" id="header" data-testid="header">
       <div className="container header__wrapper">
         <a className="header__logo logo">
           <img className="logo__img" width="70" height="70" src="./img/svg/logo.svg" alt="Логотип" />

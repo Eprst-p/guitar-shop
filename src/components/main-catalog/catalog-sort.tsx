@@ -1,7 +1,7 @@
 function CatalogSort(): JSX.Element {
 
   return (
-    <div className="catalog-sort">
+    <div className="catalog-sort" data-testid="catalog-sort">
       <h2 className="catalog-sort__title">Сортировать:</h2>
       <div className="catalog-sort__type">
         <button className="catalog-sort__type-button" aria-label="по цене">по цене</button>

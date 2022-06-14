@@ -1,11 +1,10 @@
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
-import { AppRoute } from '../../settings/app-routes';
 import { ratingNames } from '../../settings/rating-names';
 import { fetchCommentsByID, fetchGuitarByID } from '../../store/api-actions';
 import { getCommentsByID, getGuitarByID} from '../../store/selectors';
+import BreadCrumbs from '../bread-crumbs/bread-crumbs';
 import Reviews from './reviews';
 import Tabs from './tabs';
 
@@ -28,18 +27,9 @@ function Product(): JSX.Element {
 
   return (
     <main className="page-content">
-      <div className="container">
+      <div className="container" data-testid="product-container">
         <h1 className="page-content__title title title--bigger">{guitar?.name}</h1>
-        <ul className="breadcrumbs page-content__breadcrumbs">
-          <li className="breadcrumbs__item">
-            <Link className="link" to={AppRoute.Catalog}>Главная</Link>
-          </li>
-          <li className="breadcrumbs__item">
-            <Link className="link" to={AppRoute.Catalog}>Каталог</Link>
-          </li>
-          <li className="breadcrumbs__item"><a className="link">{guitar?.name}</a>
-          </li>
-        </ul>
+        <BreadCrumbs pageTittle={guitar?.name} />
         <div className="product-container">
           <img className="product-container__img" src="img/content/catalog-product-2.jpg" srcSet="img/content/catalog-product-2@2x.jpg 2x" width="90" height="235" alt="" />
           <div className="product-container__info-wrapper">
