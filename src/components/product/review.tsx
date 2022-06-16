@@ -18,34 +18,35 @@ function Review({comment}: ReviewProps): JSX.Element {
   const roundedRating = Math.round(comment.rating);
 
   return (
-    <div className="review">
+    <div className="review" data-testid="review">
       <div className="review__wrapper">
-        <h4 className="review__title review__title--author title title--lesser">{comment.userName}</h4><span className="review__date">{dateInFormat}</span>
+        <h4 className="review__title review__title--author title title--lesser" data-testid="user-name">{comment.userName}</h4>
+        <span className="review__date" data-testid="review-date">{dateInFormat}</span>
       </div>
       <div className="rate review__rating-panel">
         <svg width="16" height="16" aria-hidden="true">
-          <use xlinkHref="#icon-full-star"></use>
+          <use xlinkHref={roundedRating>=1 ? '#icon-full-star' : '#icon-star'}></use>
         </svg>
         <svg width="16" height="16" aria-hidden="true">
-          <use xlinkHref="#icon-full-star"></use>
+          <use xlinkHref={roundedRating>=2 ? '#icon-full-star' : '#icon-star'}></use>
         </svg>
         <svg width="16" height="16" aria-hidden="true">
-          <use xlinkHref="#icon-full-star"></use>
+          <use xlinkHref={roundedRating>=3 ? '#icon-full-star' : '#icon-star'}></use>
         </svg>
         <svg width="16" height="16" aria-hidden="true">
-          <use xlinkHref="#icon-full-star"></use>
+          <use xlinkHref={roundedRating>=4 ? '#icon-full-star' : '#icon-star'}></use>
         </svg>
         <svg width="16" height="16" aria-hidden="true">
-          <use xlinkHref="#icon-star"></use>
+          <use xlinkHref={roundedRating>=5 ? '#icon-full-star' : '#icon-star'}></use>
         </svg>
         <p className="visually-hidden">Оценка: {ratingNames[roundedRating]}</p>
       </div>
       <h4 className="review__title title title--lesser">Достоинства:</h4>
-      <p className="review__value">{comment.advantage}</p>
+      <p className="review__value" data-testid="advantage">{comment.advantage}</p>
       <h4 className="review__title title title--lesser">Недостатки:</h4>
-      <p className="review__value">{comment.disadvantage}</p>
+      <p className="review__value" data-testid="disadvantage">{comment.disadvantage}</p>
       <h4 className="review__title title title--lesser">Комментарий:</h4>
-      <p className="review__value">{comment.comment}</p>
+      <p className="review__value" data-testid="comment">{comment.comment}</p>
     </div>
   );
 }

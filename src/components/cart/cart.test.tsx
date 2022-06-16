@@ -2,7 +2,7 @@ import {render, screen} from '@testing-library/react';
 import { Provider } from 'react-redux';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {createMemoryHistory} from 'history';
-import { makeFakeGuitars } from '../../mocks/data-mocks';
+import { makeFakeGuitarsWithComments } from '../../mocks/data-mocks';
 import HistoryRouter from '../history-route/history-route';
 import { PageTitle } from '../../settings/page-title';
 import { AppRoute } from '../../settings/app-routes';
@@ -14,7 +14,7 @@ describe('Renders cart-component', () => {
   const history = createMemoryHistory();
 
   it('should render cart container', () => {
-    const mockGuitars = makeFakeGuitars;
+    const mockGuitars = makeFakeGuitarsWithComments;
     history.push(AppRoute.Cart);
 
     const store = mockStore({

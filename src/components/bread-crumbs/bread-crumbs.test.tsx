@@ -2,7 +2,7 @@ import {render, screen} from '@testing-library/react';
 import { Provider } from 'react-redux';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {createMemoryHistory} from 'history';
-import { makeFakeGuitars } from '../../mocks/data-mocks';
+import { makeFakeGuitarsWithComments } from '../../mocks/data-mocks';
 import BreadCrumbs from './bread-crumbs';
 import HistoryRouter from '../history-route/history-route';
 import { PageTitle } from '../../settings/page-title';
@@ -14,7 +14,7 @@ describe('Renders bread-crumbs-component', () => {
   const history = createMemoryHistory();
 
   it('should render bread-crumbs ul-list', () => {
-    const mockGuitars = makeFakeGuitars;
+    const mockGuitars = makeFakeGuitarsWithComments;
     history.push('/');
 
     const store = mockStore({
@@ -39,7 +39,7 @@ describe('Renders bread-crumbs-component', () => {
   });
 
   it('should render 2 bread-crumbs items on main page', () => {
-    const mockGuitars = makeFakeGuitars;
+    const mockGuitars = makeFakeGuitarsWithComments;
     history.push(AppRoute.Catalog);
 
     const store = mockStore({
@@ -64,7 +64,7 @@ describe('Renders bread-crumbs-component', () => {
   });
 
   it('should render 3 bread-crumbs items on cart-page', () => {
-    const mockGuitars = makeFakeGuitars;
+    const mockGuitars = makeFakeGuitarsWithComments;
     history.push(AppRoute.Cart);
 
     const store = mockStore({
@@ -89,7 +89,7 @@ describe('Renders bread-crumbs-component', () => {
   });
 
   it('should render 3 bread-crumbs items on product-page', () => {
-    const mockGuitars = makeFakeGuitars;
+    const mockGuitars = makeFakeGuitarsWithComments;
     history.push(AppRoute.Cart);
     const guitarName = 'Some-guitar';
 

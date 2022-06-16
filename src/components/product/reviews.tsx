@@ -68,7 +68,7 @@ function Reviews({comments}: ReviewsProps): JSX.Element {
   };
 
   return (
-    <section className="reviews">
+    <section className="reviews" data-testid="reviews-container">
       <h3 className="reviews__title title title--bigger">Отзывы</h3>
       <button
         className="button button--red-border button--big reviews__sumbit-button"

@@ -1,72 +1,98 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
+import { AxiosInstance } from 'axios';
 import { generatePath } from 'react-router-dom';
-import { api, store } from '.';
 import { errorHandle } from '../services/error-handle';
 import { ApiRoute } from '../settings/api-route';
+import { AppRoute } from '../settings/app-routes';
 import { CommentPostType } from '../types/comment-post-type';
 import { CommentsType } from '../types/comment-type';
 import { CouponPostType } from '../types/coupon-post-type';
 import { GuitarsType, GuitarType } from '../types/guitar-type';
+import { GuitarsWithCommentsType } from '../types/guitar-with-comments-type';
 import { OrderPostType } from '../types/order-post-type';
+import { AppDispatch, State } from '../types/state';
+import { redirectToRoute } from './action';
 import { loadCommentsByID, loadGuitarByID, loadGuitars, loadGuitarsWithComments} from './data-process/data-process';
 
 const setPromiseWaiter = (timer = 300) => new Promise((resolve) => setTimeout(resolve, timer));
 
-export const fetchGuitars = createAsyncThunk(
+
+export const fetchGuitars = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
   'data/loadGuitars',
-  async () => {
+  async (_arg, {dispatch, extra: api}) => {
     try {
       const {data} = await api.get<GuitarsType>(ApiRoute.Guitars);
       await setPromiseWaiter(500);
-      store.dispatch(loadGuitars(data));
+      dispatch(loadGuitars(data));
     } catch (error) {
       errorHandle(error);
     }
   },
 );
 
-export const fetchGuitarByID = createAsyncThunk(
+export const fetchGuitarByID = createAsyncThunk<void, number, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
   'data/loadGuitarByID',
-  async (id: number) => {
+  async (id, {dispatch, extra: api}) => {
     try {
       const {data} = await api.get<GuitarType>(generatePath(ApiRoute.Guitar, {id: `${id}`}));
       await setPromiseWaiter();
-      store.dispatch(loadGuitarByID(data));
+      dispatch(loadGuitarByID(data));
     } catch (error) {
       errorHandle(error);
+      dispatch(redirectToRoute(AppRoute.NotFound));
     }
   },
 );
 
-export const fetchCommentsByID = createAsyncThunk(
+export const fetchCommentsByID = createAsyncThunk<void, number, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
   'data/CommentsByID',
-  async (id: number) => {
+  async (id, {dispatch, extra: api}) => {
     try {
       const {data} = await api.get<CommentsType>(generatePath(ApiRoute.CommentsByID, {id: `${id}`}));
       await setPromiseWaiter();
-      store.dispatch(loadCommentsByID(data));
+      dispatch(loadCommentsByID(data));
     } catch (error) {
       errorHandle(error);
     }
   },
 );
 
-export const fetchGuitarsWithComments = createAsyncThunk(
+export const fetchGuitarsWithComments = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
   'data/GuitarsEmbed',
-  async () => {
+  async (_arg, {dispatch, extra: api}) => {
     try {
-      const {data} = await api.get<GuitarsType>(ApiRoute.GuitarsWithComments);
+      const {data} = await api.get<GuitarsWithCommentsType>(ApiRoute.GuitarsWithComments);
       await setPromiseWaiter(500);
-      store.dispatch(loadGuitarsWithComments(data));
+      dispatch(loadGuitarsWithComments(data));
     } catch (error) {
       errorHandle(error);
     }
   },
 );
 
-export const commentPostAction = createAsyncThunk(
+export const commentPostAction = createAsyncThunk<void, CommentPostType, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
   'data/commentPostAction',
-  async (comment: CommentPostType) => {
+  async (comment, {dispatch, extra: api}) => {
     try {
       await api.post<CommentPostType>(ApiRoute.Comments, comment);
       await setPromiseWaiter();
@@ -76,9 +102,13 @@ export const commentPostAction = createAsyncThunk(
   },
 );
 
-export const couponPostAction = createAsyncThunk(
+export const couponPostAction = createAsyncThunk<void, CouponPostType, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
   'data/couponPostAction',
-  async (coupon: CouponPostType) => {
+  async (coupon, {dispatch, extra: api}) => {
     try {
       await api.post<CouponPostType>(ApiRoute.Coupons, coupon);
       await setPromiseWaiter();
@@ -88,9 +118,13 @@ export const couponPostAction = createAsyncThunk(
   },
 );
 
-export const orderPostAction = createAsyncThunk(
+export const orderPostAction = createAsyncThunk<void, OrderPostType, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
   'data/orderPostAction',
-  async (order: OrderPostType) => {
+  async (order, {dispatch, extra: api}) => {
     try {
       await api.post<OrderPostType>(ApiRoute.Orders, order);
       await setPromiseWaiter();

@@ -2,7 +2,7 @@ import {render, screen} from '@testing-library/react';
 import { Provider } from 'react-redux';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {createMemoryHistory} from 'history';
-import { makeFakeGuitar, makeFakeGuitars } from '../../mocks/data-mocks';
+import { makeFakeGuitarWithComment, makeFakeGuitarsWithComments } from '../../mocks/data-mocks';
 import HistoryRouter from '../history-route/history-route';
 import { AppRoute } from '../../settings/app-routes';
 import ProductCard from './product-card';
@@ -11,11 +11,11 @@ const mockStore = configureMockStore();
 
 describe('Renders product-card-component', () => {
   const history = createMemoryHistory();
-  const mockGuitars = makeFakeGuitars;
+  const mockGuitars = makeFakeGuitarsWithComments;
 
   it('should render product-card container', () => {
     history.push(AppRoute.Catalog);
-    const guitarCard = makeFakeGuitar();
+    const guitarCard = makeFakeGuitarWithComment();
 
     const store = mockStore({
       DATA: {
@@ -40,7 +40,7 @@ describe('Renders product-card-component', () => {
 
   it('should render correct image', () => {
     history.push(AppRoute.Catalog);
-    const guitarCard = makeFakeGuitar();
+    const guitarCard = makeFakeGuitarWithComment();
     const imgNumber = guitarCard.previewImg.charAt(11);
 
     const store = mockStore({
@@ -67,7 +67,7 @@ describe('Renders product-card-component', () => {
 
   it('should render correct rate-count', () => {
     history.push(AppRoute.Catalog);
-    const guitarCard = makeFakeGuitar();
+    const guitarCard = makeFakeGuitarWithComment();
 
     const store = mockStore({
       DATA: {
@@ -93,7 +93,7 @@ describe('Renders product-card-component', () => {
 
   it('should render 5 stars', () => {
     history.push(AppRoute.Catalog);
-    const guitarCard = makeFakeGuitar();
+    const guitarCard = makeFakeGuitarWithComment();
 
     const store = mockStore({
       DATA: {
@@ -118,7 +118,7 @@ describe('Renders product-card-component', () => {
 
   it('should render correct guitar-name', () => {
     history.push(AppRoute.Catalog);
-    const guitarCard = makeFakeGuitar();
+    const guitarCard = makeFakeGuitarWithComment();
 
     const store = mockStore({
       DATA: {
@@ -144,7 +144,7 @@ describe('Renders product-card-component', () => {
 
   it('should render correct price', () => {
     history.push(AppRoute.Catalog);
-    const guitarCard = makeFakeGuitar();
+    const guitarCard = makeFakeGuitarWithComment();
 
     const store = mockStore({
       DATA: {
@@ -170,7 +170,7 @@ describe('Renders product-card-component', () => {
 
   it('should render buttons', () => {
     history.push(AppRoute.Catalog);
-    const guitarCard = makeFakeGuitar();
+    const guitarCard = makeFakeGuitarWithComment();
 
     const store = mockStore({
       DATA: {

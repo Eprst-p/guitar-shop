@@ -1,5 +1,6 @@
 import { name, datatype, random, lorem, image, date } from 'faker';
 import { CommentType } from '../types/comment-type';
+import { GuitarType } from '../types/guitar-type';
 import { GuitarWithCommentsType } from '../types/guitar-with-comments-type';
 
 export const makeFakeComment = () => ({
@@ -25,9 +26,23 @@ export const makeFakeGuitar = () => ({
   stringCount: datatype.number(10),
   rating: datatype.number(5),
   price: datatype.number(10000),
+} as unknown as GuitarType);
+
+export const makeFakeGuitars = new Array(27).fill(null).map(() =>  makeFakeGuitar());
+
+export const makeFakeGuitarWithComment = () => ({
+  id: datatype.number(25),
+  name: name.title(),
+  vendorCode: lorem.word(10),
+  type: random.word(),
+  description: lorem.sentences(3),
+  previewImg: image.imageUrl(),
+  stringCount: datatype.number(10),
+  rating: datatype.number(5),
+  price: datatype.number(10000),
   comments: makeFakeComments,
 } as unknown as GuitarWithCommentsType);
 
-export const makeFakeGuitars = new Array(27).fill(null).map(() =>  makeFakeGuitar());
+export const makeFakeGuitarsWithComments = new Array(27).fill(null).map(() =>  makeFakeGuitarWithComment());
 
 

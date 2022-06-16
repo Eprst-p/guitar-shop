@@ -37,7 +37,7 @@ function ModalReview(): JSX.Element {
 
   return (
     <FocusTrap>
-      <div>
+      <div data-testid="modal-review">
         {
           activeModal === ActiveModal.ReviewForm
             ?

@@ -100,13 +100,13 @@ function ReviewForm(): JSX.Element {
 
 
   return (
-    <div style={{position: 'relative', width: '550px', height: '610px', marginBottom: '50px'}}>
+    <div style={{position: 'relative', width: '550px', height: '610px', marginBottom: '50px'}} data-testid="reviews-form-container">
       <div className="modal is-active modal--review modal-for-ui-kit">
         <div className="modal__wrapper">
           <div className="modal__overlay" data-close-modal onClick={handleCloseModal}></div>
           <div className="modal__content">
             <h2 className="modal__header modal__header--review title title--medium">Оставить отзыв</h2>
-            <h3 className="modal__product-name title title--medium-20 title--uppercase">{guitar?.name}</h3>
+            <h3 className="modal__product-name title title--medium-20 title--uppercase" data-testid="guitar-name">{guitar?.name}</h3>
             <form
               className="form-review"
               onSubmit={handleReviewSubmit}

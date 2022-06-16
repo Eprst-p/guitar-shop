@@ -2,46 +2,22 @@ import {render, screen} from '@testing-library/react';
 import { Provider } from 'react-redux';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {createMemoryHistory} from 'history';
-import { makeFakeGuitarsWithComments } from '../../mocks/data-mocks';
+import { makeFakeGuitarWithComment, makeFakeGuitarsWithComments } from '../../mocks/data-mocks';
 import HistoryRouter from '../history-route/history-route';
 import { AppRoute } from '../../settings/app-routes';
-import MainCatalog from './main-catalog';
-import { cardsPerPage } from '../../settings/constants';
+import { ActiveModal } from '../../settings/active-modal';
 import { generatePath } from 'react-router-dom';
+import Tabs from './tabs';
 
 const mockStore = configureMockStore();
 
-describe('Renders main-catalog-component', () => {
+describe('Renders tabs-component', () => {
   const history = createMemoryHistory();
+  const mockGuitars = makeFakeGuitarsWithComments;
+  const mockGuitar = makeFakeGuitarWithComment();
+  history.push(generatePath(AppRoute.Product, {id: `${mockGuitar.id}`}));
 
-  it('should render main-catalog container (from redux state)', () => {
-    const mockGuitars = makeFakeGuitarsWithComments;
-    history.push(AppRoute.Catalog);
-
-    const store = mockStore({
-      DATA: {
-        isDataLoaded: true,
-        guitarsWithComments: mockGuitars,
-      },
-      INTERFACE: {
-        activePage: 1,
-      },
-    });
-
-    render(
-      <Provider store={store}>
-        <HistoryRouter history={history}>
-          <MainCatalog />
-        </HistoryRouter>
-      </Provider>,
-    );
-
-    expect(screen.getByTestId(/main-container/i)).toBeInTheDocument();
-  });
-
-  it('should render main-catalog container (from url-parameters)', () => {
-    const mockGuitars = makeFakeGuitarsWithComments;
-    history.push(generatePath(AppRoute.CatalogPage, {pageNumber: `${1}`}));
+  it('should render tabs container', () => {
 
     const store = mockStore({
       DATA: {
@@ -50,23 +26,22 @@ describe('Renders main-catalog-component', () => {
       },
       INTERFACE: {
         activePage: 1,
+        activeModal: ActiveModal.NoModal,
       },
     });
 
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <MainCatalog />
+          <Tabs guitar={mockGuitar} />
         </HistoryRouter>
       </Provider>,
     );
 
-    expect(screen.getByTestId(/main-container/i)).toBeInTheDocument();
+    expect(screen.getByTestId('tabs-container')).toBeInTheDocument();
   });
 
-  it('should render main-catalog container, when url-params differ from state', () => {
-    const mockGuitars = makeFakeGuitarsWithComments;
-    history.push(generatePath(AppRoute.CatalogPage, {pageNumber: `${2}`}));
+  it('should render tab links', () => {
 
     const store = mockStore({
       DATA: {
@@ -75,23 +50,23 @@ describe('Renders main-catalog-component', () => {
       },
       INTERFACE: {
         activePage: 1,
+        activeModal: ActiveModal.NoModal,
       },
     });
 
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <MainCatalog />
+          <Tabs guitar={mockGuitar} />
         </HistoryRouter>
       </Provider>,
     );
 
-    expect(screen.getByTestId(/main-container/i)).toBeInTheDocument();
+    expect(screen.getByText('Характеристики')).toBeInTheDocument();
+    expect(screen.getByText('Описание')).toBeInTheDocument();
   });
 
-  it('should render correct amount of product-cards', () => {
-    const mockGuitars = makeFakeGuitarsWithComments;
-    history.push(AppRoute.Catalog);
+  it('should render correct characteristics', () => {
 
     const store = mockStore({
       DATA: {
@@ -100,18 +75,47 @@ describe('Renders main-catalog-component', () => {
       },
       INTERFACE: {
         activePage: 1,
+        activeModal: ActiveModal.NoModal,
       },
     });
 
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <MainCatalog />
+          <Tabs guitar={mockGuitar} />
         </HistoryRouter>
       </Provider>,
     );
 
-    expect(screen.getAllByTestId(/product-card/i)).toHaveLength(cardsPerPage);
+    expect(screen.getByTestId('characteristics')).toBeInTheDocument();
+    expect(screen.getByTestId('vendor-code')).toHaveTextContent(mockGuitar.vendorCode);
+    expect(screen.getByTestId('string-count')).toHaveTextContent(`${mockGuitar.stringCount} струнная`);
+    expect(screen.getByText('Артикул:')).toBeInTheDocument();
+    expect(screen.getByText('Тип:')).toBeInTheDocument();
+    expect(screen.getByText('Количество струн:')).toBeInTheDocument();
   });
 
+  it('should render correct description', () => {
+
+    const store = mockStore({
+      DATA: {
+        isDataLoaded: true,
+        guitarsWithComments: mockGuitars,
+      },
+      INTERFACE: {
+        activePage: 1,
+        activeModal: ActiveModal.NoModal,
+      },
+    });
+
+    render(
+      <Provider store={store}>
+        <HistoryRouter history={history}>
+          <Tabs guitar={mockGuitar} />
+        </HistoryRouter>
+      </Provider>,
+    );
+
+    expect(screen.getByTestId('description')).toHaveTextContent(mockGuitar.description);
+  });
 });

@@ -2,7 +2,7 @@ import {render, screen} from '@testing-library/react';
 import { Provider } from 'react-redux';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {createMemoryHistory} from 'history';
-import { makeFakeGuitars } from '../../mocks/data-mocks';
+import { makeFakeGuitarsWithComments } from '../../mocks/data-mocks';
 import HistoryRouter from '../history-route/history-route';
 import { AppRoute } from '../../settings/app-routes';
 import Footer from './footer';
@@ -13,7 +13,7 @@ describe('Renders footer-component', () => {
   const history = createMemoryHistory();
 
   it('should render footer container on main-page', () => {
-    const mockGuitars = makeFakeGuitars;
+    const mockGuitars = makeFakeGuitarsWithComments;
     history.push(AppRoute.Catalog);
 
     const store = mockStore({
@@ -38,7 +38,7 @@ describe('Renders footer-component', () => {
   });
 
   it('should render footer container on cart-page', () => {
-    const mockGuitars = makeFakeGuitars;
+    const mockGuitars = makeFakeGuitarsWithComments;
     history.push(AppRoute.Cart);
 
     const store = mockStore({
@@ -63,7 +63,7 @@ describe('Renders footer-component', () => {
   });
 
   it('should render footer container on product-page', () => {
-    const mockGuitars = makeFakeGuitars;
+    const mockGuitars = makeFakeGuitarsWithComments;
     history.push(AppRoute.Product);
 
     const store = mockStore({
