@@ -13,7 +13,7 @@ function Header(): JSX.Element {
         <nav className="main-nav">
           <ul className="main-nav__list">
             <li>
-              <Link className={`link main-nav__link ${location.pathname === AppRoute.Catalog ? 'link--current' : ''}`} to={AppRoute.Catalog}>Главная</Link>
+              <Link className={`link main-nav__link ${location.pathname === AppRoute.Catalog ? 'link--current' : ''}`} to={AppRoute.Catalog} data-testid="nav-link-to-main">Главная</Link>
             </li>
             <li><a className="link main-nav__link" href="#">Где купить?</a>
             </li>

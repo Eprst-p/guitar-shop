@@ -1,4 +1,4 @@
-import browserHistory from '../../browser-history/browser-history';
+import browserHistory from '../../browser-history';
 import {Middleware} from 'redux';
 import {rootReducer} from '../root-reducer';
 

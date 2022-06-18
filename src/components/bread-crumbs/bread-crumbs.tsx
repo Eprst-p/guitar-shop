@@ -11,7 +11,7 @@ function BreadCrumbs({pageTittle}: BreadCrumbsProps): JSX.Element {
   return (
     <ul className="breadcrumbs page-content__breadcrumbs" data-testid="ul_breadcrumbs">
       <li className="breadcrumbs__item" data-testid="breadcrumbs__item">
-        <Link className="link" to={AppRoute.Catalog}>Главная</Link>
+        <Link className="link" to={AppRoute.Catalog} data-testid="link-to-main">Главная</Link>
       </li>
       <li className="breadcrumbs__item" data-testid="breadcrumbs__item">
         <Link className="link" to={AppRoute.Catalog}>Каталог</Link>

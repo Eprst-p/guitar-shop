@@ -6,86 +6,73 @@ import { makeFakeGuitarsWithComments } from '../../mocks/data-mocks';
 import HistoryRouter from '../history-route/history-route';
 import { AppRoute } from '../../settings/app-routes';
 import Header from './header';
+import userEvent from '@testing-library/user-event';
+import MainCatalog from '../main-catalog/main-catalog';
 
 const mockStore = configureMockStore();
+const mockGuitars = makeFakeGuitarsWithComments;
+const history = createMemoryHistory();
+
+const store = mockStore({
+  DATA: {
+    isDataLoaded: true,
+    guitarsWithComments: mockGuitars,
+  },
+  INTERFACE: {
+    activePage: 1,
+  },
+});
+
+const fakeHeader = (
+  <Provider store={store}>
+    <HistoryRouter history={history}>
+      <Header />
+    </HistoryRouter>
+  </Provider>
+);
+
 
 describe('Renders header-component', () => {
-  const history = createMemoryHistory();
 
   it('should render header container on main-page', () => {
-    const mockGuitars = makeFakeGuitarsWithComments;
     history.push(AppRoute.Catalog);
-
-    const store = mockStore({
-      DATA: {
-        isDataLoaded: true,
-        guitarsWithComments: mockGuitars,
-      },
-      INTERFACE: {
-        activePage: 1,
-      },
-    });
-
-    render(
-      <Provider store={store}>
-        <HistoryRouter history={history}>
-          <Header />
-        </HistoryRouter>
-      </Provider>,
-    );
+    render(fakeHeader);
 
     expect(screen.getByTestId(/header/i)).toBeInTheDocument();
   });
 
   it('should render header container on cart-page', () => {
-    const mockGuitars = makeFakeGuitarsWithComments;
     history.push(AppRoute.Cart);
-
-    const store = mockStore({
-      DATA: {
-        isDataLoaded: true,
-        guitarsWithComments: mockGuitars,
-      },
-      INTERFACE: {
-        activePage: 1,
-      },
-    });
-
-    render(
-      <Provider store={store}>
-        <HistoryRouter history={history}>
-          <Header />
-        </HistoryRouter>
-      </Provider>,
-    );
+    render(fakeHeader);
 
     expect(screen.getByTestId(/header/i)).toBeInTheDocument();
   });
 
 
   it('should render header container on product-page', () => {
-    const mockGuitars = makeFakeGuitarsWithComments;
     history.push(AppRoute.Product);
+    render(fakeHeader);
 
-    const store = mockStore({
-      DATA: {
-        isDataLoaded: true,
-        guitarsWithComments: mockGuitars,
-      },
-      INTERFACE: {
-        activePage: 1,
-      },
-    });
+    expect(screen.getByTestId(/header/i)).toBeInTheDocument();
+  });
+
+  it('should redirect to main page when click on "Главная" navigation link', () => {
+    history.push(AppRoute.Cart);
+    render(fakeHeader);
+
+    expect(screen.queryByTestId(/main-container/i)).not.toBeInTheDocument();
+
+    userEvent.click(screen.getByTestId('nav-link-to-main'));
 
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <Header />
+          <MainCatalog />
         </HistoryRouter>
       </Provider>,
     );
 
-    expect(screen.getByTestId(/header/i)).toBeInTheDocument();
+    expect(screen.getByTestId(/main-container/i)).toBeInTheDocument();
   });
 
 });

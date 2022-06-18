@@ -1,7 +1,5 @@
 import {Route, Routes} from 'react-router-dom';
 import {AppRoute} from '../../settings/app-routes';
-import HistoryRouter from '../history-route/history-route';
-import browserHistory from '../../browser-history/browser-history';
 import Cart from '../cart/cart';
 import Layout from '../layout/layout';
 import MainCatalog from '../main-catalog/main-catalog';
@@ -23,35 +21,33 @@ function App(): JSX.Element {
 
 
   return (
-    <HistoryRouter history={browserHistory}>
-      <Routes>
+    <Routes>
+      <Route
+        path={AppRoute.Root}
+        element={<Layout />}
+      >
         <Route
-          path={AppRoute.Root}
-          element={<Layout />}
-        >
-          <Route
-            path={AppRoute.Catalog}
-            element={<MainCatalog/>}
-          />
-          <Route
-            path={AppRoute.CatalogPage}
-            element={<MainCatalog/>}
-          />
-          <Route
-            path={AppRoute.Cart}
-            element={<Cart />}
-          />
-          <Route
-            path={AppRoute.Product}
-            element={<Product />}
-          />
-        </Route>
-        <Route
-          path="*"
-          element={<NotFound />}
+          path={AppRoute.Catalog}
+          element={<MainCatalog/>}
         />
-      </Routes>
-    </HistoryRouter>
+        <Route
+          path={AppRoute.CatalogPage}
+          element={<MainCatalog/>}
+        />
+        <Route
+          path={AppRoute.Cart}
+          element={<Cart />}
+        />
+        <Route
+          path={AppRoute.Product}
+          element={<Product />}
+        />
+      </Route>
+      <Route
+        path="*"
+        element={<NotFound />}
+      />
+    </Routes>
   );
 
 }

@@ -4,7 +4,6 @@ import {configureMockStore} from '@jedmao/redux-mock-store';
 import {createMemoryHistory} from 'history';
 import { makeFakeGuitarsWithComments } from '../../mocks/data-mocks';
 import HistoryRouter from '../history-route/history-route';
-import { PageTitle } from '../../settings/page-title';
 import { AppRoute } from '../../settings/app-routes';
 import Cart from './cart';
 

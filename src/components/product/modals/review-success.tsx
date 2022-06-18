@@ -13,7 +13,7 @@ function ReviewSuccess(): JSX.Element {
     <div style={{position: 'relative', width: '550px', height: '410px', marginBottom: '50px'}} data-testid="review-success-container">
       <div className="modal is-active modal--success modal-for-ui-kit">
         <div className="modal__wrapper">
-          <div className="modal__overlay" data-close-modal onClick={handleCloseModal}></div>
+          <div className="modal__overlay" data-close-modal onClick={handleCloseModal} data-testid="overlay"></div>
           <div className="modal__content">
             <svg className="modal__icon" width="26" height="20" aria-hidden="true">
               <use xlinkHref="#icon-success"></use>
@@ -33,6 +33,7 @@ function ReviewSuccess(): JSX.Element {
               type="button"
               aria-label="Закрыть"
               onClick={handleCloseModal}
+              data-testid="button-cross"
             >
               <span className="button-cross__icon"></span>
               <span className="modal__close-btn-interactive-area"></span>

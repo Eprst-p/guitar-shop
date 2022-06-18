@@ -33,7 +33,7 @@ function Tabs({guitar}: TabsProps): JSX.Element {
         Описание
       </Link>
       <div className="tabs__content" id="characteristics" data-testid="characteristics">
-        <table className={`tabs__table ${activeTab === GuitarTabs.Characteristics ? '' : 'hidden'}`}>
+        <table className={`tabs__table ${activeTab === GuitarTabs.Characteristics ? '' : 'hidden'}`} data-testid="characteristics-table">
           <tbody>
             <tr className="tabs__table-row">
               <td className="tabs__title">Артикул:</td>
