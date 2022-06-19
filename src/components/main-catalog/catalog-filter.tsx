@@ -1,6 +1,5 @@
 function CatalogFilter(): JSX.Element {
 
-
   return (
     <form className="catalog-filter" data-testid="form-catalog-filter">
       <h2 className="title title--bigger catalog-filter__title">Фильтр</h2>

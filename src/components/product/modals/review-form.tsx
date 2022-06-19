@@ -1,8 +1,9 @@
 import { ChangeEvent, createRef, FormEvent, Fragment, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
 import { ActiveModal } from '../../../settings/active-modal';
 import { ratingNames } from '../../../settings/rating-names';
-import { commentPostAction } from '../../../store/api-actions';
+import { commentPostAction, fetchCommentsByID } from '../../../store/api-actions';
 import { changeActiveModal } from '../../../store/interface-process/interface-process';
 import { getGuitarByID } from '../../../store/selectors';
 import { CommentPostType } from '../../../types/comment-post-type';
@@ -32,6 +33,9 @@ const starsValues = [
 
 function ReviewForm(): JSX.Element {
   const dispatch = useAppDispatch();
+  const {id} = useParams();
+  const currentId = Number(id);
+
   const guitar = useAppSelector(getGuitarByID);
 
   const nameRef = useRef<HTMLInputElement>(null);
@@ -90,6 +94,7 @@ function ReviewForm(): JSX.Element {
     if (checkValidation()) {
       const newComment = createNewComment();
       dispatch(commentPostAction(newComment))
+        .then(() => dispatch(fetchCommentsByID(currentId)))
         .then(() => dispatch(changeActiveModal(ActiveModal.ReviewSuccess)));
     }
   };

@@ -16,7 +16,6 @@ import { loadCommentsByID, loadGuitarByID, loadGuitars, loadGuitarsWithComments}
 
 const setPromiseWaiter = (timer = 300) => new Promise((resolve) => setTimeout(resolve, timer));
 
-
 export const fetchGuitars = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
   state: State,

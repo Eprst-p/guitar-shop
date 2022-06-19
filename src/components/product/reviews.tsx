@@ -26,25 +26,6 @@ function Reviews({comments}: ReviewsProps): JSX.Element {
   const commentsShown = useAppSelector(getCommentsShown);
   const location = useLocation();
 
-  useEffect(() => {
-    dispatch(startCommentsShown([]));
-    updateShownComments(0, next);
-  }, [comments]);
-
-  useEffect(() => {
-    document.addEventListener('scroll', handleScrollDown);
-    return () => document.removeEventListener('scroll', handleScrollDown);
-  }, [comments, commentsShown, next]);
-
-
-  const updateShownComments = (start:number, end:number) => {
-    for (let i=start; i<end; i++) {
-      if (commentsShown.length < comments.length) {
-        dispatch(pushToCommentsShown(sortedComments[i]));
-      }
-    }
-  };
-
   const handleScrollDown = throttle(()=>{
     const height = document.body.offsetHeight;
     const screenHeight = window.innerHeight;
@@ -57,6 +38,25 @@ function Reviews({comments}: ReviewsProps): JSX.Element {
       setNext(next + 1);
     }
   }, 200);
+
+  const updateShownComments = (start:number, end:number) => {
+    for (let i=start; i<end; i++) {
+      if (commentsShown.length < comments.length) {
+        dispatch(pushToCommentsShown(sortedComments[i]));
+      }
+    }
+  };
+
+  //не хочется тут добавлять лишние депендесы, они мешают
+  useEffect(() => {
+    dispatch(startCommentsShown([]));
+    updateShownComments(0, next);
+  }, [comments]);
+
+  useEffect(() => {
+    document.addEventListener('scroll', handleScrollDown);
+    return () => document.removeEventListener('scroll', handleScrollDown);
+  }, [comments, commentsShown, handleScrollDown, next]);
 
   const handleMoreBtnClick = () => {
     updateShownComments(next, next + amountOfCommentsShown);

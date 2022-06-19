@@ -3,7 +3,6 @@ import { ActiveModal } from '../../settings/active-modal';
 import {NameSpace} from '../../settings/name-space';
 import {InterfaceProcess} from '../../types/state';
 
-
 const initialState: InterfaceProcess = {
   activePage: 1,
   commentsShown: [],
@@ -20,6 +19,5 @@ export const interfaceProcess = createSlice({
     changeActiveModal: (state, {payload}) => {state.activeModal = payload;},
   },
 });
-
 
 export const {changePage, startCommentsShown, pushToCommentsShown, changeActiveModal} = interfaceProcess.actions;

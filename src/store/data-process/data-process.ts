@@ -2,7 +2,6 @@ import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace} from '../../settings/name-space';
 import {DataProcess} from '../../types/state';
 
-
 const initialState: DataProcess = {
   guitars: [],
   guitarsWithComments: [],
@@ -27,6 +26,5 @@ export const dataProcess = createSlice({
     loadCommentsByID: (state, {payload}) => {state.commentsByID = payload;},
   },
 });
-
 
 export const {loadGuitars, loadGuitarByID, loadCommentsByID, loadGuitarsWithComments} = dataProcess.actions;

@@ -17,7 +17,6 @@ function PagePagination(): JSX.Element {
     dispatch(changePage(pageNumber));
   };
 
-
   return (
     <div className="pagination page-content__pagination" data-testid="pagination-container">
       <ul className="pagination__list">

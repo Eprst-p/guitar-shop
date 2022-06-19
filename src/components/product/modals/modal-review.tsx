@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
 import { ActiveModal } from '../../../settings/active-modal';
 import { changeActiveModal } from '../../../store/interface-process/interface-process';
@@ -17,18 +17,18 @@ function ModalReview(): JSX.Element {
     fallbackFocus: '.focus-trap-fallback',
   };
 
-  const handleOnEscDown = ({ key }: KeyboardEvent) => {
+  const handleOnEscDown = useCallback(({ key }: KeyboardEvent) => {
     switch (key) {
       case 'Escape':
         dispatch(changeActiveModal(ActiveModal.NoModal));
         break;
     }
-  };
+  }, [dispatch]);
 
   useEffect(() => {
     document.addEventListener('keydown', handleOnEscDown);
     return () => document.removeEventListener('keydown', handleOnEscDown);
-  }, []);
+  }, [handleOnEscDown]);
 
   const body = document.querySelector('body');
 
@@ -39,7 +39,7 @@ function ModalReview(): JSX.Element {
       setActiveTrap(true);
     }
     return () => body?.removeAttribute('style');
-  }, [activeModal]);
+  }, [activeModal, body]);
 
 
   return (

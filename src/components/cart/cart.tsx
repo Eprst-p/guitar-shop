@@ -3,7 +3,6 @@ import BreadCrumbs from '../bread-crumbs/bread-crumbs';
 
 function Cart(): JSX.Element {
 
-
   return (
     <main className="page-content">
       <div className="container">

@@ -19,7 +19,6 @@ function App(): JSX.Element {
     );
   }
 
-
   return (
     <Routes>
       <Route
@@ -49,7 +48,6 @@ function App(): JSX.Element {
       />
     </Routes>
   );
-
 }
 
 export default App;
