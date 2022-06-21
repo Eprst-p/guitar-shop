@@ -10,7 +10,7 @@ function ReviewSuccess(): JSX.Element {
   };
 
   return (
-    <div style={{position: 'relative', width: '550px', height: '410px', marginBottom: '50px'}} data-testid="review-success-container">
+    <div className="review-success-container" data-testid="review-success-container">
       <div className="modal is-active modal--success modal-for-ui-kit">
         <div className="modal__wrapper">
           <div className="modal__overlay" data-close-modal onClick={handleCloseModal} data-testid="overlay"></div>
