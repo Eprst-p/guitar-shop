@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {createMemoryHistory} from 'history';
 import { makeFakeComments, makeFakeGuitarWithComment, makeFakeGuitarsWithComments } from '../../mocks/data-mocks';
-import HistoryRouter from '../history-route/history-route';
+import HistoryRouter from '../history-router/history-router';
 import { AppRoute } from '../../settings/app-routes';
 import Reviews from './reviews';
 import { ActiveModal } from '../../settings/active-modal';

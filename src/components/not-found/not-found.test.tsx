@@ -5,7 +5,7 @@ import {createMemoryHistory} from 'history';
 import { Provider } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import { AppRoute } from '../../settings/app-routes';
-import HistoryRouter from '../history-route/history-route';
+import HistoryRouter from '../history-router/history-router';
 import NotFound from './not-found';
 
 const mockStore = configureMockStore();

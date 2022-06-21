@@ -6,7 +6,7 @@ import {createMemoryHistory} from 'history';
 import { makeFakeComments, makeFakeGuitar, makeFakeGuitarsWithComments } from '../../mocks/data-mocks';
 import { AppRoute } from '../../settings/app-routes';
 import { generatePath } from 'react-router-dom';
-import HistoryRouter from '../history-route/history-route';
+import HistoryRouter from '../history-router/history-router';
 import { ActiveModal } from '../../settings/active-modal';
 import thunk from 'redux-thunk';
 

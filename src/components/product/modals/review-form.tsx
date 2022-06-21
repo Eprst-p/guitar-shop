@@ -105,7 +105,7 @@ function ReviewForm(): JSX.Element {
 
 
   return (
-    <div style={{position: 'relative', width: '550px', height: '610px', marginBottom: '50px'}} data-testid="review-form-container">
+    <div className="review-form-container" data-testid="review-form-container">
       <div className="modal is-active modal--review modal-for-ui-kit">
         <div className="modal__wrapper">
           <div className="modal__overlay" data-close-modal onClick={handleCloseModal} data-testid="overlay"></div>
