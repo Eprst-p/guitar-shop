@@ -55,8 +55,9 @@ describe('Renders review-form-component', () => {
     expect(screen.getByText(/Достоинства/i)).toBeInTheDocument();
     expect(screen.getByText(/Недостатки/i)).toBeInTheDocument();
     expect(screen.getByText(/Комментарий/i)).toBeInTheDocument();
-    expect(screen.queryByText(/Отправить отзыв/i)).not.toBeInTheDocument();
-    expect(screen.getAllByText(/Заполните поле/i)).toHaveLength(5);
+    expect(screen.getByText(/Отправить отзыв/i)).toBeInTheDocument();
+    expect(screen.queryAllByText(/Заполните поле/i)).toHaveLength(0);
+    expect(screen.queryByText(/Поставьте оценку/i)).not.toBeInTheDocument();
     expect(screen.getAllByRole('radio')).toHaveLength(5);
   });
 
@@ -108,16 +109,10 @@ describe('Renders review-form-component', () => {
     expect(screen.getByLabelText(/Комментарий/i)).toHaveValue('It is not a guitar, it is a piano');
   });
 
-  it('should check first star and remove one "Заполните поле" from form', () => {
+  it('should render remove all "Заполните поле" and "Поставье оценку", when filling all fields after error submit', () => {
     render(fakeReviewForm);
 
-    userEvent.click(screen.getAllByRole('radio')[0]);
-    expect(screen.getAllByText(/Заполните поле/i)).toHaveLength(4);
-  });
-
-
-  it('should render "Отправить отзыв" and remove all "Заполните поле, when filling all fields in form"', () => {
-    render(fakeReviewForm);
+    userEvent.click(screen.getByText(/Отправить отзыв/i));
 
     userEvent.type(screen.getByLabelText(/Ваше Имя/i), 'Vasya');
     userEvent.type(screen.getByLabelText(/Достоинства/i), 'Greater good');
@@ -126,8 +121,18 @@ describe('Renders review-form-component', () => {
     userEvent.click(screen.getAllByRole('radio')[0]);
 
     expect(screen.queryAllByText(/Заполните поле/i)).toHaveLength(0);
-    expect(screen.getByText(/Отправить отзыв/i)).toBeInTheDocument();
+    expect(screen.queryByText(/Поставьте оценку/i)).not.toBeInTheDocument();
   });
+
+  it('should render 4 "Заполните поле" and "Поставьте оценку" when submit empty form', () => {
+    render(fakeReviewForm);
+
+    userEvent.click(screen.getByText(/Отправить отзыв/i));
+
+    expect(screen.queryAllByText(/Заполните поле/i)).toHaveLength(4);
+    expect(screen.getByText(/Поставьте оценку/i)).toBeInTheDocument();
+  });
+
 
   it('should dispatch changeActiveModal when submit form by btn "Отправить отзыв" (no api check here)', () => {
     render(fakeReviewForm);

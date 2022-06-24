@@ -1,6 +1,10 @@
 .review-form-container {
   position: 'relative';
-  width: '550px';
-  height: '610px';
-  margin-bottom: '50px';
+  width: 550px;
+  height: 610px;
+  margin-bottom: 50px;
+}
+
+.form-review__warning {
+  height: 15px;
 }

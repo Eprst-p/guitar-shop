@@ -34,8 +34,8 @@ function Reviews({comments}: ReviewsProps): JSX.Element {
     const currentPosition = scrolled + screenHeight;
 
     if (currentPosition >= threshold &&  commentsShown.length < comments.length) {
-      updateShownComments(next, next + 1);
-      setNext(next + 1);
+      updateShownComments(next, next + amountOfCommentsShown);
+      setNext(next + amountOfCommentsShown);
     }
   }, 200);
 
