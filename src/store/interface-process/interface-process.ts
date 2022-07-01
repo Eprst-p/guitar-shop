@@ -7,6 +7,8 @@ const initialState: InterfaceProcess = {
   activePage: 1,
   commentsShown: [],
   activeModal: ActiveModal.NoModal,
+  sortType: undefined,
+  sortOrder: undefined,
 };
 
 export const interfaceProcess = createSlice({
@@ -17,7 +19,9 @@ export const interfaceProcess = createSlice({
     startCommentsShown: (state, {payload}) => {state.commentsShown = payload;},
     pushToCommentsShown : (state, {payload}) => {state.commentsShown.push(payload);},
     changeActiveModal: (state, {payload}) => {state.activeModal = payload;},
+    changeSortType: (state, {payload}) => {state.sortType = payload;},
+    changeSortOrder: (state, {payload}) => {state.sortOrder = payload;},
   },
 });
 
-export const {changePage, startCommentsShown, pushToCommentsShown, changeActiveModal} = interfaceProcess.actions;
+export const {changePage, startCommentsShown, pushToCommentsShown, changeActiveModal, changeSortType, changeSortOrder} = interfaceProcess.actions;

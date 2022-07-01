@@ -1,10 +1,9 @@
-import {loadGuitars, loadGuitarByID, loadCommentsByID, loadGuitarsWithComments, dataProcess} from './data-process';
+import {loadGuitars, loadGuitarByID, loadCommentsByID, dataProcess} from './data-process';
 import { DataProcess } from '../../types/state';
-import { makeFakeComments, makeFakeGuitar, makeFakeGuitars, makeFakeGuitarsWithComments } from '../../mocks/data-mocks';
+import { makeFakeComments, makeFakeGuitar, makeFakeGuitars} from '../../mocks/data-mocks';
 
 const initialState: DataProcess = {
   guitars: [],
-  guitarsWithComments: [],
   guitarByID: undefined,
   commentsByID: [],
   isDataLoaded: false,
@@ -23,11 +22,11 @@ describe('Reducer: data-process', () => {
       .toEqual({...initialState, guitars: mockGuitars, isDataLoaded: true});
   });
 
-  it('should load guitars=with-comments to store and change isDataLoaded to true', () => {
-    const mockGuitarsWithComments = makeFakeGuitarsWithComments;
-    expect(dataProcess.reducer(initialState, loadGuitarsWithComments(mockGuitarsWithComments)))
-      .toEqual({...initialState, guitarsWithComments: mockGuitarsWithComments, isDataLoaded: true});
-  });
+  // it('should load guitars=with-comments to store and change isDataLoaded to true', () => {
+  //   const mockGuitarsWithComments = makeFakeGuitarsWithComments;
+  //   expect(dataProcess.reducer(initialState, loadGuitarsWithComments(mockGuitarsWithComments)))
+  //     .toEqual({...initialState, guitarsWithComments: mockGuitarsWithComments, isDataLoaded: true});
+  // });
 
   it('should load guitar to store', () => {
     const guitar = makeFakeGuitar();

@@ -3,12 +3,12 @@ import thunk, {ThunkDispatch} from 'redux-thunk';
 import MockAdapter from 'axios-mock-adapter';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {createAPI} from '../services/api';
-import { fetchCommentsByID, fetchGuitarByID, fetchGuitars, fetchGuitarsWithComments } from './api-actions';
+import { fetchCommentsByID, fetchGuitarByID, fetchGuitars} from './api-actions';
 import {State} from '../types/state';
-import { loadCommentsByID, loadGuitarByID, loadGuitars, loadGuitarsWithComments } from './data-process/data-process';
+import { loadCommentsByID, loadGuitarByID, loadGuitars } from './data-process/data-process';
 import { datatype } from 'faker';
 import { generatePath } from 'react-router-dom';
-import { makeFakeComments, makeFakeGuitar, makeFakeGuitars, makeFakeGuitarsWithComments } from '../mocks/data-mocks';
+import { makeFakeComments, makeFakeGuitar, makeFakeGuitars } from '../mocks/data-mocks';
 import { ApiRoute } from '../settings/api-route';
 import { redirectToRoute } from './action';
 
@@ -69,14 +69,14 @@ describe('Async actions', () => {
     expect(actions).toContain(loadCommentsByID.toString());
   });
 
-  it('should dispatch loadGuitarsWithComments when GET /guitars/:id?_embed=comments', async () => {
-    const mockGuitarsWithComments = makeFakeGuitarsWithComments;
-    mockAPI
-      .onGet(ApiRoute.GuitarsWithComments)
-      .reply(200, mockGuitarsWithComments);
-    const store = mockStore();
-    await store.dispatch(fetchGuitarsWithComments());
-    const actions = store.getActions().map(({type}) => type);
-    expect(actions).toContain(loadGuitarsWithComments.toString());
-  });
+//   it('should dispatch loadGuitarsWithComments when GET /guitars/:id?_embed=comments', async () => {
+//     const mockGuitarsWithComments = makeFakeGuitarsWithComments;
+//     mockAPI
+//       .onGet(ApiRoute.GuitarsWithComments)
+//       .reply(200, mockGuitarsWithComments);
+//     const store = mockStore();
+//     await store.dispatch(fetchGuitarsWithComments());
+//     const actions = store.getActions().map(({type}) => type);
+//     expect(actions).toContain(loadGuitarsWithComments.toString());
+//   });
 });

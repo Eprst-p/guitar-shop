@@ -2,11 +2,15 @@ import {changePage, startCommentsShown, pushToCommentsShown, changeActiveModal, 
 import { InterfaceProcess } from '../../types/state';
 import { makeFakeComments} from '../../mocks/data-mocks';
 import { ActiveModal } from '../../settings/active-modal';
+import { SortType } from '../../settings/sort-type';
+import { SortOrder } from '../../settings/sort-order';
 
 const initialState: InterfaceProcess = {
   activePage: 1,
   commentsShown: [],
   activeModal: ActiveModal.NoModal,
+  sortType: SortType.Price,
+  sortOrder: SortOrder.Asc,
 };
 
 describe('Reducer: data-process', () => {

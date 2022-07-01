@@ -3,11 +3,11 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { AppRoute } from '../../settings/app-routes';
 import { cardsPerPage } from '../../settings/constants';
 import { changePage } from '../../store/interface-process/interface-process';
-import { getActivePage, getGuitarsWithComments } from '../../store/selectors';
+import { getActivePage, getGuitars } from '../../store/selectors';
 
 function PagePagination(): JSX.Element {
   const dispatch = useAppDispatch();
-  const allGuitars = useAppSelector(getGuitarsWithComments);
+  const allGuitars = useAppSelector(getGuitars);
   const activePage = useAppSelector(getActivePage);
 
   const pagesAmount = Math.ceil(allGuitars.length / cardsPerPage);

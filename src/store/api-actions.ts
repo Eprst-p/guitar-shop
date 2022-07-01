@@ -12,7 +12,7 @@ import { GuitarsWithCommentsType } from '../types/guitar-with-comments-type';
 import { OrderPostType } from '../types/order-post-type';
 import { AppDispatch, State } from '../types/state';
 import { redirectToRoute } from './action';
-import { loadCommentsByID, loadGuitarByID, loadGuitars, loadGuitarsWithComments} from './data-process/data-process';
+import { loadCommentsByID, loadGuitarByID, loadGuitars} from './data-process/data-process';
 
 const setPromiseWaiter = (timer = 300) => new Promise((resolve) => setTimeout(resolve, timer));
 
@@ -32,6 +32,25 @@ export const fetchGuitars = createAsyncThunk<void, undefined, {
     }
   },
 );
+
+export const fetchGuitarsWithQueryParams = createAsyncThunk<void, string, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/guitarsWithParams',
+  async (queryParams, {dispatch, extra: api}) => {
+    try {
+      const {data} = await api.get<GuitarsWithCommentsType>(generatePath(`${ApiRoute.GuitarsWithComments}${queryParams}`));
+      await setPromiseWaiter();
+      dispatch(loadGuitars(data));
+    } catch (error) {
+      errorHandle(error);
+      dispatch(redirectToRoute(AppRoute.NotFound));
+    }
+  },
+);
+
 
 export const fetchGuitarByID = createAsyncThunk<void, number, {
   dispatch: AppDispatch,
@@ -68,22 +87,22 @@ export const fetchCommentsByID = createAsyncThunk<void, number, {
   },
 );
 
-export const fetchGuitarsWithComments = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
-}>(
-  'data/GuitarsEmbed',
-  async (_arg, {dispatch, extra: api}) => {
-    try {
-      const {data} = await api.get<GuitarsWithCommentsType>(ApiRoute.GuitarsWithComments);
-      await setPromiseWaiter(500);
-      dispatch(loadGuitarsWithComments(data));
-    } catch (error) {
-      errorHandle(error);
-    }
-  },
-);
+// export const fetchGuitarsWithComments = createAsyncThunk<void, undefined, {
+//   dispatch: AppDispatch,
+//   state: State,
+//   extra: AxiosInstance
+// }>(
+//   'data/GuitarsEmbed',
+//   async (_arg, {dispatch, extra: api}) => {
+//     try {
+//       const {data} = await api.get<GuitarsWithCommentsType>(ApiRoute.GuitarsWithComments);
+//       await setPromiseWaiter(500);
+//       dispatch(loadGuitarsWithComments(data));
+//     } catch (error) {
+//       errorHandle(error);
+//     }
+//   },
+// );
 
 export const commentPostAction = createAsyncThunk<void, CommentPostType, {
   dispatch: AppDispatch,
@@ -132,4 +151,3 @@ export const orderPostAction = createAsyncThunk<void, OrderPostType, {
     }
   },
 );
-

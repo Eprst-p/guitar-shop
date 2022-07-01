@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
-import { getGuitarsForPage } from '../../store/selectors';
+import { getGuitarsForPage, getSortOrder, getSortType } from '../../store/selectors';
 import CatalogFilter from './catalog-filter';
 import CatalogSort from './catalog-sort';
 import PagePagination from './page-pagination';
@@ -8,6 +8,10 @@ import { useParams } from 'react-router-dom';
 import { changePage } from '../../store/interface-process/interface-process';
 import { PageTitle } from '../../settings/page-title';
 import BreadCrumbs from '../bread-crumbs/bread-crumbs';
+import { SortType } from '../../settings/sort-type';
+import { fetchGuitarsWithQueryParams } from '../../store/api-actions';
+import { SortOrder } from '../../settings/sort-order';
+import { useEffect } from 'react';
 
 function MainCatalog(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -15,6 +19,38 @@ function MainCatalog(): JSX.Element {
   if (pageNumber) {
     dispatch(changePage(+pageNumber));
   }
+  const sortType = useAppSelector(getSortType);
+  const sortOrder = useAppSelector(getSortOrder);
+
+  let queryParams = '';
+  const queryParamsConstructor = () => {
+    if (sortType) {
+      switch (sortType) {
+        case SortType.Price:
+          queryParams += '&_sort=price';
+          break;
+        case SortType.Rating:
+          queryParams += '&_sort=rating';
+          break;
+      }
+    }
+    if (sortOrder && sortType) {
+      switch (sortOrder) {
+        case SortOrder.Asc:
+          queryParams += '&_order=asc';
+          break;
+        case SortOrder.Desc:
+          queryParams += '&_order=desc';
+          break;
+      }
+    }
+  };
+
+  queryParamsConstructor();
+
+  useEffect(() => {
+    dispatch(fetchGuitarsWithQueryParams(queryParams));
+  }, [dispatch, queryParams]);
 
   const guitarsForPage = useAppSelector(getGuitarsForPage);
 
