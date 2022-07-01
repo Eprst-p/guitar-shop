@@ -43,6 +43,8 @@ export const fetchGuitarsWithQueryParams = createAsyncThunk<void, string, {
     try {
       const {data} = await api.get<GuitarsWithCommentsType>(generatePath(`${ApiRoute.GuitarsWithComments}${queryParams}`));
       await setPromiseWaiter();
+      // eslint-disable-next-line no-console
+      console.log(data);
       dispatch(loadGuitars(data));
     } catch (error) {
       errorHandle(error);

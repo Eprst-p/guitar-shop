@@ -19,10 +19,15 @@ export type InterfaceProcess = {
   activeModal: ActiveModal;
   sortType: SortType | undefined;
   sortOrder: SortOrder | undefined;
+  acousticFilter: boolean;
+  electricFilter: boolean;
+  ukuleleFilter: boolean;
+  fourStringsFilter: boolean;
+  sixStringsFilter: boolean;
+  sevenStringsFilter: boolean;
+  twelveStringsFilter: boolean;
 };
 
 export type State = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;
-
-

@@ -11,6 +11,13 @@ const initialState: InterfaceProcess = {
   activeModal: ActiveModal.NoModal,
   sortType: SortType.Price,
   sortOrder: SortOrder.Asc,
+  acousticFilter: false,
+  electricFilter: false,
+  ukuleleFilter: false,
+  fourStringsFilter: false,
+  sixStringsFilter: false,
+  sevenStringsFilter: false,
+  twelveStringsFilter: false,
 };
 
 describe('Reducer: data-process', () => {

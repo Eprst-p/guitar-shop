@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
-import { getGuitarsForPage, getSortOrder, getSortType } from '../../store/selectors';
+import { getAcousticFilter, getElectricFilter, getFourStringsFilter, getGuitarsForPage, getSevenStringsFilter, getSixStringsFilter, getSortOrder, getSortType, getTwelveStringsFilter, getUkuleleFilter } from '../../store/selectors';
 import CatalogFilter from './catalog-filter';
 import CatalogSort from './catalog-sort';
 import PagePagination from './page-pagination';
@@ -21,9 +21,18 @@ function MainCatalog(): JSX.Element {
   }
   const sortType = useAppSelector(getSortType);
   const sortOrder = useAppSelector(getSortOrder);
+  const acousticFilter = useAppSelector(getAcousticFilter);
+  const electricFilter = useAppSelector(getElectricFilter);
+  const ukuleleFilter = useAppSelector(getUkuleleFilter);
+  const fourStringsFilter = useAppSelector(getFourStringsFilter);
+  const sixStringsFilter = useAppSelector(getSixStringsFilter);
+  const sevenStringsFilter = useAppSelector(getSevenStringsFilter);
+  const twelveStringsFilter = useAppSelector(getTwelveStringsFilter);
+
 
   let queryParams = '';
   const queryParamsConstructor = () => {
+    queryParams = '';
     if (sortType) {
       switch (sortType) {
         case SortType.Price:
@@ -43,6 +52,27 @@ function MainCatalog(): JSX.Element {
           queryParams += '&_order=desc';
           break;
       }
+    }
+    if (acousticFilter) {
+      queryParams += '&type=acoustic';
+    }
+    if (electricFilter) {
+      queryParams += '&type=electric';
+    }
+    if (ukuleleFilter) {
+      queryParams += '&type=ukulele';
+    }
+    if (fourStringsFilter) {
+      queryParams += '&stringCount=4';
+    }
+    if (sixStringsFilter) {
+      queryParams += '&stringCount=6';
+    }
+    if (sevenStringsFilter) {
+      queryParams += '&stringCount=7';
+    }
+    if (twelveStringsFilter) {
+      queryParams += '&stringCount=12';
     }
   };
 

@@ -9,6 +9,13 @@ const initialState: InterfaceProcess = {
   activeModal: ActiveModal.NoModal,
   sortType: undefined,
   sortOrder: undefined,
+  acousticFilter: false,
+  electricFilter: false,
+  ukuleleFilter: false,
+  fourStringsFilter: false,
+  sixStringsFilter: false,
+  sevenStringsFilter: false,
+  twelveStringsFilter: false,
 };
 
 export const interfaceProcess = createSlice({
@@ -17,11 +24,27 @@ export const interfaceProcess = createSlice({
   reducers: {
     changePage: (state, {payload}) => {state.activePage = payload;},
     startCommentsShown: (state, {payload}) => {state.commentsShown = payload;},
-    pushToCommentsShown : (state, {payload}) => {state.commentsShown.push(payload);},
+    pushToCommentsShown: (state, {payload}) => {state.commentsShown.push(payload);},
     changeActiveModal: (state, {payload}) => {state.activeModal = payload;},
     changeSortType: (state, {payload}) => {state.sortType = payload;},
     changeSortOrder: (state, {payload}) => {state.sortOrder = payload;},
+    changeAcousticFilter: (state) => {state.acousticFilter = !state.acousticFilter;},
+    changeElectricFilter: (state) => {state.electricFilter = !state.electricFilter;},
+    changeUkuleleFilter: (state) => {state.ukuleleFilter = !state.ukuleleFilter;},
+    changeFourStringsFilter: (state) => {state.fourStringsFilter = !state.fourStringsFilter;},
+    changeSixStringsFilter: (state) => {state.sixStringsFilter = !state.sixStringsFilter;},
+    changeSevenStringsFilter: (state) => {state.sevenStringsFilter = !state.sevenStringsFilter;},
+    changeTwelveStringsFilter: (state) => {state.twelveStringsFilter = !state.twelveStringsFilter;},
+    resetFilters: (state) => {
+      state.acousticFilter = false;
+      state.electricFilter = false;
+      state.ukuleleFilter = false;
+      state.fourStringsFilter = false;
+      state.sixStringsFilter = false;
+      state.sevenStringsFilter = false;
+      state.twelveStringsFilter = false;
+    },
   },
 });
 
-export const {changePage, startCommentsShown, pushToCommentsShown, changeActiveModal, changeSortType, changeSortOrder} = interfaceProcess.actions;
+export const {changePage, startCommentsShown, pushToCommentsShown, changeActiveModal, changeSortType, changeSortOrder, changeAcousticFilter, changeElectricFilter, changeUkuleleFilter, changeFourStringsFilter, changeSixStringsFilter, changeSevenStringsFilter, changeTwelveStringsFilter, resetFilters} = interfaceProcess.actions;
