@@ -18,6 +18,8 @@ const initialState: InterfaceProcess = {
   sixStringsFilter: false,
   sevenStringsFilter: false,
   twelveStringsFilter: false,
+  minPriceFilter: undefined,
+  maxPriceFilter: undefined,
 };
 
 describe('Reducer: data-process', () => {

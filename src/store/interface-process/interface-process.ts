@@ -16,6 +16,8 @@ const initialState: InterfaceProcess = {
   sixStringsFilter: false,
   sevenStringsFilter: false,
   twelveStringsFilter: false,
+  minPriceFilter: undefined,
+  maxPriceFilter: undefined,
 };
 
 export const interfaceProcess = createSlice({
@@ -35,6 +37,8 @@ export const interfaceProcess = createSlice({
     changeSixStringsFilter: (state) => {state.sixStringsFilter = !state.sixStringsFilter;},
     changeSevenStringsFilter: (state) => {state.sevenStringsFilter = !state.sevenStringsFilter;},
     changeTwelveStringsFilter: (state) => {state.twelveStringsFilter = !state.twelveStringsFilter;},
+    changeMinPriceFilter: (state, {payload}) => {state.minPriceFilter = payload;},
+    changeMaxPriceFilter: (state, {payload}) => {state.maxPriceFilter = payload;},
     resetFilters: (state) => {
       state.acousticFilter = false;
       state.electricFilter = false;
@@ -43,8 +47,10 @@ export const interfaceProcess = createSlice({
       state.sixStringsFilter = false;
       state.sevenStringsFilter = false;
       state.twelveStringsFilter = false;
+      state.minPriceFilter = undefined;
+      state.maxPriceFilter = undefined;
     },
   },
 });
 
-export const {changePage, startCommentsShown, pushToCommentsShown, changeActiveModal, changeSortType, changeSortOrder, changeAcousticFilter, changeElectricFilter, changeUkuleleFilter, changeFourStringsFilter, changeSixStringsFilter, changeSevenStringsFilter, changeTwelveStringsFilter, resetFilters} = interfaceProcess.actions;
+export const {changePage, startCommentsShown, pushToCommentsShown, changeActiveModal, changeSortType, changeSortOrder, changeAcousticFilter, changeElectricFilter, changeUkuleleFilter, changeFourStringsFilter, changeSixStringsFilter, changeSevenStringsFilter, changeTwelveStringsFilter, changeMinPriceFilter, changeMaxPriceFilter, resetFilters} = interfaceProcess.actions;

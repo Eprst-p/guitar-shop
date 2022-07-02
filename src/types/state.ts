@@ -26,6 +26,8 @@ export type InterfaceProcess = {
   sixStringsFilter: boolean;
   sevenStringsFilter: boolean;
   twelveStringsFilter: boolean;
+  minPriceFilter: number | undefined;
+  maxPriceFilter: number | undefined;
 };
 
 export type State = ReturnType<typeof store.getState>;

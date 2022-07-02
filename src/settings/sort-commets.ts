@@ -1,4 +1,4 @@
-import {CommentType} from '../../types/comment-type';
+import {CommentType} from '../types/comment-type';
 
 const sortByNewerDate = (first:CommentType, second:CommentType) => {
   const firstDate = new Date(first.createAt);

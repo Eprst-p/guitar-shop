@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
-import { getAcousticFilter, getElectricFilter, getFourStringsFilter, getGuitarsForPage, getSevenStringsFilter, getSixStringsFilter, getSortOrder, getSortType, getTwelveStringsFilter, getUkuleleFilter } from '../../store/selectors';
+import { getAcousticFilter, getElectricFilter, getFourStringsFilter, getGuitarsForPage, getMaxPriceFilter, getMinPriceFilter, getSevenStringsFilter, getSixStringsFilter, getSortOrder, getSortType, getTwelveStringsFilter, getUkuleleFilter } from '../../store/selectors';
 import CatalogFilter from './catalog-filter';
 import CatalogSort from './catalog-sort';
 import PagePagination from './page-pagination';
@@ -28,6 +28,8 @@ function MainCatalog(): JSX.Element {
   const sixStringsFilter = useAppSelector(getSixStringsFilter);
   const sevenStringsFilter = useAppSelector(getSevenStringsFilter);
   const twelveStringsFilter = useAppSelector(getTwelveStringsFilter);
+  const minPriceFilter = useAppSelector(getMinPriceFilter);
+  const maxPriceFilter = useAppSelector(getMaxPriceFilter);
 
 
   let queryParams = '';
@@ -73,6 +75,12 @@ function MainCatalog(): JSX.Element {
     }
     if (twelveStringsFilter) {
       queryParams += '&stringCount=12';
+    }
+    if (minPriceFilter) {
+      queryParams += `&price_gte=${minPriceFilter}`;
+    }
+    if (maxPriceFilter) {
+      queryParams += `&price_lte=${maxPriceFilter}`;
     }
   };
 

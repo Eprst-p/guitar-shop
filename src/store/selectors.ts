@@ -1,6 +1,7 @@
 import {State} from '../types/state';
 import {createSelector} from 'reselect';
 import { cardsPerPage } from '../settings/constants';
+import { sortByPrice } from '../settings/sort-by-price';
 
 export const getGuitars = (state:State) => state.DATA.guitars;
 export const getGuitarByID = (state:State) => state.DATA.guitarByID;
@@ -19,6 +20,22 @@ export const getFourStringsFilter = (state:State) => state.INTERFACE.fourStrings
 export const getSixStringsFilter = (state:State) => state.INTERFACE.sixStringsFilter;
 export const getSevenStringsFilter = (state:State) => state.INTERFACE.sevenStringsFilter;
 export const getTwelveStringsFilter = (state:State) => state.INTERFACE.twelveStringsFilter;
-
+export const getMinPriceFilter = (state:State) => state.INTERFACE.minPriceFilter;
+export const getMaxPriceFilter = (state:State) => state.INTERFACE.maxPriceFilter;
 
 export const getGuitarsForPage = createSelector(getGuitars, getActivePage, (allGuitars, activePage) => allGuitars.slice((activePage - 1)*cardsPerPage, cardsPerPage*activePage));
+export const getMinPrice = createSelector(getGuitars, (guitars) => {
+  const copiedGuitars = guitars.slice().sort(sortByPrice);
+  if (copiedGuitars.length === 0) {
+    return 0;
+  }
+  return copiedGuitars[0].price;
+});
+export const getMaxPrice = createSelector(getGuitars, (guitars) => {
+  const copiedGuitars = guitars.slice().sort(sortByPrice);
+  if (copiedGuitars.length === 0) {
+    return 0;
+  }
+  return copiedGuitars[copiedGuitars.length-1].price;
+});
+

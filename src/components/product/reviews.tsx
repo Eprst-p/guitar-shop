@@ -6,7 +6,7 @@ import { changeActiveModal, pushToCommentsShown, startCommentsShown } from '../.
 import { getActiveModal, getCommentsShown } from '../../store/selectors';
 import { CommentsType } from '../../types/comment-type';
 import Review from './review';
-import { sortByNewerDate } from './sort-commets';
+import { sortByNewerDate } from '../../settings/sort-commets';
 import { HashLink as Link } from 'react-router-hash-link';
 import ModalReview from './modals/modal-review';
 import { ActiveModal } from '../../settings/active-modal';

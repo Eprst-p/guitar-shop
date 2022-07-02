@@ -1,11 +1,19 @@
+import { useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { guitarTypeNames } from '../../settings/guitar-type-names';
+import { PriceField } from '../../settings/price-field';
 import { StringsCount } from '../../settings/strings-count';
-import { changeAcousticFilter, changeElectricFilter, changeFourStringsFilter, changeSevenStringsFilter, changeSixStringsFilter, changeTwelveStringsFilter, changeUkuleleFilter, resetFilters} from '../../store/interface-process/interface-process';
-import { getAcousticFilter, getElectricFilter, getFourStringsFilter, getSevenStringsFilter, getSixStringsFilter,getTwelveStringsFilter, getUkuleleFilter } from '../../store/selectors';
+import { changeAcousticFilter, changeElectricFilter, changeFourStringsFilter, changeMaxPriceFilter, changeMinPriceFilter, changeSevenStringsFilter, changeSixStringsFilter, changeTwelveStringsFilter, changeUkuleleFilter, resetFilters} from '../../store/interface-process/interface-process';
+import { getAcousticFilter, getElectricFilter, getFourStringsFilter, getMaxPrice, getMinPrice, getSevenStringsFilter, getSixStringsFilter,getTwelveStringsFilter, getUkuleleFilter } from '../../store/selectors';
 
 function CatalogFilter(): JSX.Element {
   const dispatch = useAppDispatch();
+  const minPriceField = useRef<HTMLInputElement>(null);
+  const maxPriceField = useRef<HTMLInputElement>(null);
+
+  const minPrice = useAppSelector(getMinPrice);
+  const maxPrice = useAppSelector(getMaxPrice);
+
   const acousticFilter = useAppSelector(getAcousticFilter);
   const electricFilter = useAppSelector(getElectricFilter);
   const ukuleleFilter = useAppSelector(getUkuleleFilter);
@@ -13,7 +21,6 @@ function CatalogFilter(): JSX.Element {
   const sixStringsFilter = useAppSelector(getSixStringsFilter);
   const sevenStringsFilter = useAppSelector(getSevenStringsFilter);
   const twelveStringsFilter = useAppSelector(getTwelveStringsFilter);
-
 
   const handleGuitarFilterChange = (guitarType: string) => {
     switch (guitarType) {
@@ -50,6 +57,46 @@ function CatalogFilter(): JSX.Element {
     dispatch(resetFilters());
   };
 
+  const handlePriceFieldBlur = (priceField:PriceField) => {
+    if(minPriceField.current && maxPriceField.current) {
+      switch (priceField) {
+        case PriceField.Min:
+          if (minPriceField.current.value === '') {
+            dispatch(changeMinPriceFilter(undefined));
+            break;
+          }
+          if (+minPriceField.current.value < minPrice) {
+            minPriceField.current.value = `${minPrice}`;
+          }
+          if (+minPriceField.current.value > maxPrice) {
+            minPriceField.current.value = `${maxPrice}`;
+          }
+          dispatch(changeMinPriceFilter(+minPriceField.current.value));
+          break;
+        case PriceField.Max:
+          if (maxPriceField.current.value === '') {
+            dispatch(changeMaxPriceFilter(undefined));
+            break;
+          }
+          if (+maxPriceField.current.value > maxPrice) {
+            maxPriceField.current.value = `${maxPrice}`;
+          }
+          if (+maxPriceField.current.value < minPrice) {
+            maxPriceField.current.value = `${minPrice}`;
+          }
+          dispatch(changeMaxPriceFilter(+maxPriceField.current.value));
+          break;
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (minPriceField.current && +minPriceField.current.value !== 0 && +minPriceField.current.value < minPrice) {
+      minPriceField.current.value = `${minPrice}`;
+    }
+  }, [minPrice]);
+
+
   return (
     <form className="catalog-filter" data-testid="form-catalog-filter">
       <h2 className="title title--bigger catalog-filter__title">Фильтр</h2>
@@ -58,11 +105,25 @@ function CatalogFilter(): JSX.Element {
         <div className="catalog-filter__price-range">
           <div className="form-input">
             <label className="visually-hidden">Минимальная цена</label>
-            <input type="number" placeholder="1 000" id="priceMin" name="от" />
+            <input
+              type="number"
+              placeholder={`${minPrice}`}
+              id="priceMin"
+              name="от"
+              onBlur={()=>handlePriceFieldBlur(PriceField.Min)}
+              ref={minPriceField}
+            />
           </div>
           <div className="form-input">
             <label className="visually-hidden">Максимальная цена</label>
-            <input type="number" placeholder="30 000" id="priceMax" name="до" />
+            <input
+              type="number"
+              placeholder={`${maxPrice}`}
+              id="priceMax"
+              name="до"
+              onBlur={()=>handlePriceFieldBlur(PriceField.Max)}
+              ref={maxPriceField}
+            />
           </div>
         </div>
       </fieldset>
