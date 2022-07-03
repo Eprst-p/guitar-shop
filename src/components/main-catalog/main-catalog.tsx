@@ -4,7 +4,7 @@ import CatalogFilter from './catalog-filter';
 import CatalogSort from './catalog-sort';
 import PagePagination from './page-pagination';
 import ProductCard from './product-card';
-import { useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { changePage } from '../../store/interface-process/interface-process';
 import { PageTitle } from '../../settings/page-title';
 import BreadCrumbs from '../bread-crumbs/bread-crumbs';
@@ -15,6 +15,8 @@ import { useEffect } from 'react';
 
 function MainCatalog(): JSX.Element {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
   const {pageNumber} = useParams();
   if (pageNumber) {
     dispatch(changePage(+pageNumber));
@@ -30,7 +32,6 @@ function MainCatalog(): JSX.Element {
   const twelveStringsFilter = useAppSelector(getTwelveStringsFilter);
   const minPriceFilter = useAppSelector(getMinPriceFilter);
   const maxPriceFilter = useAppSelector(getMaxPriceFilter);
-
 
   let queryParams = '';
   const queryParamsConstructor = () => {
@@ -87,8 +88,9 @@ function MainCatalog(): JSX.Element {
   queryParamsConstructor();
 
   useEffect(() => {
+    navigate(`${location.pathname}?${queryParams.slice(1)}`);
     dispatch(fetchGuitarsWithQueryParams(queryParams));
-  }, [dispatch, queryParams]);
+  }, [dispatch, location.pathname, navigate, queryParams]);
 
   const guitarsForPage = useAppSelector(getGuitarsForPage);
 

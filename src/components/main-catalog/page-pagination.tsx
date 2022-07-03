@@ -1,4 +1,4 @@
-import { generatePath, Link } from 'react-router-dom';
+import { generatePath, Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { AppRoute } from '../../settings/app-routes';
 import { cardsPerPage } from '../../settings/constants';
@@ -7,11 +7,16 @@ import { getActivePage, getGuitars } from '../../store/selectors';
 
 function PagePagination(): JSX.Element {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const allGuitars = useAppSelector(getGuitars);
   const activePage = useAppSelector(getActivePage);
 
   const pagesAmount = Math.ceil(allGuitars.length / cardsPerPage);
   const pagesNumbers = Array.from({length: pagesAmount}, (v, i) => i+1);
+
+  if (activePage > pagesAmount) {
+    navigate(generatePath(AppRoute.CatalogPage, {pageNumber: '1'}));
+  }
 
   const handlePageClick = (pageNumber: number) => {
     dispatch(changePage(pageNumber));
