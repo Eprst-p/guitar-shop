@@ -51,6 +51,7 @@ function CatalogSort(): JSX.Element {
           className={`${chosenSortType === SortType.Price ? 'catalog-sort__type-button--active' :  ''} catalog-sort__type-button`}
           aria-label="по цене"
           onClick={() => handleSortTypeBtnClick(SortType.Price)}
+          data-testid="sort-by-price"
         >
           по цене
         </button>
@@ -58,6 +59,7 @@ function CatalogSort(): JSX.Element {
           className={`${chosenSortType === SortType.Rating ? 'catalog-sort__type-button--active' :  ''} catalog-sort__type-button`}
           aria-label="по популярности"
           onClick={() => handleSortTypeBtnClick(SortType.Rating)}
+          data-testid="sort-by-rating"
         >
           по популярности
         </button>
@@ -67,12 +69,14 @@ function CatalogSort(): JSX.Element {
           className={`${chosenSortOrder === SortOrder.Asc ? 'catalog-sort__order-button--active' :  ''} catalog-sort__order-button catalog-sort__order-button--up`}
           aria-label="По возрастанию"
           onClick={() => handleSortOrderBtnCLick(SortOrder.Asc)}
+          data-testid="sort-by-asc-order"
         >
         </button>
         <button
           className={`${chosenSortOrder === SortOrder.Desc ? 'catalog-sort__order-button--active' :  ''} catalog-sort__order-button catalog-sort__order-button--down`}
           aria-label="По убыванию"
           onClick={() => handleSortOrderBtnCLick(SortOrder.Desc)}
+          data-testid="sort-by-desc-order"
         >
         </button>
       </div>

@@ -20,8 +20,9 @@ const history = createMemoryHistory();
 const store = mockStore({
   DATA: {
     isDataLoaded: true,
-    guitarsWithComments: mockGuitars,
+    guitars: mockGuitars,
     commentsByID: mockComments,
+    searchedGuitars: [],
   },
   INTERFACE: {
     activePage: 1,

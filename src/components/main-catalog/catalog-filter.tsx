@@ -112,6 +112,7 @@ function CatalogFilter(): JSX.Element {
               name="от"
               onBlur={()=>handlePriceFieldBlur(PriceField.Min)}
               ref={minPriceField}
+              data-testid="min-price"
             />
           </div>
           <div className="form-input">
@@ -123,6 +124,7 @@ function CatalogFilter(): JSX.Element {
               name="до"
               onBlur={()=>handlePriceFieldBlur(PriceField.Max)}
               ref={maxPriceField}
+              data-testid="max-price"
             />
           </div>
         </div>
@@ -137,6 +139,7 @@ function CatalogFilter(): JSX.Element {
             name="acoustic"
             onChange={() => handleGuitarFilterChange(guitarTypeNames.acoustic)}
             checked={acousticFilter}
+            data-testid="acoustic"
           />
           <label htmlFor="acoustic">Акустические гитары</label>
         </div>
@@ -148,6 +151,7 @@ function CatalogFilter(): JSX.Element {
             name="electric"
             onChange={() => handleGuitarFilterChange(guitarTypeNames.electric)}
             checked={electricFilter}
+            data-testid="electric"
           />
           <label htmlFor="electric">Электрогитары</label>
         </div>
@@ -159,6 +163,7 @@ function CatalogFilter(): JSX.Element {
             name="ukulele"
             onChange={() => handleGuitarFilterChange(guitarTypeNames.ukulele)}
             checked={ukuleleFilter}
+            data-testid="ukulele"
           />
           <label htmlFor="ukulele">Укулеле</label>
         </div>
@@ -174,6 +179,7 @@ function CatalogFilter(): JSX.Element {
             onChange={() => handleStringsFilterChange(StringsCount.Four)}
             disabled={acousticFilter && (!ukuleleFilter && !electricFilter)}
             checked={fourStringsFilter}
+            data-testid="4-strings"
           />
           <label htmlFor="4-strings">4</label>
         </div>
@@ -186,6 +192,7 @@ function CatalogFilter(): JSX.Element {
             onChange={() => handleStringsFilterChange(StringsCount.Six)}
             disabled={ukuleleFilter && (!acousticFilter && !electricFilter)}
             checked={sixStringsFilter}
+            data-testid="6-strings"
           />
           <label htmlFor="6-strings">6</label>
         </div>
@@ -198,6 +205,7 @@ function CatalogFilter(): JSX.Element {
             onChange={() => handleStringsFilterChange(StringsCount.Seven)}
             disabled={ukuleleFilter && (!acousticFilter && !electricFilter)}
             checked={sevenStringsFilter}
+            data-testid="7-strings"
           />
           <label htmlFor="7-strings">7</label>
         </div>
@@ -210,11 +218,12 @@ function CatalogFilter(): JSX.Element {
             onChange={() => handleStringsFilterChange(StringsCount.Twelve)}
             disabled={(electricFilter || ukuleleFilter) && !acousticFilter}
             checked={twelveStringsFilter}
+            data-testid="12-strings"
           />
           <label htmlFor="12-strings">12</label>
         </div>
       </fieldset>
-      <button className="catalog-filter__reset-btn button button--black-border button--medium" type="reset" onClick={handleClearBtnClick}>Очистить</button>
+      <button className="catalog-filter__reset-btn button button--black-border button--medium" type="reset" onClick={handleClearBtnClick} data-testid="clear-btn">Очистить</button>
     </form>
   );
 }

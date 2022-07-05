@@ -21,7 +21,7 @@ const guitarCard = makeFakeGuitarWithComment();
 const store = mockStore({
   DATA: {
     isDataLoaded: true,
-    guitarsWithComments: mockGuitars,
+    guitars: mockGuitars,
   },
   INTERFACE: {
     activePage: 1,

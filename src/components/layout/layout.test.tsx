@@ -19,7 +19,8 @@ describe('Renders layout-component', () => {
     const store = mockStore({
       DATA: {
         isDataLoaded: true,
-        guitarsWithComments: mockGuitars,
+        guitars: mockGuitars,
+        searchedGuitars: [],
       },
       INTERFACE: {
         activePage: 1,
@@ -44,7 +45,8 @@ describe('Renders layout-component', () => {
     const store = mockStore({
       DATA: {
         isDataLoaded: true,
-        guitarsWithComments: mockGuitars,
+        guitars: mockGuitars,
+        searchedGuitars: [],
       },
       INTERFACE: {
         activePage: 1,
@@ -69,7 +71,8 @@ describe('Renders layout-component', () => {
     const store = mockStore({
       DATA: {
         isDataLoaded: true,
-        guitarsWithComments: mockGuitars,
+        guitars: mockGuitars,
+        searchedGuitars: [],
       },
       INTERFACE: {
         activePage: 1,

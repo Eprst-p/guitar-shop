@@ -22,7 +22,7 @@ history.push(generatePath(AppRoute.Product, {id: `${mockGuitar.id}`}));
 const store = mockStore({
   DATA: {
     isDataLoaded: true,
-    guitarsWithComments: mockGuitars,
+    guitars: mockGuitars,
     commentsByID: mockComments,
   },
   INTERFACE: {
@@ -66,7 +66,7 @@ describe('Renders reviews-component', () => {
     const anotherStore = mockStore({
       DATA: {
         isDataLoaded: true,
-        guitarsWithComments: mockGuitars,
+        guitars: mockGuitars,
         commentsByID: mockComments,
       },
       INTERFACE: {

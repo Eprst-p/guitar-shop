@@ -10,8 +10,6 @@ import { fetchGuitarsWithQueryParams } from './store/api-actions';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-//store.dispatch(fetchGuitarsWithComments());
-
 const queryParams = '';
 store.dispatch(fetchGuitarsWithQueryParams(queryParams));
 

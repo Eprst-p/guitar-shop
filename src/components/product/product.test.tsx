@@ -22,7 +22,7 @@ history.push(generatePath(AppRoute.Product, {id: `${mockGuitar.id}`}));
 const store = mockStore({
   DATA: {
     isDataLoaded: true,
-    guitarsWithComments: mockGuitars,
+    guitars: mockGuitars,
     guitarByID: mockGuitar,
     commentsByID: mockComments,
   },

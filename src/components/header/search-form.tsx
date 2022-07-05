@@ -22,7 +22,7 @@ function SearchForm(): JSX.Element {
     }
   };
 
-  const handkeSearchFieldOnBlur = () => {
+  const handleSearchFieldOnBlur = () => {
     if (searchField.current?.value === '') {
       dispatch(loadSearchedGuitars([]));
     }
@@ -36,7 +36,7 @@ function SearchForm(): JSX.Element {
   };
 
   return (
-    <div className="form-search">
+    <div className="form-search"  data-testid="search-container">
       <form className="form-search__form" id="form-search">
         <button className="form-search__submit" type="submit">
           <svg className="form-search__icon" width="14" height="15" aria-hidden="true">
@@ -50,16 +50,17 @@ function SearchForm(): JSX.Element {
           autoComplete="off"
           placeholder="что вы ищите?"
           onInput={handleSearchFieldOnInput}
-          onBlur={handkeSearchFieldOnBlur}
+          onBlur={handleSearchFieldOnBlur}
           ref={searchField}
+          data-testid="search-field"
         />
         <label className="visually-hidden" htmlFor="search">Поиск</label>
       </form>
-      <ul className={`form-search__select-list ${searchedGuitars.length === 0 ? 'hidden' : 'list-opened'}`}>
+      <ul className={`form-search__select-list ${searchedGuitars.length === 0 ? 'hidden' : 'list-opened'}`} data-testid="search-item-list">
         {
           searchedGuitars.map((guitar) =>
             (
-              <li className="form-search__select-item" tabIndex={1} key={guitar.id}>
+              <li className="form-search__select-item" tabIndex={1} key={guitar.id} data-testid="search-item">
                 <Link
                   className="form-search__select-item"
                   tabIndex={0}
@@ -72,7 +73,7 @@ function SearchForm(): JSX.Element {
           )
         }
       </ul>
-      <button className="form-search__reset" type="reset" form="form-search" onClick={handleOnCancelSearchBtnClick}>
+      <button className="form-search__reset" type="reset" form="form-search" onClick={handleOnCancelSearchBtnClick} data-testid="cancel-btn">
         <svg className="form-search__icon" width="14" height="15" aria-hidden="true">
           <use xlinkHref="#icon-close"></use>
         </svg><span className="visually-hidden">Сбросить поиск</span>

@@ -57,7 +57,7 @@ export const fetchSearchedGuitars = createAsyncThunk<void, string, {
   state: State,
   extra: AxiosInstance
 }>(
-  'data/guitarsWithParams',
+  'data/searchedGuitars',
   async (searchParams, {dispatch, extra: api}) => {
     try {
       const {data} = await api.get<GuitarsType>(generatePath(`${ApiRoute.Guitars}${searchParams}`));
@@ -104,23 +104,6 @@ export const fetchCommentsByID = createAsyncThunk<void, number, {
     }
   },
 );
-
-// export const fetchGuitarsWithComments = createAsyncThunk<void, undefined, {
-//   dispatch: AppDispatch,
-//   state: State,
-//   extra: AxiosInstance
-// }>(
-//   'data/GuitarsEmbed',
-//   async (_arg, {dispatch, extra: api}) => {
-//     try {
-//       const {data} = await api.get<GuitarsWithCommentsType>(ApiRoute.GuitarsWithComments);
-//       await setPromiseWaiter(500);
-//       dispatch(loadGuitarsWithComments(data));
-//     } catch (error) {
-//       errorHandle(error);
-//     }
-//   },
-// );
 
 export const commentPostAction = createAsyncThunk<void, CommentPostType, {
   dispatch: AppDispatch,

@@ -17,7 +17,7 @@ const mockGuitars = makeFakeGuitarsWithComments;
 const store = (activePageNumber:number) => mockStore({
   DATA: {
     isDataLoaded: true,
-    guitarsWithComments: mockGuitars,
+    guitars: mockGuitars,
   },
   INTERFACE: {
     activePage: activePageNumber,
@@ -77,7 +77,7 @@ describe('Renders page-pagination-component', () => {
     const anotherStore = mockStore({
       DATA: {
         isDataLoaded: true,
-        guitarsWithComments: mockGuitars,
+        guitars: mockGuitars,
       },
       INTERFACE: {
         activePage: 1,
@@ -103,7 +103,7 @@ describe('Renders page-pagination-component', () => {
     const anotherStore = mockStore({
       DATA: {
         isDataLoaded: true,
-        guitarsWithComments: mockGuitars,
+        guitars: mockGuitars,
       },
       INTERFACE: {
         activePage: 2,
@@ -129,7 +129,7 @@ describe('Renders page-pagination-component', () => {
     const anotherStore = mockStore({
       DATA: {
         isDataLoaded: true,
-        guitarsWithComments: mockGuitars,
+        guitars: mockGuitars,
       },
       INTERFACE: {
         activePage: 1,

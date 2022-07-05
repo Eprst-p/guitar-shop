@@ -35,6 +35,54 @@ describe('Async actions', () => {
     expect(actions).toContain(loadGuitars.toString());
   });
 
+  it('should dispatch loadGuitars when GET /guitars?_embed=comments without params', async () => {
+    const mockGuitars = makeFakeGuitars;
+    const queryParams = '';
+    mockAPI
+      .onGet(generatePath(`${ApiRoute.GuitarsWithComments}${queryParams}`))
+      .reply(200, mockGuitars);
+    const store = mockStore();
+    await store.dispatch(fetchGuitars());
+    const actions = store.getActions().map(({type}) => type);
+    expect(actions).toContain(loadGuitars.toString());
+  });
+
+  it('should dispatch loadGuitars when GET /guitars?_embed=comments with that params: &_sort=price&_order=asc&type=acoustic&stringCount=12&price_gte=5000', async () => {
+    const mockGuitars = makeFakeGuitars;
+    const queryParams = '&_sort=price&_order=asc&type=acoustic&stringCount=12&price_gte=5000';
+    mockAPI
+      .onGet(generatePath(`${ApiRoute.GuitarsWithComments}${queryParams}`))
+      .reply(200, mockGuitars);
+    const store = mockStore();
+    await store.dispatch(fetchGuitars());
+    const actions = store.getActions().map(({type}) => type);
+    expect(actions).toContain(loadGuitars.toString());
+  });
+
+  it('should dispatch loadSearchedGuitars when GET /guitars?_limit=27 without params', async () => {
+    const mockGuitars = makeFakeGuitars;
+    const searchParams = '';
+    mockAPI
+      .onGet(generatePath(`${ApiRoute.Guitars}${searchParams}`))
+      .reply(200, mockGuitars);
+    const store = mockStore();
+    await store.dispatch(fetchGuitars());
+    const actions = store.getActions().map(({type}) => type);
+    expect(actions).toContain(loadGuitars.toString());
+  });
+
+  it('should dispatch loadSearchedGuitars when GET /guitars?_limit=27 with that params: &name_like=Чест', async () => {
+    const mockGuitars = makeFakeGuitars;
+    const searchParams = '&name_like=Чест';
+    mockAPI
+      .onGet(generatePath(`${ApiRoute.Guitars}${searchParams}`))
+      .reply(200, mockGuitars);
+    const store = mockStore();
+    await store.dispatch(fetchGuitars());
+    const actions = store.getActions().map(({type}) => type);
+    expect(actions).toContain(loadGuitars.toString());
+  });
+
   it('should dispatch loadGuitarByID when GET /guitars/:id', async () => {
     const mockGuitar = makeFakeGuitar();
     const id = datatype.number();
@@ -68,15 +116,4 @@ describe('Async actions', () => {
     const actions = store.getActions().map(({type}) => type);
     expect(actions).toContain(loadCommentsByID.toString());
   });
-
-//   it('should dispatch loadGuitarsWithComments when GET /guitars/:id?_embed=comments', async () => {
-//     const mockGuitarsWithComments = makeFakeGuitarsWithComments;
-//     mockAPI
-//       .onGet(ApiRoute.GuitarsWithComments)
-//       .reply(200, mockGuitarsWithComments);
-//     const store = mockStore();
-//     await store.dispatch(fetchGuitarsWithComments());
-//     const actions = store.getActions().map(({type}) => type);
-//     expect(actions).toContain(loadGuitarsWithComments.toString());
-//   });
 });

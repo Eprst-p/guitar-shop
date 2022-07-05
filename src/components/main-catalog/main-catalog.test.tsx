@@ -8,15 +8,17 @@ import { AppRoute } from '../../settings/app-routes';
 import MainCatalog from './main-catalog';
 import { cardsPerPage } from '../../settings/constants';
 import { generatePath } from 'react-router-dom';
+import thunk from 'redux-thunk';
 
-const mockStore = configureMockStore();
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
 const mockGuitars = makeFakeGuitarsWithComments;
 const history = createMemoryHistory();
 
 const store = mockStore({
   DATA: {
     isDataLoaded: true,
-    guitarsWithComments: mockGuitars,
+    guitars: mockGuitars,
   },
   INTERFACE: {
     activePage: 1,

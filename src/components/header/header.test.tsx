@@ -8,15 +8,19 @@ import { AppRoute } from '../../settings/app-routes';
 import Header from './header';
 import userEvent from '@testing-library/user-event';
 import MainCatalog from '../main-catalog/main-catalog';
+import thunk from 'redux-thunk';
 
-const mockStore = configureMockStore();
+
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
 const mockGuitars = makeFakeGuitarsWithComments;
 const history = createMemoryHistory();
 
 const store = mockStore({
   DATA: {
     isDataLoaded: true,
-    guitarsWithComments: mockGuitars,
+    guitars: mockGuitars,
+    searchedGuitars: [],
   },
   INTERFACE: {
     activePage: 1,
