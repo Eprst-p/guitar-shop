@@ -6,6 +6,7 @@ import { sortByPrice } from '../settings/sort-by-price';
 export const getGuitars = (state:State) => state.DATA.guitars;
 export const getGuitarByID = (state:State) => state.DATA.guitarByID;
 export const getCommentsByID = (state:State) => state.DATA.commentsByID;
+export const getSearchedGuitars = (state:State) => state.DATA.searchedGuitars;
 export const getIsDataLoaded = (state:State) => state.DATA.isDataLoaded;
 
 export const getActivePage = (state:State) => state.INTERFACE.activePage;

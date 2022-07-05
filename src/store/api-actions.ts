@@ -12,7 +12,7 @@ import { GuitarsWithCommentsType } from '../types/guitar-with-comments-type';
 import { OrderPostType } from '../types/order-post-type';
 import { AppDispatch, State } from '../types/state';
 import { redirectToRoute } from './action';
-import { loadCommentsByID, loadGuitarByID, loadGuitars} from './data-process/data-process';
+import { loadCommentsByID, loadGuitarByID, loadGuitars, loadSearchedGuitars} from './data-process/data-process';
 
 const setPromiseWaiter = (timer = 300) => new Promise((resolve) => setTimeout(resolve, timer));
 
@@ -29,6 +29,7 @@ export const fetchGuitars = createAsyncThunk<void, undefined, {
       dispatch(loadGuitars(data));
     } catch (error) {
       errorHandle(error);
+      dispatch(redirectToRoute(AppRoute.NotFound));
     }
   },
 );
@@ -43,8 +44,6 @@ export const fetchGuitarsWithQueryParams = createAsyncThunk<void, string, {
     try {
       const {data} = await api.get<GuitarsWithCommentsType>(generatePath(`${ApiRoute.GuitarsWithComments}${queryParams}`));
       await setPromiseWaiter();
-      // eslint-disable-next-line no-console
-      console.log(data);
       dispatch(loadGuitars(data));
     } catch (error) {
       errorHandle(error);
@@ -53,6 +52,23 @@ export const fetchGuitarsWithQueryParams = createAsyncThunk<void, string, {
   },
 );
 
+export const fetchSearchedGuitars = createAsyncThunk<void, string, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/guitarsWithParams',
+  async (searchParams, {dispatch, extra: api}) => {
+    try {
+      const {data} = await api.get<GuitarsType>(generatePath(`${ApiRoute.Guitars}${searchParams}`));
+      await setPromiseWaiter();
+      dispatch(loadSearchedGuitars(data));
+    } catch (error) {
+      errorHandle(error);
+      dispatch(redirectToRoute(AppRoute.NotFound));
+    }
+  },
+);
 
 export const fetchGuitarByID = createAsyncThunk<void, number, {
   dispatch: AppDispatch,

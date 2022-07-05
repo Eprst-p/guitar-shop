@@ -6,6 +6,7 @@ const initialState: DataProcess = {
   guitars: [],
   guitarByID: undefined,
   commentsByID: [],
+  searchedGuitars: [],
   isDataLoaded: false,
 };
 

@@ -6,6 +6,7 @@ const initialState: DataProcess = {
   guitars: [],
   guitarByID: undefined,
   commentsByID: [],
+  searchedGuitars: [],
   isDataLoaded: false,
 };
 
@@ -19,7 +20,8 @@ export const dataProcess = createSlice({
     },
     loadGuitarByID: (state, {payload}) => {state.guitarByID = payload;},
     loadCommentsByID: (state, {payload}) => {state.commentsByID = payload;},
+    loadSearchedGuitars: (state, {payload}) => {state.searchedGuitars = payload;},
   },
 });
 
-export const {loadGuitars, loadGuitarByID, loadCommentsByID} = dataProcess.actions;
+export const {loadGuitars, loadGuitarByID, loadCommentsByID, loadSearchedGuitars} = dataProcess.actions;
