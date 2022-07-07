@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { AppRoute } from '../../settings/app-routes';
@@ -11,14 +11,17 @@ function SearchForm(): JSX.Element {
   const dispatch = useAppDispatch();
   const searchField = useRef<HTMLInputElement>(null);
   const searchedGuitars = useAppSelector(getSearchedGuitars);
+  const [isOpenedSelectList, setSelectListStatus] = useState(false);
 
   const handleSearchFieldOnInput = () => {
     if (searchField.current?.value !== '') {
       const searchParams = `&name_like=${searchField.current?.value}`;
       dispatch(fetchSearchedGuitars(searchParams));
+      setSelectListStatus(true);
     }
     if (searchField.current?.value === '') {
       dispatch(loadSearchedGuitars([]));
+      setSelectListStatus(false);
     }
   };
 
@@ -26,10 +29,18 @@ function SearchForm(): JSX.Element {
     if (searchField.current?.value === '') {
       dispatch(loadSearchedGuitars([]));
     }
+    setSelectListStatus(false);
+  };
+
+  const handleSearchFieldOnFocus = () => {
+    if (searchField.current?.value !== '') {
+      setSelectListStatus(true);
+    }
   };
 
   const handleOnCancelSearchBtnClick = () => {
     dispatch(loadSearchedGuitars([]));
+    setSelectListStatus(false);
     if (searchField.current) {
       searchField.current.value = '';
     }
@@ -51,12 +62,13 @@ function SearchForm(): JSX.Element {
           placeholder="что вы ищите?"
           onInput={handleSearchFieldOnInput}
           onBlur={handleSearchFieldOnBlur}
+          onFocus={handleSearchFieldOnFocus}
           ref={searchField}
           data-testid="search-field"
         />
         <label className="visually-hidden" htmlFor="search">Поиск</label>
       </form>
-      <ul className={`form-search__select-list ${searchedGuitars.length === 0 ? 'hidden' : 'list-opened'}`} data-testid="search-item-list">
+      <ul className={`form-search__select-list ${isOpenedSelectList ? 'list-opene' : 'hidden'}`} data-testid="search-item-list">
         {
           searchedGuitars.map((guitar) =>
             (

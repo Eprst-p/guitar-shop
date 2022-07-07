@@ -1,13 +1,20 @@
 import { useEffect, useRef } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { guitarTypeNames } from '../../settings/guitar-type-names';
 import { PriceField } from '../../settings/price-field';
 import { StringsCount } from '../../settings/strings-count';
 import { changeAcousticFilter, changeElectricFilter, changeFourStringsFilter, changeMaxPriceFilter, changeMinPriceFilter, changeSevenStringsFilter, changeSixStringsFilter, changeTwelveStringsFilter, changeUkuleleFilter, resetFilters} from '../../store/interface-process/interface-process';
-import { getAcousticFilter, getElectricFilter, getFourStringsFilter, getMaxPrice, getMinPrice, getSevenStringsFilter, getSixStringsFilter,getTwelveStringsFilter, getUkuleleFilter } from '../../store/selectors';
+import { getAcousticFilter, getElectricFilter, getFourStringsFilter, getMaxPrice, getMaxPriceFilter, getMinPrice, getMinPriceFilter, getSevenStringsFilter, getSixStringsFilter,getTwelveStringsFilter, getUkuleleFilter } from '../../store/selectors';
 
 function CatalogFilter(): JSX.Element {
   const dispatch = useAppDispatch();
+  const [searchParams] = useSearchParams();
+  const urlAllTypesParams = searchParams.getAll('type');
+  const urlAllStringCountParams = searchParams.getAll('stringCount');
+  const urlMinPriceParams = searchParams.get('price_gte');
+  const urlMaxPriceParams = searchParams.get('price_lte');
+
   const minPriceField = useRef<HTMLInputElement>(null);
   const maxPriceField = useRef<HTMLInputElement>(null);
 
@@ -21,6 +28,47 @@ function CatalogFilter(): JSX.Element {
   const sixStringsFilter = useAppSelector(getSixStringsFilter);
   const sevenStringsFilter = useAppSelector(getSevenStringsFilter);
   const twelveStringsFilter = useAppSelector(getTwelveStringsFilter);
+  const minPriceFilter = useAppSelector(getMinPriceFilter);
+  const maxPriceFilter = useAppSelector(getMaxPriceFilter);
+
+
+  useEffect(() => {
+    if (urlAllTypesParams.length !== 0 ) {
+      if (urlAllTypesParams.includes('acoustic') && !acousticFilter) {
+        dispatch(changeAcousticFilter());
+      }
+      if (urlAllTypesParams.includes('electric') && !electricFilter) {
+        dispatch(changeElectricFilter());
+      }
+      if (urlAllTypesParams.includes('ukulele') && !ukuleleFilter) {
+        dispatch(changeUkuleleFilter());
+      }
+    }
+
+    if (urlAllStringCountParams.length !== 0 ) {
+      if (urlAllStringCountParams.includes('4') && !fourStringsFilter) {
+        dispatch(changeFourStringsFilter());
+      }
+      if (urlAllStringCountParams.includes('6') && !sixStringsFilter) {
+        dispatch(changeSixStringsFilter());
+      }
+      if (urlAllStringCountParams.includes('7') && !sevenStringsFilter) {
+        dispatch(changeSevenStringsFilter());
+      }
+      if (urlAllStringCountParams.includes('12') && !twelveStringsFilter) {
+        dispatch(changeTwelveStringsFilter());
+      }
+    }
+
+    if (urlMinPriceParams && !minPriceFilter) {
+      dispatch(changeMinPriceFilter(+urlMinPriceParams));
+    }
+
+    if (urlMaxPriceParams && !maxPriceFilter) {
+      dispatch(changeMaxPriceFilter(+urlMaxPriceParams));
+    }
+  }, [acousticFilter, dispatch, electricFilter, fourStringsFilter, maxPriceFilter, minPriceFilter, sevenStringsFilter, sixStringsFilter, twelveStringsFilter, ukuleleFilter, urlAllStringCountParams, urlAllTypesParams, urlMaxPriceParams, urlMinPriceParams]);
+
 
   const handleGuitarFilterChange = (guitarType: string) => {
     switch (guitarType) {
@@ -139,6 +187,7 @@ function CatalogFilter(): JSX.Element {
             name="acoustic"
             onChange={() => handleGuitarFilterChange(guitarTypeNames.acoustic)}
             checked={acousticFilter}
+            disabled={fourStringsFilter && (!sixStringsFilter && !sevenStringsFilter && !twelveStringsFilter)}
             data-testid="acoustic"
           />
           <label htmlFor="acoustic">Акустические гитары</label>
@@ -151,6 +200,7 @@ function CatalogFilter(): JSX.Element {
             name="electric"
             onChange={() => handleGuitarFilterChange(guitarTypeNames.electric)}
             checked={electricFilter}
+            disabled={twelveStringsFilter && (!sixStringsFilter && !sevenStringsFilter && !fourStringsFilter)}
             data-testid="electric"
           />
           <label htmlFor="electric">Электрогитары</label>
@@ -163,6 +213,7 @@ function CatalogFilter(): JSX.Element {
             name="ukulele"
             onChange={() => handleGuitarFilterChange(guitarTypeNames.ukulele)}
             checked={ukuleleFilter}
+            disabled={(sixStringsFilter || sevenStringsFilter || twelveStringsFilter) && !fourStringsFilter}
             data-testid="ukulele"
           />
           <label htmlFor="ukulele">Укулеле</label>

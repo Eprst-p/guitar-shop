@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/redux-hooks';
 import { SortOrder } from '../../settings/sort-order';
 import { SortType } from '../../settings/sort-type';
@@ -6,18 +7,57 @@ import { changeSortOrder, changeSortType } from '../../store/interface-process/i
 
 function CatalogSort(): JSX.Element {
   const dispatch = useAppDispatch();
+  const [searchParams] = useSearchParams();
   const [chosenSortType, setChosenSortType] = useState<SortType | undefined>(undefined);
   const [chosenSortOrder, setChosenSortOrder] = useState<SortOrder | undefined>(undefined);
+  const urlSortParams = searchParams.get('_sort');
+  const urlOrderParams = searchParams.get('_order');
+
+  useEffect(() => {
+    if (urlSortParams && !chosenSortType) {
+      switch (urlSortParams) {
+        case 'price':
+          setChosenSortType(SortType.Price);
+          dispatch(changeSortType(SortType.Price));
+          break;
+        case 'rating':
+          setChosenSortType(SortType.Rating);
+          dispatch(changeSortType(SortType.Rating));
+          break;
+      }
+    }
+    if (urlOrderParams && !chosenSortOrder) {
+      switch (urlOrderParams) {
+        case 'asc':
+          setChosenSortOrder(SortOrder.Asc);
+          dispatch(changeSortOrder(SortOrder.Asc));
+          break;
+        case 'desc':
+          setChosenSortOrder(SortOrder.Desc);
+          dispatch(changeSortOrder(SortOrder.Desc));
+          break;
+      }
+    }
+
+  }, [chosenSortOrder, chosenSortType, dispatch, urlOrderParams, urlSortParams]);
 
   const handleSortTypeBtnClick = (priceType: SortType) => {
     switch (priceType) {
       case SortType.Price:
         setChosenSortType(SortType.Price);
         dispatch(changeSortType(SortType.Price));
+        if (!chosenSortOrder) {
+          setChosenSortOrder(SortOrder.Desc);
+          dispatch(changeSortOrder(SortOrder.Desc));
+        }
         break;
       case SortType.Rating:
         setChosenSortType(SortType.Rating);
         dispatch(changeSortType(SortType.Rating));
+        if (!chosenSortOrder) {
+          setChosenSortOrder(SortOrder.Desc);
+          dispatch(changeSortOrder(SortOrder.Desc));
+        }
         break;
     }
   };
