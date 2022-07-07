@@ -67,7 +67,7 @@ function CatalogFilter(): JSX.Element {
     if (urlMaxPriceParams && !maxPriceFilter) {
       dispatch(changeMaxPriceFilter(+urlMaxPriceParams));
     }
-  }, [acousticFilter, dispatch, electricFilter, fourStringsFilter, maxPriceFilter, minPriceFilter, sevenStringsFilter, sixStringsFilter, twelveStringsFilter, ukuleleFilter, urlAllStringCountParams, urlAllTypesParams, urlMaxPriceParams, urlMinPriceParams]);
+  }, []);//однократная отрисовка с параметров урла
 
 
   const handleGuitarFilterChange = (guitarType: string) => {
