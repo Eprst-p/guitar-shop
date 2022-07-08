@@ -29,7 +29,7 @@ function SearchForm(): JSX.Element {
     if (searchField.current?.value === '') {
       dispatch(loadSearchedGuitars([]));
     }
-    setSelectListStatus(false);
+    setTimeout(()=>setSelectListStatus(false), 150);
   };
 
   const handleSearchFieldOnFocus = () => {
@@ -45,6 +45,7 @@ function SearchForm(): JSX.Element {
       searchField.current.value = '';
     }
   };
+
 
   return (
     <div className="form-search"  data-testid="search-container">
@@ -68,11 +69,11 @@ function SearchForm(): JSX.Element {
         />
         <label className="visually-hidden" htmlFor="search">Поиск</label>
       </form>
-      <ul className={`form-search__select-list ${isOpenedSelectList ? 'list-opene' : 'hidden'}`} data-testid="search-item-list">
+      <ul className={`form-search__select-list ${isOpenedSelectList ? 'list-opened' : 'hidden'}`} data-testid="search-item-list">
         {
           searchedGuitars.map((guitar) =>
             (
-              <li className="form-search__select-item" tabIndex={1} key={guitar.id} data-testid="search-item">
+              <li className="form-search__select-item" tabIndex={1} key={guitar.id} data-testid="search-item" >
                 <Link
                   className="form-search__select-item"
                   tabIndex={0}
