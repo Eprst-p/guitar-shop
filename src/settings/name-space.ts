@@ -1,4 +1,5 @@
 export enum NameSpace {
   Data = 'DATA',
-  Interface = 'INTERFACE'
+  Interface = 'INTERFACE',
+  Cart = 'CART'
 }

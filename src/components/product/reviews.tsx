@@ -8,7 +8,7 @@ import { CommentsType } from '../../types/comment-type';
 import Review from './review';
 import { sortByNewerDate } from '../../settings/sort-commets';
 import { HashLink as Link } from 'react-router-hash-link';
-import ModalReview from './modals/modal-review';
+import ModalReview from '../modals/modal-review';
 import { ActiveModal } from '../../settings/active-modal';
 import throttle from 'lodash.throttle';
 

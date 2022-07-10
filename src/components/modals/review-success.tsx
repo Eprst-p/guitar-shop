@@ -1,6 +1,6 @@
-import { useAppDispatch} from '../../../hooks/redux-hooks';
-import { ActiveModal } from '../../../settings/active-modal';
-import { changeActiveModal } from '../../../store/interface-process/interface-process';
+import { useAppDispatch} from '../../hooks/redux-hooks';
+import { ActiveModal } from '../../settings/active-modal';
+import { changeActiveModal } from '../../store/interface-process/interface-process';
 import './review-success.css';
 
 function ReviewSuccess(): JSX.Element {

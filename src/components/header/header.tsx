@@ -1,9 +1,20 @@
 import { Link, useLocation } from 'react-router-dom';
+import { useAppSelector } from '../../hooks/redux-hooks';
 import { AppRoute } from '../../settings/app-routes';
+import { getItemsInCart } from '../../store/selectors';
 import SearchForm from './search-form';
 
 function Header(): JSX.Element {
   const location = useLocation();
+  const itemsInCart = useAppSelector(getItemsInCart);
+
+  const calculateGuitarsCount = () => {
+    let count = 0;
+    itemsInCart.forEach((item) => {
+      count +=item.quantity;
+    });
+    return count;
+  };
 
   return (
     <header className="header" id="header" data-testid="header">
@@ -26,7 +37,14 @@ function Header(): JSX.Element {
         <Link className="header__cart-link" to={AppRoute.Cart} aria-label="Корзина">
           <svg className="header__cart-icon" width="14" height="14" aria-hidden="true">
             <use xlinkHref="#icon-basket"></use>
-          </svg><span className="visually-hidden">Перейти в корзину</span><span className="header__cart-count">2</span>
+          </svg><span className="visually-hidden">Перейти в корзину</span>
+          {
+            calculateGuitarsCount() !== 0
+              ?
+              <span className="header__cart-count">{calculateGuitarsCount()}</span>
+              :
+              ''
+          }
         </Link>
       </div>
     </header>

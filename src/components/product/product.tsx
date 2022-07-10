@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
+import { ActiveModal } from '../../settings/active-modal';
 import { ratingNames } from '../../settings/rating-names';
 import { fetchCommentsByID, fetchGuitarByID } from '../../store/api-actions';
+import { changeActiveModal } from '../../store/interface-process/interface-process';
 import { getCommentsByID, getGuitarByID} from '../../store/selectors';
 import BreadCrumbs from '../bread-crumbs/bread-crumbs';
 import Reviews from './reviews';
@@ -25,6 +27,9 @@ function Product(): JSX.Element {
   const roundedRating = Math.round(guitar?.rating || 1);
   const imgNumber = guitar?.previewImg.charAt(11);
 
+  const handleAddBtnClick = () => {
+    dispatch(changeActiveModal(ActiveModal.CartAdd));
+  };
 
   return (
     <main className="page-content">
@@ -59,7 +64,7 @@ function Product(): JSX.Element {
           <div className="product-container__price-wrapper">
             <p className="product-container__price-info product-container__price-info--title">Цена:</p>
             <p className="product-container__price-info product-container__price-info--value" data-testid="price">{guitar?.price}</p>
-            <a className="button button--red button--big product-container__button" href="#">Добавить в корзину</a>
+            <button className="button button--red button--big product-container__button" onClick={handleAddBtnClick}>Добавить в корзину</button>
           </div>
         </div>
         <Reviews comments={comments} />

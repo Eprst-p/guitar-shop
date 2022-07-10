@@ -3,11 +3,11 @@ import { Provider } from 'react-redux';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {createMemoryHistory} from 'history';
 import { generatePath } from 'react-router-dom';
-import HistoryRouter from '../../history-router/history-router';
+import HistoryRouter from '../history-router/history-router';
 import ModalReview from './modal-review';
-import { makeFakeGuitarWithComment } from '../../../mocks/data-mocks';
-import { ActiveModal } from '../../../settings/active-modal';
-import { AppRoute } from '../../../settings/app-routes';
+import { makeFakeGuitarWithComment } from '../../mocks/data-mocks';
+import { ActiveModal } from '../../settings/active-modal';
+import { AppRoute } from '../../settings/app-routes';
 
 const mockStore = configureMockStore();
 const history = createMemoryHistory();

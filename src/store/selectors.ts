@@ -24,6 +24,10 @@ export const getTwelveStringsFilter = (state:State) => state.INTERFACE.twelveStr
 export const getMinPriceFilter = (state:State) => state.INTERFACE.minPriceFilter;
 export const getMaxPriceFilter = (state:State) => state.INTERFACE.maxPriceFilter;
 
+export const getGuitarsIdiesInCart = (state:State) => state.CART.guitarsIDiesInCart;
+export const getDiscount = (state:State) => state.CART.discount;
+export const getItemsInCart = (state:State) => state.CART.itemsInCart;
+
 export const getGuitarsForPage = createSelector(getGuitars, getActivePage, (allGuitars, activePage) => allGuitars.slice((activePage - 1)*cardsPerPage, cardsPerPage*activePage));
 export const getMinPrice = createSelector(getGuitars, (guitars) => {
   const copiedGuitars = guitars.slice().sort(sortByPrice);
@@ -39,4 +43,6 @@ export const getMaxPrice = createSelector(getGuitars, (guitars) => {
   }
   return copiedGuitars[copiedGuitars.length-1].price;
 });
+export const getGuitarsInCart = createSelector(getGuitars, getGuitarsIdiesInCart, (allGuitars, idiesInCart) => allGuitars.filter((guitar) => idiesInCart.includes(guitar.id)));
+export const getItemInCart = createSelector(getItemsInCart, getGuitarByID, (allItems, guitar) => allItems.find((item) => item.id === guitar?.id));
 

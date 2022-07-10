@@ -1,12 +1,12 @@
 import { ChangeEvent, createRef, FormEvent, Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
-import { ActiveModal } from '../../../settings/active-modal';
-import { ratingNames } from '../../../settings/rating-names';
-import { commentPostAction, fetchCommentsByID } from '../../../store/api-actions';
-import { changeActiveModal } from '../../../store/interface-process/interface-process';
-import { getGuitarByID } from '../../../store/selectors';
-import { CommentPostType } from '../../../types/comment-post-type';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
+import { ActiveModal } from '../../settings/active-modal';
+import { ratingNames } from '../../settings/rating-names';
+import { commentPostAction, fetchCommentsByID } from '../../store/api-actions';
+import { changeActiveModal } from '../../store/interface-process/interface-process';
+import { getGuitarByID } from '../../store/selectors';
+import { CommentPostType } from '../../types/comment-post-type';
 import './review-form.css';
 
 const starsValues = [

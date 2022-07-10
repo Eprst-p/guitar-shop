@@ -1,12 +1,15 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
-import { ActiveModal } from '../../../settings/active-modal';
-import { changeActiveModal } from '../../../store/interface-process/interface-process';
-import { getActiveModal } from '../../../store/selectors';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
+import { ActiveModal } from '../../settings/active-modal';
+import { changeActiveModal } from '../../store/interface-process/interface-process';
+import { getActiveModal } from '../../store/selectors';
 import ReviewForm from './review-form';
 import ReviewSuccess from './review-success';
 import FocusTrap from 'focus-trap-react';
 import { Options as FocusTrapOptions } from 'focus-trap';
+import CartAdd from './cart-add';
+import CartAddSuccess from './cart-add-success';
+import CartDelete from './cart-delete';
 
 
 function ModalReview(): JSX.Element {
@@ -56,6 +59,27 @@ function ModalReview(): JSX.Element {
           activeModal === ActiveModal.ReviewSuccess
             ?
             <ReviewSuccess />
+            :
+            ''
+        }
+        {
+          activeModal === ActiveModal.CartAdd
+            ?
+            <CartAdd />
+            :
+            ''
+        }
+        {
+          activeModal === ActiveModal.CartDelete
+            ?
+            <CartDelete />
+            :
+            ''
+        }
+        {
+          activeModal === ActiveModal.CartAddSuccess
+            ?
+            <CartAddSuccess />
             :
             ''
         }
