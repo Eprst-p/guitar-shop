@@ -1,17 +1,36 @@
-/* eslint-disable no-console */
-import { useAppSelector } from '../../hooks/redux-hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { ActiveModal } from '../../settings/active-modal';
 import { PageTitle } from '../../settings/page-title';
-import { getActiveModal, getDiscount, getGuitarsInCart, getItemsInCart } from '../../store/selectors';
+import { orderPostAction } from '../../store/api-actions';
+import { getActiveModal, getCouponName, getDiscount, getGuitarsInCart, getItemsInCart } from '../../store/selectors';
+import { OrderPostType } from '../../types/order-post-type';
 import BreadCrumbs from '../bread-crumbs/bread-crumbs';
 import ModalReview from '../modals/modal-review';
 import CartItem from './cart-item';
+import Promocode from './promocode';
 
 function Cart(): JSX.Element {
+  const dispatch = useAppDispatch();
   const guitarsInCart = useAppSelector(getGuitarsInCart);
   const itemsInCart = useAppSelector(getItemsInCart);
   const discount = useAppSelector(getDiscount);
   const activeModal = useAppSelector(getActiveModal);
+  const couponName = useAppSelector(getCouponName);
+
+  const createGuitarsIDsForPost = () => {
+    const guitarsIDs:number[] = [];
+    itemsInCart.forEach((item)=>{
+      for (let i=0; i<item.quantity; i++) {
+        guitarsIDs.push(item.id);
+      }
+    });
+    return guitarsIDs;
+  };
+
+  const orderPostData:OrderPostType = {
+    guitarsIds: createGuitarsIDsForPost(),
+    coupon: couponName,
+  };
 
   const calculateTotalPrice = () => {
     let totalPrice = 0;
@@ -24,10 +43,12 @@ function Cart(): JSX.Element {
     return totalPrice;
   };
 
-  const resultPrice = calculateTotalPrice() - discount;
+  const discountValue = calculateTotalPrice() * discount/100;
+  const resultPrice = calculateTotalPrice() - discountValue;
 
-  console.log(guitarsInCart);
-  console.log('items:', itemsInCart);
+  const handleOrderBtnClick = () => {
+    dispatch(orderPostAction(orderPostData));
+  };
 
   return (
     <main className="page-content">
@@ -48,18 +69,7 @@ function Cart(): JSX.Element {
               ''
           }
           <div className="cart__footer">
-            <div className="cart__coupon coupon">
-              <h2 className="title title--little coupon__title">Промокод на скидку</h2>
-              <p className="coupon__info">Введите свой промокод, если он у вас есть.</p>
-              <form className="coupon__form" id="coupon-form" method="post" action="/">
-                <div className="form-input coupon__input">
-                  <label className="visually-hidden">Промокод</label>
-                  <input type="text" placeholder="Введите промокод" id="coupon" name="coupon"/>
-                  <p className="form-input__message form-input__message--success">Промокод принят</p>
-                </div>
-                <button className="button button--big coupon__button">Применить</button>
-              </form>
-            </div>
+            <Promocode />
             <div className="cart__total-info">
               <p className="cart__total-item">
                 <span className="cart__total-value-name">Всего:</span>
@@ -67,13 +77,13 @@ function Cart(): JSX.Element {
               </p>
               <p className="cart__total-item">
                 <span className="cart__total-value-name">Скидка:</span>
-                <span className={discount !== 0 ? 'cart__total-value cart__total-value--bonus' : 'cart__total-value cart__total-value'}>- {discount} ₽</span>
+                <span className={discount !== 0 ? 'cart__total-value cart__total-value--bonus' : 'cart__total-value cart__total-value'}>- {discountValue} ₽</span>
               </p>
               <p className="cart__total-item">
                 <span className="cart__total-value-name">К оплате:</span>
                 <span className="cart__total-value cart__total-value--payment">{resultPrice >= 0 ? resultPrice : 0} ₽</span>
               </p>
-              <button className="button button--red button--big cart__order-button">Оформить заказ</button>
+              <button className="button button--red button--big cart__order-button" onClick={handleOrderBtnClick}>Оформить заказ</button>
             </div>
           </div>
         </div>

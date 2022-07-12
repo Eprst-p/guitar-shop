@@ -1,4 +1,5 @@
 import { ActiveModal } from '../settings/active-modal';
+import { CouponStatus } from '../settings/coupon-status';
 import { SortOrder } from '../settings/sort-order';
 import { SortType } from '../settings/sort-type';
 import { store } from '../store';
@@ -36,6 +37,8 @@ export type CartProcess = {
   guitarsIDiesInCart: number[];
   discount: number;
   itemsInCart: ItemInCartType[];
+  couponStatus: CouponStatus;
+  couponName: string | null;
 };
 
 export type State = ReturnType<typeof store.getState>;

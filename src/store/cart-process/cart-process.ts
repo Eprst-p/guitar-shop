@@ -1,4 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
+import { CouponStatus } from '../../settings/coupon-status';
 import {NameSpace} from '../../settings/name-space';
 import {CartProcess} from '../../types/state';
 
@@ -6,6 +7,8 @@ const initialState: CartProcess = {
   guitarsIDiesInCart: [],
   discount: 0,
   itemsInCart: [],
+  couponStatus: CouponStatus.Empty,
+  couponName: null,
 };
 
 export const cartProcess = createSlice({
@@ -32,7 +35,9 @@ export const cartProcess = createSlice({
         currentItem.quantity = payload.quantity;
       }
     },
+    changeCouponStatus: (state, {payload}) => {state.couponStatus = payload;},
+    changeCouponName: (state, {payload}) => {state.couponName = payload;},
   },
 });
 
-export const {addItemToCart, removeItemFromCart, setDicscount, setItemQuantity} = cartProcess.actions;
+export const {addItemToCart, removeItemFromCart, setDicscount, setItemQuantity, changeCouponStatus, changeCouponName} = cartProcess.actions;

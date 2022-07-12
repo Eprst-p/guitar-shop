@@ -27,6 +27,8 @@ export const getMaxPriceFilter = (state:State) => state.INTERFACE.maxPriceFilter
 export const getGuitarsIdiesInCart = (state:State) => state.CART.guitarsIDiesInCart;
 export const getDiscount = (state:State) => state.CART.discount;
 export const getItemsInCart = (state:State) => state.CART.itemsInCart;
+export const getCouponStatus = (state:State) => state.CART.couponStatus;
+export const getCouponName = (state:State) => state.CART.couponName;
 
 export const getGuitarsForPage = createSelector(getGuitars, getActivePage, (allGuitars, activePage) => allGuitars.slice((activePage - 1)*cardsPerPage, cardsPerPage*activePage));
 export const getMinPrice = createSelector(getGuitars, (guitars) => {

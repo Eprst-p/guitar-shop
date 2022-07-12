@@ -4,6 +4,7 @@ import { generatePath } from 'react-router-dom';
 import { errorHandle } from '../services/error-handle';
 import { ApiRoute } from '../settings/api-route';
 import { AppRoute } from '../settings/app-routes';
+import { CouponStatus } from '../settings/coupon-status';
 import { CommentPostType } from '../types/comment-post-type';
 import { CommentsType } from '../types/comment-type';
 import { CouponPostType } from '../types/coupon-post-type';
@@ -12,6 +13,7 @@ import { GuitarsWithCommentsType } from '../types/guitar-with-comments-type';
 import { OrderPostType } from '../types/order-post-type';
 import { AppDispatch, State } from '../types/state';
 import { redirectToRoute } from './action';
+import { changeCouponName, changeCouponStatus, setDicscount } from './cart-process/cart-process';
 import { loadCommentsByID, loadGuitarByID, loadGuitars, loadSearchedGuitars} from './data-process/data-process';
 
 const setPromiseWaiter = (timer = 300) => new Promise((resolve) => setTimeout(resolve, timer));
@@ -129,10 +131,16 @@ export const couponPostAction = createAsyncThunk<void, CouponPostType, {
   'data/couponPostAction',
   async (coupon, {dispatch, extra: api}) => {
     try {
-      await api.post<CouponPostType>(ApiRoute.Coupons, coupon);
+      const {data} = await api.post<CouponPostType>(ApiRoute.Coupons, coupon);
       await setPromiseWaiter();
+      dispatch(setDicscount(data));
+      dispatch(changeCouponStatus(CouponStatus.Correct));
+      dispatch(changeCouponName(coupon.coupon));
     } catch (error) {
       errorHandle(error);
+      dispatch(changeCouponStatus(CouponStatus.Error));
+      dispatch(changeCouponName(null));
+      dispatch(setDicscount(0));
     }
   },
 );
