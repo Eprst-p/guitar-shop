@@ -17,17 +17,17 @@ function CartAddSuccess(): JSX.Element {
     <div className="cart-add-success-container" data-testid="cart-add-success-container">
       <div className="modal is-active modal--success modal-for-ui-kit">
         <div className="modal__wrapper">
-          <div className="modal__overlay" data-close-modal onClick={handleCloseModal}></div>
+          <div className="modal__overlay" data-close-modal onClick={handleCloseModal} data-testid="overlay"></div>
           <div className="modal__content">
             <svg className="modal__icon" width="26" height="20" aria-hidden="true">
               <use xlinkHref="#icon-success"></use>
             </svg>
             <p className="modal__message">Товар успешно добавлен в корзину</p>
             <div className="modal__button-container modal__button-container--add">
-              <Link className="button button--small modal__button" to={AppRoute.Cart} onClick={handleCloseModal}>Перейти в корзину</Link>
-              <Link className="button button--black-border button--small modal__button modal__button--right" to={AppRoute.Catalog} onClick={handleCloseModal}>Продолжить покупки</Link>
+              <Link className="button button--small modal__button" to={AppRoute.Cart} onClick={handleCloseModal} data-testid="btn-to-cart">Перейти в корзину</Link>
+              <Link className="button button--black-border button--small modal__button modal__button--right" to={AppRoute.Catalog} onClick={handleCloseModal} data-testid="btn-continue">Продолжить покупки</Link>
             </div>
-            <button className="modal__close-btn button-cross" type="button" aria-label="Закрыть" onClick={handleCloseModal}>
+            <button className="modal__close-btn button-cross" type="button" aria-label="Закрыть" onClick={handleCloseModal} data-testid="cross-btn">
               <span className="button-cross__icon"></span>
               <span className="modal__close-btn-interactive-area"></span>
             </button>

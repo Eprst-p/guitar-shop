@@ -10,6 +10,8 @@ import userEvent from '@testing-library/user-event';
 import Product from '../product/product';
 import { ActiveModal } from '../../settings/active-modal';
 import thunk from 'redux-thunk';
+import { changeActiveModal } from '../../store/interface-process/interface-process';
+import { loadGuitarByID } from '../../store/data-process/data-process';
 
 
 const mockStore = configureMockStore();
@@ -26,6 +28,10 @@ const store = mockStore({
   INTERFACE: {
     activePage: 1,
   },
+  CART: {
+    guitarsIDiesInCart: [],
+  },
+
 });
 
 const fakeProductCard = (
@@ -120,5 +126,15 @@ describe('Renders product-card-component', () => {
 
     expect(screen.getByTestId(/product-container/i)).toBeInTheDocument();
   });
+
+  it('should dispatch loadGuitarByID and changeActiveModal when click on buy-btn', () => {
+    render(fakeProductCard);
+
+    userEvent.click(screen.getByTestId('buy-btn'));
+    const actions = store.getActions().map(({type}) => type);
+    expect(actions).toContain(changeActiveModal.toString());
+    expect(actions).toContain(loadGuitarByID.toString());
+  });
+
 });
 

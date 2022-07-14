@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { ActiveModal } from '../../settings/active-modal';
@@ -56,11 +55,7 @@ function CartItem({guitar}: CartItemProps): JSX.Element {
   };
 
   const handleQuantityFieldOnInput = () => {
-    console.log(quantity);
-
     if (quantityField.current) {
-      console.log(+quantityField.current.value);
-
       if (+quantityField.current.value > maxGiutarQuantity) {
         quantityField.current.value = `${maxGiutarQuantity}`;
         setQuantity(maxGiutarQuantity);
@@ -82,28 +77,28 @@ function CartItem({guitar}: CartItemProps): JSX.Element {
   };
 
   return (
-    <div className="cart-item">
-      <button className="cart-item__close-button button-cross" type="button" aria-label="Удалить" onClick={handleCrossBtnClick}>
+    <div className="cart-item" data-testid="cart-item">
+      <button className="cart-item__close-button button-cross" type="button" aria-label="Удалить" onClick={handleCrossBtnClick} data-testid="cross-btn">
         <span className="button-cross__icon"></span>
         <span className="cart-item__close-button-interactive-area"></span>
       </button>
       <div className="cart-item__image">
-        <img src={`img/content/catalog-product-${imgNumber}.jpg`} srcSet={`img/content/catalog-product-${imgNumber}@2x.jpg 2x`} width="55" height="130" alt={`${guitarTypeNames[guitar.type]} ${guitar.name}`} />
+        <img src={`img/content/catalog-product-${imgNumber}.jpg`} srcSet={`img/content/catalog-product-${imgNumber}@2x.jpg 2x`} width="55" height="130" alt={`${guitarTypeNames[guitar.type]} ${guitar.name}`} data-testid="item-img"/>
       </div>
       <div className="product-info cart-item__info">
-        <p className="product-info__title">{`${guitarTypeNames[guitar.type]} ${guitar.name}`}</p>
-        <p className="product-info__info">Артикул: {guitar.vendorCode}</p>
-        <p className="product-info__info">{`${guitarTypeNames[guitar.type]}, ${guitar.stringCount} струнная`}</p>
+        <p className="product-info__title" data-testid="item-name">{`${guitarTypeNames[guitar.type]} ${guitar.name}`}</p>
+        <p className="product-info__info" data-testid="item-vendor-code">Артикул: {guitar.vendorCode}</p>
+        <p className="product-info__info" data-testid="item-string-count">{`${guitarTypeNames[guitar.type]}, ${guitar.stringCount} струнная`}</p>
       </div>
-      <div className="cart-item__price">{guitar.price} ₽</div>
+      <div className="cart-item__price" data-testid="item-price">{guitar.price} ₽</div>
       <div className="quantity cart-item__quantity">
-        <button className="quantity__button" aria-label="Уменьшить количество" onClick={handleMinusBtnClick}>
+        <button className="quantity__button" aria-label="Уменьшить количество" onClick={handleMinusBtnClick} data-testid="quantity-less">
           <svg width="8" height="8" aria-hidden="true">
             <use xlinkHref="#icon-minus"></use>
           </svg>
         </button>
-        <input className="quantity__input" type="number" placeholder={`${quantity}`} id="2-count" name="2-count" max={maxGiutarQuantity} value={quantity} ref={quantityField} onInput={handleQuantityFieldOnInput} />
-        <button className="quantity__button" aria-label="Увеличить количество" onClick={handlePlusBtnClick}>
+        <input className="quantity__input" type="number" placeholder={`${quantity}`} id="2-count" name="2-count" max={maxGiutarQuantity} value={quantity} ref={quantityField} onInput={handleQuantityFieldOnInput} data-testid="quantity-field"/>
+        <button className="quantity__button" aria-label="Увеличить количество" onClick={handlePlusBtnClick} data-testid="quantity-more">
           <svg width="8" height="8" aria-hidden="true">
             <use xlinkHref="#icon-plus"></use>
           </svg>

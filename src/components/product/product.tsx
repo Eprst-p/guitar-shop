@@ -64,7 +64,7 @@ function Product(): JSX.Element {
           <div className="product-container__price-wrapper">
             <p className="product-container__price-info product-container__price-info--title">Цена:</p>
             <p className="product-container__price-info product-container__price-info--value" data-testid="price">{guitar?.price}</p>
-            <button className="button button--red button--big product-container__button" onClick={handleAddBtnClick}>Добавить в корзину</button>
+            <button className="button button--red button--big product-container__button" onClick={handleAddBtnClick} data-testid="add-btn">Добавить в корзину</button>
           </div>
         </div>
         <Reviews comments={comments} />

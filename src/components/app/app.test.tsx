@@ -9,6 +9,7 @@ import { generatePath } from 'react-router-dom';
 import HistoryRouter from '../history-router/history-router';
 import { ActiveModal } from '../../settings/active-modal';
 import thunk from 'redux-thunk';
+import { CouponStatus } from '../../settings/coupon-status';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -28,6 +29,13 @@ const store = mockStore({
     activePage: 1,
     commentsShown: mockShownComments,
     activeModal: ActiveModal.NoModal,
+  },
+  CART: {
+    guitarsIDiesInCart: [],
+    discount: 0,
+    itemsInCart: [],
+    couponStatus: CouponStatus.Empty,
+    couponName: null,
   },
 });
 

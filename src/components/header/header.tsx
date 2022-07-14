@@ -41,7 +41,7 @@ function Header(): JSX.Element {
           {
             calculateGuitarsCount() !== 0
               ?
-              <span className="header__cart-count">{calculateGuitarsCount()}</span>
+              <span className="header__cart-count" data-testid="cart-count">{calculateGuitarsCount()}</span>
               :
               ''
           }

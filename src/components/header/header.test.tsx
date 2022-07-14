@@ -2,7 +2,7 @@ import {render, screen} from '@testing-library/react';
 import { Provider } from 'react-redux';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {createMemoryHistory} from 'history';
-import { makeFakeGuitarsWithComments } from '../../mocks/data-mocks';
+import { makeFakeGuitarsWithComments, makeItemsInCartFromMocks } from '../../mocks/data-mocks';
 import HistoryRouter from '../history-router/history-router';
 import { AppRoute } from '../../settings/app-routes';
 import Header from './header';
@@ -24,6 +24,10 @@ const store = mockStore({
   },
   INTERFACE: {
     activePage: 1,
+  },
+  CART: {
+    guitarsIDiesInCart: [],
+    itemsInCart: [],
   },
 });
 
@@ -77,6 +81,45 @@ describe('Renders header-component', () => {
     );
 
     expect(screen.getByTestId(/main-container/i)).toBeInTheDocument();
+  });
+
+  it('should NOT render cart-count element, when guitarsCount=0', () => {
+    history.push(AppRoute.Product);
+    render(fakeHeader);
+
+    expect(screen.queryByTestId('cart-count')).not.toBeInTheDocument();
+  });
+
+  it('should render cart-count element, when guitarsCount!=0', () => {
+    history.push(AppRoute.Product);
+    const mockItemsInCart = makeItemsInCartFromMocks();
+
+    const anotherStore = mockStore({
+      DATA: {
+        isDataLoaded: true,
+        guitars: mockGuitars,
+        searchedGuitars: [],
+      },
+      INTERFACE: {
+        activePage: 1,
+      },
+      CART: {
+        guitarsIDiesInCart: [],
+        itemsInCart: mockItemsInCart,
+      },
+    });
+
+    const anotherFakeHeader = (
+      <Provider store={anotherStore}>
+        <HistoryRouter history={history}>
+          <Header />
+        </HistoryRouter>
+      </Provider>
+    );
+
+    render(anotherFakeHeader);
+
+    expect(screen.getByTestId('cart-count')).toBeInTheDocument();
   });
 
 });

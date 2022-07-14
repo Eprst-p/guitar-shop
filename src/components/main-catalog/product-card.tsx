@@ -66,7 +66,7 @@ function ProductCard({guitar, commentsAmount}: ProductCardProps): JSX.Element {
             ?
             <Link className="button button--red-border button--mini button--in-cart" to={AppRoute.Cart}>В Корзине</Link>
             :
-            <button className="button button--red button--mini button--add-to-cart" onClick={handleBuyBtnClick}>Купить</button>
+            <button className="button button--red button--mini button--add-to-cart" onClick={handleBuyBtnClick} data-testid="buy-btn">Купить</button>
         }
       </div>
     </div>

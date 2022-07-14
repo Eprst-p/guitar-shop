@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { getAcousticFilter, getActiveModal, getElectricFilter, getFourStringsFilter, getGuitarsForPage, getMaxPriceFilter, getMinPriceFilter, getSevenStringsFilter, getSixStringsFilter, getSortOrder, getSortType, getTwelveStringsFilter, getUkuleleFilter } from '../../store/selectors';
 import CatalogFilter from './catalog-filter';

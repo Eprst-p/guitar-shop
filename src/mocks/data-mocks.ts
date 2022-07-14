@@ -2,6 +2,7 @@ import { name, datatype, random, lorem, image, date } from 'faker';
 import { CommentType } from '../types/comment-type';
 import { GuitarType } from '../types/guitar-type';
 import { GuitarWithCommentsType } from '../types/guitar-with-comments-type';
+import { ItemInCartType } from '../types/item-in-cart-type';
 
 export const makeFakeComment = () => ({
   id: datatype.number(25),
@@ -31,7 +32,7 @@ export const makeFakeGuitar = () => ({
 export const makeFakeGuitars = new Array(27).fill(null).map(() =>  makeFakeGuitar());
 
 export const makeFakeGuitarWithComment = () => ({
-  id: datatype.number(25),
+  id: datatype.number(100000000000),
   name: name.title(),
   vendorCode: lorem.word(10),
   type: random.word(),
@@ -45,4 +46,28 @@ export const makeFakeGuitarWithComment = () => ({
 
 export const makeFakeGuitarsWithComments = new Array(27).fill(null).map(() =>  makeFakeGuitarWithComment());
 
+export const makeGuitarIdiesFromMocks = () => {
+  const guitarIdies = [];
+  for (let i = 0; i < 10; i++) {
+    guitarIdies.push(makeFakeGuitarsWithComments[i].id);
+  }
+  return guitarIdies;
+};
+
+export const makeItemsInCartFromMocks = () => {
+  const itemsInCart:ItemInCartType[] = [];
+  for (let i = 0; i < 10; i++) {
+    const item = {
+      id: makeFakeGuitarsWithComments[i].id,
+      quantity: datatype.number(5),
+    };
+    itemsInCart.push(item);
+  }
+  return itemsInCart;
+};
+
+export const makeItemInCart = () => ({
+  id: datatype.number(100000000000),
+  quantity: datatype.number(99),
+} as unknown as ItemInCartType);
 

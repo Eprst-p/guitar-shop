@@ -9,6 +9,8 @@ import Product from './product';
 import { generatePath } from 'react-router-dom';
 import { ActiveModal } from '../../settings/active-modal';
 import thunk from 'redux-thunk';
+import userEvent from '@testing-library/user-event';
+import { changeActiveModal } from '../../store/interface-process/interface-process';
 
 
 const middlewares = [thunk];
@@ -84,4 +86,13 @@ describe('Renders product-component', () => {
     expect(screen.getByTestId(/price/i)).toBeInTheDocument();
     expect(screen.getByTestId(/price/i)).toHaveTextContent(`${mockGuitar.price}`);
   });
+
+  it('should dispatch loadGuitarByID and changeActiveModal when click on buy-btn', () => {
+    render(fakeProduct);
+
+    userEvent.click(screen.getByTestId('add-btn'));
+    const actions = store.getActions().map(({type}) => type);
+    expect(actions).toContain(changeActiveModal.toString());
+  });
+
 });

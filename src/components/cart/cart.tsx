@@ -55,7 +55,7 @@ function Cart(): JSX.Element {
       <div className="container">
         <h1 className="title title--bigger page-content__title">{PageTitle.Cart}</h1>
         <BreadCrumbs pageTittle={PageTitle.Cart} />
-        <div className="cart" data-testid="cart">
+        <div className="cart" data-testid="cart-container">
           {
             guitarsInCart.map((guitar) =>
               <CartItem guitar={guitar} key={guitar.id} />,
@@ -70,18 +70,18 @@ function Cart(): JSX.Element {
           }
           <div className="cart__footer">
             <Promocode />
-            <div className="cart__total-info">
+            <div className="cart__total-info" data-testid='total-info'>
               <p className="cart__total-item">
                 <span className="cart__total-value-name">Всего:</span>
-                <span className="cart__total-value">{calculateTotalPrice()} ₽</span>
+                <span className="cart__total-value" data-testid='total-value'>{calculateTotalPrice()} ₽</span>
               </p>
               <p className="cart__total-item">
                 <span className="cart__total-value-name">Скидка:</span>
-                <span className={discount !== 0 ? 'cart__total-value cart__total-value--bonus' : 'cart__total-value cart__total-value'}>- {discountValue} ₽</span>
+                <span className={discount !== 0 ? 'cart__total-value cart__total-value--bonus' : 'cart__total-value cart__total-value'} data-testid='discount'>- {discountValue} ₽</span>
               </p>
               <p className="cart__total-item">
                 <span className="cart__total-value-name">К оплате:</span>
-                <span className="cart__total-value cart__total-value--payment">{resultPrice >= 0 ? resultPrice : 0} ₽</span>
+                <span className="cart__total-value cart__total-value--payment" data-testid='total-payment'>{resultPrice >= 0 ? resultPrice : 0} ₽</span>
               </p>
               <button className="button button--red button--big cart__order-button" onClick={handleOrderBtnClick}>Оформить заказ</button>
             </div>

@@ -6,86 +6,62 @@ import { makeFakeGuitarsWithComments } from '../../mocks/data-mocks';
 import HistoryRouter from '../history-router/history-router';
 import { AppRoute } from '../../settings/app-routes';
 import Layout from './layout';
+import { CouponStatus } from '../../settings/coupon-status';
+
 
 const mockStore = configureMockStore();
+const history = createMemoryHistory();
+const mockGuitars = makeFakeGuitarsWithComments;
+
+const store = mockStore({
+  DATA: {
+    isDataLoaded: true,
+    guitars: mockGuitars,
+    searchedGuitars: [],
+  },
+  INTERFACE: {
+    activePage: 1,
+  },
+  CART: {
+    guitarsIDiesInCart: [],
+    discount: 0,
+    itemsInCart: [],
+    couponStatus: CouponStatus.Empty,
+    couponName: null,
+  },
+});
+
+const fakeLayout = (
+  <Provider store={store}>
+    <HistoryRouter history={history}>
+      <Layout />
+    </HistoryRouter>
+  </Provider>
+);
+
 
 describe('Renders layout-component', () => {
-  const history = createMemoryHistory();
 
   it('should render layout container on main-page', () => {
-    const mockGuitars = makeFakeGuitarsWithComments;
     history.push(AppRoute.Catalog);
 
-    const store = mockStore({
-      DATA: {
-        isDataLoaded: true,
-        guitars: mockGuitars,
-        searchedGuitars: [],
-      },
-      INTERFACE: {
-        activePage: 1,
-      },
-    });
-
-    render(
-      <Provider store={store}>
-        <HistoryRouter history={history}>
-          <Layout />
-        </HistoryRouter>
-      </Provider>,
-    );
+    render(fakeLayout);
 
     expect(screen.getByTestId(/layout/i)).toBeInTheDocument();
   });
 
   it('should render layout container on cart-page', () => {
-    const mockGuitars = makeFakeGuitarsWithComments;
     history.push(AppRoute.Cart);
 
-    const store = mockStore({
-      DATA: {
-        isDataLoaded: true,
-        guitars: mockGuitars,
-        searchedGuitars: [],
-      },
-      INTERFACE: {
-        activePage: 1,
-      },
-    });
-
-    render(
-      <Provider store={store}>
-        <HistoryRouter history={history}>
-          <Layout />
-        </HistoryRouter>
-      </Provider>,
-    );
+    render(fakeLayout);
 
     expect(screen.getByTestId(/layout/i)).toBeInTheDocument();
   });
 
   it('should render layout container on product-page', () => {
-    const mockGuitars = makeFakeGuitarsWithComments;
     history.push(AppRoute.Product);
 
-    const store = mockStore({
-      DATA: {
-        isDataLoaded: true,
-        guitars: mockGuitars,
-        searchedGuitars: [],
-      },
-      INTERFACE: {
-        activePage: 1,
-      },
-    });
-
-    render(
-      <Provider store={store}>
-        <HistoryRouter history={history}>
-          <Layout />
-        </HistoryRouter>
-      </Provider>,
-    );
+    render(fakeLayout);
 
     expect(screen.getByTestId(/layout/i)).toBeInTheDocument();
   });

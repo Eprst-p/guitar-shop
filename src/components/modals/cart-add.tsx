@@ -36,22 +36,22 @@ function CartAdd(): JSX.Element {
     <div className="cart-add-container" data-testid="cart-add-container">
       <div className="modal is-active modal-for-ui-kit">
         <div className="modal__wrapper">
-          <div className="modal__overlay" data-close-modal onClick={handleCloseModal}></div>
+          <div className="modal__overlay" data-close-modal onClick={handleCloseModal} data-testid="overlay"></div>
           <div className="modal__content">
             <h2 className="modal__header title title--medium">Добавить товар в корзину</h2>
             <div className="modal__info">
-              <img className="modal__img" src={`img/content/catalog-product-${imgNumber}.jpg`} srcSet={`img/content/catalog-product-${imgNumber}@2x.jpg 2x`} width="67" height="137" alt={guitar?.name} />
+              <img className="modal__img" src={`img/content/catalog-product-${imgNumber}.jpg`} srcSet={`img/content/catalog-product-${imgNumber}@2x.jpg 2x`} width="67" height="137" alt={guitar?.name} data-testid="item-img"/>
               <div className="modal__info-wrapper">
-                <h3 className="modal__product-name title title--little title--uppercase">Гитара {guitar?.name}</h3>
-                <p className="modal__product-params modal__product-params--margin-11">Артикул: {guitar?.vendorCode}</p>
-                <p className="modal__product-params">{`${guitarTypeNames[guitar?.type || '']}, ${guitar?.stringCount} струнная`}</p>
-                <p className="modal__price-wrapper"><span className="modal__price">Цена:</span><span className="modal__price">{guitar?.price} ₽</span></p>
+                <h3 className="modal__product-name title title--little title--uppercase" data-testid="item-name">Гитара {guitar?.name}</h3>
+                <p className="modal__product-params modal__product-params--margin-11" data-testid="item-vendor-code">Артикул: {guitar?.vendorCode}</p>
+                <p className="modal__product-params" data-testid="item-string-count">{`${guitarTypeNames[guitar?.type || '']}, ${guitar?.stringCount} струнная`}</p>
+                <p className="modal__price-wrapper"><span className="modal__price">Цена:</span><span className="modal__price" data-testid="item-price">{guitar?.price} ₽</span></p>
               </div>
             </div>
             <div className="modal__button-container">
-              <button className="button button--red button--big modal__button modal__button--add" onClick={handleAddToCartClick}>Добавить в корзину</button>
+              <button className="button button--red button--big modal__button modal__button--add" onClick={handleAddToCartClick} data-testid="add-btn">Добавить в корзину</button>
             </div>
-            <button className="modal__close-btn button-cross" type="button" aria-label="Закрыть" onClick={handleCloseModal}>
+            <button className="modal__close-btn button-cross" type="button" aria-label="Закрыть" onClick={handleCloseModal} data-testid="cross-btn">
               <span className="button-cross__icon"></span>
               <span className="modal__close-btn-interactive-area"></span>
             </button>

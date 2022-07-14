@@ -9,6 +9,7 @@ import MainCatalog from './main-catalog';
 import { cardsPerPage } from '../../settings/constants';
 import { generatePath } from 'react-router-dom';
 import thunk from 'redux-thunk';
+import { CouponStatus } from '../../settings/coupon-status';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -22,6 +23,13 @@ const store = mockStore({
   },
   INTERFACE: {
     activePage: 1,
+  },
+  CART: {
+    guitarsIDiesInCart: [],
+    discount: 0,
+    itemsInCart: [],
+    couponStatus: CouponStatus.Empty,
+    couponName: null,
   },
 });
 

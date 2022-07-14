@@ -11,6 +11,7 @@ import { generatePath } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 import MainCatalog from '../main-catalog/main-catalog';
 import thunk from 'redux-thunk';
+import { CouponStatus } from '../../settings/coupon-status';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -25,6 +26,13 @@ const store = mockStore({
   },
   INTERFACE: {
     activePage: 1,
+  },
+  CART: {
+    guitarsIDiesInCart: [],
+    discount: 0,
+    itemsInCart: [],
+    couponStatus: CouponStatus.Empty,
+    couponName: null,
   },
 });
 
