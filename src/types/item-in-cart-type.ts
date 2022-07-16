@@ -1,4 +1,4 @@
 export type ItemInCartType = {
   id: number
-  quantity: number
+  quantity: number | string
 }

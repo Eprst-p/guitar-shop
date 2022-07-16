@@ -11,7 +11,7 @@ function Header(): JSX.Element {
   const calculateGuitarsCount = () => {
     let count = 0;
     itemsInCart.forEach((item) => {
-      count +=item.quantity;
+      count += +item.quantity;
     });
     return count;
   };

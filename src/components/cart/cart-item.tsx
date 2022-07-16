@@ -18,7 +18,7 @@ function CartItem({guitar}: CartItemProps): JSX.Element {
   const dispatch = useAppDispatch();
   const itemsInCart = useAppSelector(getItemsInCart);
   const currentItem = itemsInCart.find((item) => item.id === guitar?.id);
-  const [quantity, setQuantity] = useState(currentItem?.quantity || 1);
+  const [quantity, setQuantity] = useState(currentItem?.quantity || '');
   const quantityField = useRef<HTMLInputElement>(null);
   const imgNumber = guitar.previewImg.charAt(11);
 
@@ -39,9 +39,9 @@ function CartItem({guitar}: CartItemProps): JSX.Element {
 
   const handleMinusBtnClick = () => {
     if (quantity > 1) {
-      setQuantity(quantity - 1);
+      setQuantity(+quantity - 1);
     }
-    if (quantity === 1) {
+    if (quantity <= 1) {
       dispatch(loadGuitarByID(guitar));
       dispatch(setItemQuantity(itemInCart));
       dispatch(changeActiveModal(ActiveModal.CartDelete));
@@ -50,7 +50,7 @@ function CartItem({guitar}: CartItemProps): JSX.Element {
 
   const handlePlusBtnClick = () => {
     if (quantity < maxGiutarQuantity) {
-      setQuantity(quantity + 1);
+      setQuantity(+quantity + 1);
     }
   };
 
@@ -60,12 +60,18 @@ function CartItem({guitar}: CartItemProps): JSX.Element {
         quantityField.current.value = `${maxGiutarQuantity}`;
         setQuantity(maxGiutarQuantity);
       }
+      else {
+        setQuantity(quantityField.current.value);
+      }
+    }
+  };
+
+  const handleQuantityFieldOnBlur = () => {
+    if (quantityField.current) {
       if (+quantityField.current.value < 1) {
         dispatch(loadGuitarByID(guitar));
         dispatch(setItemQuantity(itemInCart));
         dispatch(changeActiveModal(ActiveModal.CartDelete));
-      } else {
-        setQuantity(+quantityField.current.value);
       }
     }
   };
@@ -97,14 +103,14 @@ function CartItem({guitar}: CartItemProps): JSX.Element {
             <use xlinkHref="#icon-minus"></use>
           </svg>
         </button>
-        <input className="quantity__input" type="number" placeholder={`${quantity}`} id="2-count" name="2-count" max={maxGiutarQuantity} value={quantity} ref={quantityField} onInput={handleQuantityFieldOnInput} data-testid="quantity-field"/>
+        <input className="quantity__input" type="number" placeholder={`${quantity}`} id="2-count" name="2-count" max={maxGiutarQuantity} min={0} value={quantity} ref={quantityField} onInput={handleQuantityFieldOnInput} onBlur={handleQuantityFieldOnBlur} data-testid="quantity-field"/>
         <button className="quantity__button" aria-label="Увеличить количество" onClick={handlePlusBtnClick} data-testid="quantity-more">
           <svg width="8" height="8" aria-hidden="true">
             <use xlinkHref="#icon-plus"></use>
           </svg>
         </button>
       </div>
-      <div className="cart-item__price-total">{quantity * guitar.price}</div>
+      <div className="cart-item__price-total">{+quantity * guitar.price}</div>
     </div>
   );
 }

@@ -11,9 +11,20 @@ function Promocode(): JSX.Element {
   const couponStatus = useAppSelector(getCouponStatus);
   const couponName = useAppSelector(getCouponName);
   const couponField = useRef<HTMLInputElement>(null);
+  const input:HTMLInputElement | null = document.querySelector('#coupon');
+  const regExp = new RegExp(/^[A-Za-zА-Яа-я0-9-w]*$/);
 
   const couponPostData:CouponPostType = {
     coupon: '',
+  };
+
+  const checkCouponValidity = (coupon: string) => {
+    if (!regExp.test(`${coupon}`)) {
+      input?.setCustomValidity('в промокоде не может быть пробелов');
+    }
+    if (regExp.test(`${coupon}`)) {
+      input?.setCustomValidity('');
+    }
   };
 
   useEffect(() => {
@@ -25,6 +36,12 @@ function Promocode(): JSX.Element {
     }
   }, []);
 
+  const handleAcceptPromoClick = () => {
+    if (couponField.current) {
+      checkCouponValidity(couponField.current.value);
+    }
+  };
+
   const handleCouponSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if (couponField.current && couponField.current.value !== '') {
@@ -32,7 +49,6 @@ function Promocode(): JSX.Element {
       dispatch(couponPostAction(couponPostData));
     }
   };
-
 
   return (
     <div className="cart__coupon coupon" data-testid='coupon-container'>
@@ -57,7 +73,7 @@ function Promocode(): JSX.Element {
               ''
           }
         </div>
-        <button className="button button--big coupon__button" data-testid='coupon-btn'>Применить</button>
+        <button className="button button--big coupon__button" data-testid='coupon-btn' onClick={handleAcceptPromoClick}>Применить</button>
       </form>
     </div>
   );

@@ -95,14 +95,14 @@ describe('Renders cart-item-component', () => {
     expect(screen.getByTestId('quantity-less')).toBeInTheDocument();
     expect(screen.getByTestId('quantity-more')).toBeInTheDocument();
     expect(screen.getByTestId('quantity-field')).toBeInTheDocument();
-    expect(screen.getByTestId('quantity-field')).toHaveValue(1);
+    expect(screen.getByTestId('quantity-field')).toHaveValue(null);
   });
 
-  it('should render 15 in quantity field, when typing "5"', () => {
+  it('should render 5 in quantity field, when typing "5"', () => {
     render(fakeCartItem);
 
     userEvent.type(screen.getByTestId('quantity-field'), '5');
-    expect(screen.getByTestId('quantity-field')).toHaveValue(15);
+    expect(screen.getByTestId('quantity-field')).toHaveValue(5);
   });
 
   it('should dispatch loadGuitarByID, setItemQuantity, changeActiveModal when click on cross-btn', () => {
@@ -125,10 +125,10 @@ describe('Renders cart-item-component', () => {
     expect(actions).toContain(changeActiveModal.toString());
   });
 
-  it('should change quantity to 2 when click on quantity more btn', () => {
+  it('should change quantity to 1 when click on quantity more btn', () => {
     render(fakeCartItem);
 
     userEvent.click(screen.getByTestId('quantity-more'));
-    expect(screen.getByTestId('quantity-field')).toHaveValue(2);
+    expect(screen.getByTestId('quantity-field')).toHaveValue(1);
   });
 });

@@ -37,7 +37,7 @@ function Cart(): JSX.Element {
     guitarsInCart.forEach((guitar)=>{
       const currentItem = itemsInCart.find((item) => item.id === guitar.id);
       if (currentItem) {
-        totalPrice += guitar.price * currentItem.quantity;
+        totalPrice += guitar.price * +currentItem.quantity;
       }
     });
     return totalPrice;
@@ -77,7 +77,7 @@ function Cart(): JSX.Element {
               </p>
               <p className="cart__total-item">
                 <span className="cart__total-value-name">Скидка:</span>
-                <span className={discount !== 0 ? 'cart__total-value cart__total-value--bonus' : 'cart__total-value cart__total-value'} data-testid='discount'>- {discountValue} ₽</span>
+                <span className={discount !== 0 ? 'cart__total-value cart__total-value--bonus' : 'cart__total-value cart__total-value'} data-testid='discount'>{discountValue !==0 ? `- ${discountValue} ₽` : '0 ₽'}</span>
               </p>
               <p className="cart__total-item">
                 <span className="cart__total-value-name">К оплате:</span>

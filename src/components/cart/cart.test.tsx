@@ -20,7 +20,7 @@ const calculateTotalPrice = () => {
   guitarsInCart.forEach((guitar)=>{
     const currentItem = mockItemsInCart.find((item) => item.id === guitar.id);
     if (currentItem) {
-      totalPrice += guitar.price * currentItem.quantity;
+      totalPrice += guitar.price * +currentItem.quantity;
     }
   });
   return totalPrice;

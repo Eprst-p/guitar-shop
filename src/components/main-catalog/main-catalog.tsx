@@ -106,18 +106,18 @@ function MainCatalog(): JSX.Element {
         <div className="catalog">
           <CatalogFilter />
           <CatalogSort />
+          {
+            activeModal !== ActiveModal.NoModal
+              ?
+              <ModalReview />
+              :
+              ''
+          }
           <div className="cards catalog__cards">
             {
               guitarsForPage.map((guitarCard) =>
                 <ProductCard guitar={guitarCard} key={guitarCard.id} commentsAmount={guitarCard.comments.length} />,
               )
-            }
-            {
-              activeModal !== ActiveModal.NoModal
-                ?
-                <ModalReview />
-                :
-                ''
             }
           </div>
           <PagePagination />
