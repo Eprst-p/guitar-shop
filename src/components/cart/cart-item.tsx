@@ -6,7 +6,7 @@ import { guitarTypeNames } from '../../settings/guitar-type-names';
 import { setItemQuantity } from '../../store/cart-process/cart-process';
 import { loadGuitarByID } from '../../store/data-process/data-process';
 import { changeActiveModal } from '../../store/interface-process/interface-process';
-import { getItemsInCart } from '../../store/selectors';
+import { getActiveModal, getItemsInCart } from '../../store/selectors';
 import { GuitarWithCommentsType } from '../../types/guitar-with-comments-type';
 import { ItemInCartType } from '../../types/item-in-cart-type';
 
@@ -21,6 +21,7 @@ function CartItem({guitar}: CartItemProps): JSX.Element {
   const [quantity, setQuantity] = useState(currentItem?.quantity || '');
   const quantityField = useRef<HTMLInputElement>(null);
   const imgNumber = guitar.previewImg.charAt(11);
+  const activeModal = useAppSelector(getActiveModal);
 
   const itemInCart:ItemInCartType = {
     id: guitar.id,
@@ -35,6 +36,12 @@ function CartItem({guitar}: CartItemProps): JSX.Element {
       dispatch(setItemQuantity(itemInCart));
     };
   }, [dispatch, quantity]);
+
+  useEffect(() => {
+    if (quantity === '0' || quantity === '') {
+      setQuantity(1);
+    }
+  }, [activeModal]);
 
 
   const handleMinusBtnClick = () => {
